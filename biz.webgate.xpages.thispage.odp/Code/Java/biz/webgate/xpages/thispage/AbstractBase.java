@@ -26,6 +26,10 @@ public abstract class AbstractBase implements Serializable {
 	@DominoEntity(FieldName = "Status")
 	private DocStatus m_Status;
 
+	public AbstractBase() {
+		m_ID = UUID.randomUUID().toString();
+		m_DocKey = UUID.randomUUID().toString();
+	}
 	public String getID() {
 		return m_ID;
 	}
