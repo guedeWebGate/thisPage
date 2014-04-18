@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="172" sequence="4" unid="02BD12641D520C05C1257CBE0044F07E">
+<created><datetime dst="true">20140418T143300,14+02</datetime></created>
+<modified><datetime dst="true">20140418T144014,07+02</datetime></modified>
+<revised><datetime dst="true">20140418T144014,06+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140418T144014,07+02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140418T143300,15+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
+<wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>biz/webgate/xpages/thispage/services/VersionHandler.java</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/services/VersionHandler.java</text></item></note>
