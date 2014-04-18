@@ -1,7 +1,6 @@
 package biz.webgate.xpages.thispage;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.UUID;
 
