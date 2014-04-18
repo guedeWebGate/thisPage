@@ -11,11 +11,13 @@ public enum VersionHandler {
 	public int getNewVersion(String docKey) {
 		int nResult = -1;
 		try {
-			View lupVersion = ExtLibUtil.getCurrentDatabase().getView("LUPVersion");
+			View lupVersion = ExtLibUtil.getCurrentDatabase().getView("lupVersion");
 			ViewEntryCollection vecVersion = lupVersion.getAllEntriesByKey(docKey, true);
 			if (vecVersion != null) {
 				int nVersion = (Integer) vecVersion.getFirstEntry().getColumnValues().elementAt(1);
 				nResult = nVersion++;
+			} else {
+				nResult = 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

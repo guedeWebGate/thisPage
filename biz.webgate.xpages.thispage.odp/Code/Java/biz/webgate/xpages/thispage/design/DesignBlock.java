@@ -1,8 +1,11 @@
 package biz.webgate.xpages.thispage.design;
 
+import org.openntf.xpt.core.dss.annotations.DominoStore;
+
 import biz.webgate.xpages.thispage.AbstractBase;
 import biz.webgate.xpages.thispage.DesignBlockStrategie;
 
+@DominoStore(Form="frmDesignBlock", PrimaryFieldClass=String.class, PrimaryKeyField="ID", View="lupDesignBlockByID")
 public class DesignBlock extends AbstractBase {
 
 	private static final long serialVersionUID = 1L;

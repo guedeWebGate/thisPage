@@ -5,7 +5,7 @@ import org.openntf.xpt.core.dss.annotations.DominoStore;
 
 import biz.webgate.xpages.thispage.AbstractBase;
 
-@DominoStore(Form = "frmDesignFile", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignFileByID")
+@DominoStore(Form = "frmDesignContent", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignContentByID")
 public class DesignContent extends AbstractBase {
 
 	private static final long serialVersionUID = 1L;

@@ -2,11 +2,10 @@ package biz.webgate.xpages.thispage.design;
 
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
-import org.openntf.xpt.core.dss.binding.util.FileHelper;
 
 import biz.webgate.xpages.thispage.AbstractBase;
 
-@DominoStore(Form = "frmDesignFile", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignFileByID")
+@DominoStore(Form = "frmPageLayout", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupPageLayoutByID")
 public class PageLayout extends AbstractBase {
 
 	private static final long serialVersionUID = 1L;
