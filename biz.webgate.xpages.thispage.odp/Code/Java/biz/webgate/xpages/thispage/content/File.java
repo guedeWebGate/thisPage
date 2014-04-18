@@ -16,6 +16,8 @@ public class File extends AbstractBase {
 	private String m_Type;
 	@DominoEntity(FieldName = "File")
 	private FileHelper m_File;
+	@DominoEntity(FieldName = "CategoryKey")
+	private String m_CategoryKey;
 
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
@@ -48,6 +50,14 @@ public class File extends AbstractBase {
 
 	public FileHelper getFile() {
 		return m_File;
+	}
+
+	public void setCategoryKey(String categoryKey) {
+		m_CategoryKey = categoryKey;
+	}
+
+	public String getCategoryKey() {
+		return m_CategoryKey;
 	}
 
 }

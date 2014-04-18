@@ -6,23 +6,28 @@ import org.openntf.xpt.core.dss.binding.util.FileHelper;
 
 import biz.webgate.xpages.thispage.AbstractBase;
 
-@DominoStore(Form = "frmFile", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupFileByID")
-public class File extends AbstractBase {
+@DominoStore(Form = "frmDesignFile", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignFileByID")
+public class PageLayout extends AbstractBase {
 
 	private static final long serialVersionUID = 1L;
 	@DominoEntity(FieldName = "Title")
 	private String m_Title;
-	@DominoEntity(FieldName = "Type")
-	private String m_Type;
-	@DominoEntity(FieldName = "File")
-	private FileHelper m_File;
+	@DominoEntity(FieldName = "Layout")
+	private String m_Layout;
+
+	public String getLayout() {
+		return m_Layout;
+	}
+
+	public void setLayout(String layout) {
+		m_Layout = layout;
+	}
 
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
-		File pic = (File) obj;
-		pic.m_File = m_File;
+		PageLayout pic = (PageLayout) obj;
 		pic.m_Title = m_Title;
-		pic.m_Type = m_Type;
+		pic.m_Layout = m_Layout;
 		return pic;
 	}
 
@@ -32,22 +37,6 @@ public class File extends AbstractBase {
 
 	public void setTitle(String title) {
 		m_Title = title;
-	}
-
-	public String getType() {
-		return m_Type;
-	}
-
-	public void setType(String type) {
-		m_Type = type;
-	}
-
-	public void setFile(FileHelper file) {
-		m_File = file;
-	}
-
-	public FileHelper getFile() {
-		return m_File;
 	}
 
 }

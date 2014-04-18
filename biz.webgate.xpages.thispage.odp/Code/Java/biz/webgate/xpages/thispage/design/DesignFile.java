@@ -6,18 +6,12 @@ import org.openntf.xpt.core.dss.binding.util.FileHelper;
 
 import biz.webgate.xpages.thispage.AbstractBase;
 
-@DominoStore(Form = "frmDesignPicture", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignPicturesByID")
-public class Picture extends AbstractBase {
+@DominoStore(Form = "frmDesignFile", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignFileByID")
+public class DesignFile extends AbstractBase {
 
 	private static final long serialVersionUID = 1L;
 	@DominoEntity(FieldName = "Title")
 	private String m_Title;
-	@DominoEntity(FieldName = "AltText")
-	private String m_AltText;
-	@DominoEntity(FieldName = "Width")
-	private int m_Width;
-	@DominoEntity(FieldName = "Height")
-	private int m_Height;
 	@DominoEntity(FieldName = "Type")
 	private String m_Type;
 	@DominoEntity(FieldName = "File")
@@ -25,14 +19,11 @@ public class Picture extends AbstractBase {
 
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
-		Picture pic = (Picture) obj;
-		pic.m_AltText = m_AltText;
-		pic.m_File = m_File;
-		pic.m_Height = m_Height;
-		pic.m_Title = m_Title;
-		pic.m_Type = m_Type;
-		pic.m_Width = m_Width;
-		return pic;
+		DesignFile designFile = (DesignFile) obj;
+		designFile.m_File = m_File;
+		designFile.m_Title = m_Title;
+		designFile.m_Type = m_Type;
+		return designFile;
 	}
 
 	public String getTitle() {
@@ -41,30 +32,6 @@ public class Picture extends AbstractBase {
 
 	public void setTitle(String title) {
 		m_Title = title;
-	}
-
-	public String getAltText() {
-		return m_AltText;
-	}
-
-	public void setAltText(String altText) {
-		m_AltText = altText;
-	}
-
-	public int getWidth() {
-		return m_Width;
-	}
-
-	public void setWidth(int width) {
-		m_Width = width;
-	}
-
-	public int getHeight() {
-		return m_Height;
-	}
-
-	public void setHeight(int height) {
-		m_Height = height;
 	}
 
 	public String getType() {
