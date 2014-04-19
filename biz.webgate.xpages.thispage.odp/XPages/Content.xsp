@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xc:ccApplication navigationPath="/content/Pages"
+		pageTitle="Pages">
+
+
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle">
+				<xp:button value="New Page" id="btNewPage"></xp:button>
+				<xp:viewPanel rows="30" id="viewPanel1"
+					cellpadding="2">
+					<xp:this.facets>
+						<xp:pager partialRefresh="true"
+							layout="Previous Group Next" xp:key="headerPager" id="pager1">
+						</xp:pager>
+						<xp:pager partialRefresh="true"
+							layout="Previous Group Next" xp:key="footerPager" id="pager2">
+						</xp:pager>
+					</xp:this.facets>
+
+					<xp:viewColumn columnName="view1"
+						id="viewColumn1">
+						<xp:viewColumnHeader value="view1"
+							id="viewColumnHeader1">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+				</xp:viewPanel>
+			</xp:panel>
+			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
+		</xp:this.facets>
+	</xc:ccApplication></xp:view>
