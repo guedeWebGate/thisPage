@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
  replicaid='C1257CBE0041DEB2'>
-<noteinfo noteid='206' unid='87CE30D05A3FABF2C1257CBE005EF30C' sequence='5'>
-<created><datetime dst='true'>20140418T191706,04+02</datetime></created>
-<modified><datetime dst='true'>20140419T165157,27+02</datetime></modified>
-<revised><datetime dst='true'>20140419T165157,26+02</datetime></revised>
-<lastaccessed><datetime dst='true'>20140419T165157,27+02</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140418T191706,05+02</datetime></addedtofile></noteinfo>
+<noteinfo noteid='22e' unid='7CD05C0A208C061FC1257CBF0051C9DD' sequence='3'>
+<created><datetime dst='true'>20140419T165320,93+02</datetime></created>
+<modified><datetime dst='true'>20140419T165444,62+02</datetime></modified>
+<revised><datetime dst='true'>20140419T165444,61+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20140419T165444,62+02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20140419T165320,94+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
 <item name='$FormulaClass' sign='true'><text>1</text></item>
-<item name='$TITLE' sign='true'><text>lupAllOnlineByDocKey</text></item>
+<item name='$TITLE' sign='true'><text>lupAllEditableByDocKey</text></item>
 <item name='$Index' sign='true'><text/></item>
 <item name='$Formula' summary='true' sign='true'><formula compiled='true'>
-cAAFACIAHQADAAYACQAEAERvY0tleSRDb25mbGljdCRSRUYABAAEAAAAMgAFAAYARG9jS2V5AQAA
-AAsCBQAGAFN0YXR1cwEACQBQVUJMSVNIRUQACgIcAgMABwAWABAACUwxUzJTM1M0UzVTNlM3Uw==
+jAAFACIAHQADAAYACQAEAERvY0tleSRDb25mbGljdCRSRUYABAAEAAAATAAFAAYARG9jS2V5AQAA
+AAsCBQAGAFN0YXR1cwEACQBQVUJMSVNIRUQAAQAFAERSQUZUAB8CAQAHAE9GRkxJTkUAHwIKAhwC
+AwAHABgAEgAJTDFTMlMzUzRTMkU1UzZTN1M=
 </formula></item>
 <item name='$Collation' summary='true'>
 <rawitemdata type='2'>
