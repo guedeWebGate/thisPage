@@ -14,8 +14,8 @@ public enum VersionHandler {
 			View lupVersion = ExtLibUtil.getCurrentDatabase().getView("lupVersion");
 			ViewEntryCollection vecVersion = lupVersion.getAllEntriesByKey(docKey, true);
 			if (vecVersion != null) {
-				int nVersion = (Integer) vecVersion.getFirstEntry().getColumnValues().elementAt(1);
-				nResult = nVersion++;
+				Double nVersion = (Double) vecVersion.getFirstEntry().getColumnValues().elementAt(1);
+				nResult = nVersion.intValue()+1;
 			} else {
 				nResult = 1;
 			}

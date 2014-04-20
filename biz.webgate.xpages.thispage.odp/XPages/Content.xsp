@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
-	xmlns:xc="http://www.ibm.com/xsp/custom"
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
 	xmlns:xpt="http://www.openntf.org/xsp/xpt">
 
 	<xp:this.acl>
@@ -9,7 +8,8 @@
 				<xp:aclEntry right="EDITOR" type="ROLE">
 					<xp:this.name><![CDATA[[ContentEditor]]]></xp:this.name>
 				</xp:aclEntry>
-			</xp:this.entries></xp:acl>
+			</xp:this.entries>
+		</xp:acl>
 	</xp:this.acl>
 	<xc:ccApplication navigationPath="/content/Pages"
 		pageTitle="Pages">
@@ -24,21 +24,21 @@
 dlg.show();}]]></xp:this.action>
 					</xp:eventHandler>
 				</xp:button>
+
 				<xp:viewPanel rows="25" id="viewPanel1" cellpadding="2"
 					var="pageRow" viewStyle="width:100%">
 					<xp:this.facets>
-						<xp:pager partialRefresh="true"
-							layout="Previous Group Next" xp:key="headerPager" id="pager1">
+						<xp:pager partialRefresh="true" layout="Previous Group Next"
+							xp:key="headerPager" id="pager1">
 						</xp:pager>
-						<xp:pager partialRefresh="true"
-							layout="Previous Group Next" xp:key="footerPager" id="pager2">
+						<xp:pager partialRefresh="true" layout="Previous Group Next"
+							xp:key="footerPager" id="pager2">
 						</xp:pager>
 					</xp:this.facets>
 
 					<xp:this.data>
 						<xpt:objectlistSource var="lstPage"
-							ascending="true"
-							buildValues="#{javascript:contentBean.allPages4Edit()}"
+							ascending="true" buildValues="#{javascript:contentBean.allPages4Edit()}"
 							ignoreRequestParams="true" scope="view" sortAttribute="title">
 							<xpt:this.sortableAttributes>
 								<xp:value>title</xp:value>
@@ -49,33 +49,29 @@ dlg.show();}]]></xp:this.action>
 						</xpt:objectlistSource>
 
 					</xp:this.data>
-					<xp:viewColumn columnName="title"
-						id="viewColumn1">
-						<xp:viewColumnHeader value="Title"
-							id="viewColumnHeader1">
+					<xp:viewColumn id="viewColumn1">
+						<xp:text value="#{pageRow.title}"></xp:text>
+						<xp:br></xp:br>
+						<xp:link escape="true" text="edit" id="lnkEdit">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action><![CDATA[#{javascript:var id = contentBean.editPage( pageRow.getBO());
+context.redirectToPage("Page.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+						<xp:viewColumnHeader value="Title" id="viewColumnHeader1">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn id="viewColumn2">
-						<xp:viewColumnHeader value="Actions"
-							id="viewColumnHeader2">
+					<xp:viewColumn columnName="categoryPath" id="viewColumn3">
+						<xp:viewColumnHeader value="Category" id="viewColumnHeader3">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="categoryPath"
-						id="viewColumn3">
-						<xp:viewColumnHeader value="Category"
-							id="viewColumnHeader3">
+					<xp:viewColumn columnName="status" id="viewColumn4">
+						<xp:viewColumnHeader value="Status" id="viewColumnHeader4">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="status"
-						id="viewColumn4">
-						<xp:viewColumnHeader value="Status"
-							id="viewColumnHeader4">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-					<xp:viewColumn columnName="version"
-						id="viewColumn5">
-						<xp:viewColumnHeader value="Version"
-							id="viewColumnHeader5">
+					<xp:viewColumn columnName="version" id="viewColumn5">
+						<xp:viewColumnHeader value="Version" id="viewColumnHeader5">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
 
