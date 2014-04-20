@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xe:dialog id="dlgNewPage" title="New Page">
+		<xe:dialogContent id="dialogContent1">
+			<xp:panel>
+				<xp:this.data>
+					<xe:objectData var="newPage"
+						createObject="#{javascript:contentBean.createPage()}" scope="request">
+					</xe:objectData>
+				</xp:this.data>
+				<xp:table>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Titel" id="lbTitle"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:inputText id="itTitle" value="#{newPage.title}">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Categorie" id="lblCategory"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:comboBox id="cbCatKey" value="#{newPage.categoryKey}">
+								<xp:selectItems>
+									<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xp:panel>
+		</xe:dialogContent>
+		<xe:dialogButtonBar id="dialogButtonBar1"></xe:dialogButtonBar>
+	</xe:dialog>
+</xp:view>

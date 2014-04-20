@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core"
-	xmlns:xc="http://www.ibm.com/xsp/custom">
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt">
 
 	<xc:ccApplication navigationPath="/content/Pages"
 		pageTitle="Pages">
@@ -8,9 +9,14 @@
 
 		<xp:this.facets>
 			<xp:panel xp:key="facetMiddle">
-				<xp:button value="New Page" id="btNewPage"></xp:button>
-				<xp:viewPanel rows="30" id="viewPanel1"
-					cellpadding="2">
+				<xp:button value="New Page" id="btNewPage">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
+dlg.show();}]]></xp:this.action>
+					</xp:eventHandler></xp:button>
+				<xp:viewPanel rows="25" id="viewPanel1" cellpadding="2"
+					var="pageRow" viewStyle="width:100%">
 					<xp:this.facets>
 						<xp:pager partialRefresh="true"
 							layout="Previous Group Next" xp:key="headerPager" id="pager1">
@@ -20,14 +26,55 @@
 						</xp:pager>
 					</xp:this.facets>
 
-					<xp:viewColumn columnName="view1"
+					<xp:this.data>
+						<xpt:objectlistSource var="lstPage"
+							ascending="true"
+							buildValues="#{javascript:contentBean.allPages4Edit()}"
+							ignoreRequestParams="true" scope="view" sortAttribute="title">
+							<xpt:this.sortableAttributes>
+								<xp:value>title</xp:value>
+								<xp:value>categoryPath</xp:value>
+								<xp:value>status</xp:value>
+								<xp:value>creator</xp:value>
+							</xpt:this.sortableAttributes>
+						</xpt:objectlistSource>
+
+					</xp:this.data>
+					<xp:viewColumn columnName="title"
 						id="viewColumn1">
-						<xp:viewColumnHeader value="view1"
+						<xp:viewColumnHeader value="Title"
 							id="viewColumnHeader1">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
+					<xp:viewColumn columnName=""
+						id="viewColumn2">
+						<xp:viewColumnHeader value="Actions"
+							id="viewColumnHeader2">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="categoryPath"
+						id="viewColumn3">
+						<xp:viewColumnHeader value="Category"
+							id="viewColumnHeader3">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="status"
+						id="viewColumn4">
+						<xp:viewColumnHeader value="Status"
+							id="viewColumnHeader4">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="version"
+						id="viewColumn5">
+						<xp:viewColumnHeader value="Version"
+							id="viewColumnHeader5">
+						</xp:viewColumnHeader>
+					</xp:viewColumn>
+					
 				</xp:viewPanel>
+				<xc:ccCreatePageDlg></xc:ccCreatePageDlg>
 			</xp:panel>
 			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
 		</xp:this.facets>
-	</xc:ccApplication></xp:view>
+	</xc:ccApplication>
+</xp:view>
