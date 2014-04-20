@@ -3,6 +3,14 @@
 	xmlns:xc="http://www.ibm.com/xsp/custom"
 	xmlns:xpt="http://www.openntf.org/xsp/xpt">
 
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[ContentEditor]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries></xp:acl>
+	</xp:this.acl>
 	<xc:ccApplication navigationPath="/content/Pages"
 		pageTitle="Pages">
 
@@ -14,7 +22,8 @@
 						refreshMode="complete">
 						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
 dlg.show();}]]></xp:this.action>
-					</xp:eventHandler></xp:button>
+					</xp:eventHandler>
+				</xp:button>
 				<xp:viewPanel rows="25" id="viewPanel1" cellpadding="2"
 					var="pageRow" viewStyle="width:100%">
 					<xp:this.facets>
@@ -46,8 +55,7 @@ dlg.show();}]]></xp:this.action>
 							id="viewColumnHeader1">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName=""
-						id="viewColumn2">
+					<xp:viewColumn id="viewColumn2">
 						<xp:viewColumnHeader value="Actions"
 							id="viewColumnHeader2">
 						</xp:viewColumnHeader>
@@ -70,7 +78,7 @@ dlg.show();}]]></xp:this.action>
 							id="viewColumnHeader5">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					
+
 				</xp:viewPanel>
 				<xc:ccCreatePageDlg></xc:ccCreatePageDlg>
 			</xp:panel>

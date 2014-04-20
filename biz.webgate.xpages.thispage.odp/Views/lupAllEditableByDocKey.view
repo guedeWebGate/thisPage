@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
  replicaid='C1257CBE0041DEB2'>
-<noteinfo noteid='22e' unid='7CD05C0A208C061FC1257CBF0051C9DD' sequence='3'>
+<noteinfo noteid='22e' unid='7CD05C0A208C061FC1257CBF0051C9DD' sequence='4'>
 <created><datetime dst='true'>20140419T165320,93+02</datetime></created>
-<modified><datetime dst='true'>20140419T165444,62+02</datetime></modified>
-<revised><datetime dst='true'>20140419T165444,61+02</datetime></revised>
-<lastaccessed><datetime dst='true'>20140419T165444,62+02</datetime></lastaccessed>
+<modified><datetime dst='true'>20140420T204736,38+02</datetime></modified>
+<revised><datetime dst='true'>20140420T204736,37+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20140420T204736,38+02</datetime></lastaccessed>
 <addedtofile><datetime dst='true'>20140419T165320,94+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
@@ -23,7 +23,7 @@ EwABAABEAGYAAAAGAERvY0tleQ==
 </rawitemdata></item>
 <item name='$ViewFormat' summary='true' sign='true'>
 <rawitemdata type='5'>
-AQABAAEACAAAAFZDAQAGAAYAAAAAAFAAAQAACgAAAAAAAAAAAAICAAAARG9jS2V5RG9jS2V5JgAB
+AQABAAEACAAAAFZDAQAGAAYAAAAAAEgBAQAACgAAAAAAAAAAAAICAAAARG9jS2V5RG9jS2V5JgAB
 AAAAAQEACQEAAAoBAQ4KAAABAK0rAQABAAEAAAAAAAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAQgAAAAAAAQD///8ABQD///8AAQAAAAAAAAAAAAAAAAAB
 AP///wABAP///wAAAAEAAAAAAAEAAAAAAAEAAAAAAAAACAAAAAAAAQA=

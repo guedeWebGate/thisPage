@@ -59,15 +59,17 @@ dlg.hide();}]]></xp:this.action>
 					</xp:eventHandler>
 				</xp:button>
 			 <xp:button value="Create new Page" id="btNewPage">
- 	<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled><xp:eventHandler event="onclick" submit="true"
+ 	<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled>
+ 	<xp:eventHandler event="onclick" submit="true"
  		refreshMode="complete">
  		<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
 if (newPage.categoryKey == "") {
 	@ErrorMessage("Please select a Category or create a new one", dlg);
 	return;
 }
-
-dlg.hide();}]]></xp:this.action>
+var id = contentBean.savePage(newPage);
+dlg.hide();
+context.redirectToPage("/Page.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
  	</xp:eventHandler></xp:button></xe:dialogButtonBar>
 	</xp:panel>
 	</xe:dialog>
