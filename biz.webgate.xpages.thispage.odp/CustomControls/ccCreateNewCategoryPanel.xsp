@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:panel id="panNewCatAll">
+		<xp:link escape="true" text="new category" id="link1">
+			<xp:this.rendered><![CDATA[#{javascript:viewScope.newCatPanShow != "1"}]]></xp:this.rendered>
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete" disableValidators="true">
+				<xp:this.action><![CDATA[#{javascript:viewScope.newCatPanShow = "1"}]]></xp:this.action>
+			</xp:eventHandler>
+		</xp:link>
+		<xp:br></xp:br>
+		<xp:messages id="messages1"><xp:this.rendered><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.rendered></xp:messages>
+		<xp:panel id="panNewCat"
+			style="background-color:rgb(244,244,244);border-color:rgb(128,128,128);border-style:solid;border-width:1px">
+			<xp:this.rendered><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.rendered>
+			<xp:table style="width:100%">
+				<xp:tr>
+					<xp:td style="width:150px">
+						<xp:label value="New Category Title"
+							id="label1">
+						</xp:label>
+					</xp:td>
+					<xp:td style="width:250px">
+						<xp:inputText id="itNewCatName"
+							value="#{viewScope.newCatName}" required="true" style="width:250px">
+						</xp:inputText>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td style="width:150px">
+						<xp:label value="Parent Category" id="label2"></xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:comboBox id="comboBox1"
+							value="#{viewScope.newCatParentCat}" style="width:250px">
+							<xp:selectItem
+								itemLabel="no parent category" itemValue="&lt;noparent&gt;">
+							</xp:selectItem>
+							<xp:selectItems>
+								<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
+							</xp:selectItems>
+						</xp:comboBox></xp:td></xp:tr><xp:tr>
+	<xp:td align="right" colspan="2">
+		<xp:button value="Cancel" id="button2">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete" disableValidators="true">
+				<xp:this.action><![CDATA[#{javascript:viewScope.newCatName = "";
+viewScope.newCatParentCat = "";
+viewScope.newCatPanShow = "0"}]]></xp:this.action>
+			</xp:eventHandler></xp:button>
+		<xp:button value="add" id="button1">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="complete">
+				<xp:this.action><![CDATA[#{javascript:viewScope.newCatID = contentBean.addCategory(viewScope.newCatName, viewScope.newCatParentCat);
+viewScope.newCatName = "";
+viewScope.newCatParentCat = "";
+viewScope.newCatPanShow = "0"}]]></xp:this.action>
+			</xp:eventHandler></xp:button></xp:td>
+</xp:tr>
+				
+			</xp:table>
+		</xp:panel>
+		<xp:eventHandler event="onClientLoad" submit="true"
+			refreshMode="partial" refreshId="panNewCatAll">
+		</xp:eventHandler></xp:panel>
+</xp:view>

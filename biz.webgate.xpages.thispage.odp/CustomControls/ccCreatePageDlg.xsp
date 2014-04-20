@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
 
 	<xe:dialog id="dlgNewPage" title="New Page">
-		<xe:dialogContent id="dialogContent1">
-			<xp:panel>
-				<xp:this.data>
-					<xe:objectData var="newPage"
-						createObject="#{javascript:contentBean.createPage()}" scope="request">
-					</xe:objectData>
-				</xp:this.data>
-				<xp:table>
+		<xp:panel>
+			<xp:this.data>
+				<xe:objectData var="newPage"
+					createObject="#{javascript:contentBean.createPage()}" scope="view">
+				</xe:objectData>
+			</xp:this.data>
+			<xe:dialogContent id="dialogContent1">
+				<xp:messages id="msgPan1">
+					<xp:this.rendered><![CDATA[#{javascript:viewScope.newCatPanShow != "1"}]]></xp:this.rendered>
+				</xp:messages>
+				<xp:table style="width:100%">
 					<xp:tr>
-						<xp:td>
+						<xp:td style="width:150px">
 							<xp:label value="Titel" id="lbTitle"></xp:label>
 						</xp:td>
 						<xp:td>
-							<xp:inputText id="itTitle" value="#{newPage.title}">
+							<xp:inputText id="itTitle" value="#{newPage.title}"
+								required="true" style="width:250px">
+								<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled>
+								<xp:this.validators>
+									<xp:validateRequired message="Please enter a title for the page">
+									</xp:validateRequired>
+								</xp:this.validators>
 							</xp:inputText>
 						</xp:td>
 					</xp:tr>
 					<xp:tr>
 						<xp:td>
-							<xp:label value="Categorie" id="lblCategory"></xp:label>
+							<xp:label value="Categorie" id="lblCategory">
+							</xp:label>
 						</xp:td>
 						<xp:td>
-							<xp:comboBox id="cbCatKey" value="#{newPage.categoryKey}">
+							<xp:comboBox id="cbCatKey" value="#{newPage.categoryKey}"
+								defaultValue="#{javascript:viewScope.newCatID}" style="width:250px">
+								<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled>
 								<xp:selectItems>
 									<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
 								</xp:selectItems>
@@ -32,8 +45,30 @@
 						</xp:td>
 					</xp:tr>
 				</xp:table>
-			</xp:panel>
-		</xe:dialogContent>
-		<xe:dialogButtonBar id="dialogButtonBar1"></xe:dialogButtonBar>
+
+				<xc:ccCreateNewCategoryPanel></xc:ccCreateNewCategoryPanel>
+
+			</xe:dialogContent>
+			<xe:dialogButtonBar id="dialogButtonBar1">
+				<xp:button value="Cancel" id="btCancel">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" immediate="true">
+						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
+viewScope.newCatPanShow = "0"
+dlg.hide();}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+			 <xp:button value="Create new Page" id="btNewPage">
+ 	<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled><xp:eventHandler event="onclick" submit="true"
+ 		refreshMode="complete">
+ 		<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
+if (newPage.categoryKey == "") {
+	@ErrorMessage("Please select a Category or create a new one", dlg);
+	return;
+}
+
+dlg.hide();}]]></xp:this.action>
+ 	</xp:eventHandler></xp:button></xe:dialogButtonBar>
+	</xp:panel>
 	</xe:dialog>
 </xp:view>
