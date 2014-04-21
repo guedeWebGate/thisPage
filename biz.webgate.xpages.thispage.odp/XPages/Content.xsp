@@ -16,6 +16,7 @@
 
 
 		<xp:this.facets>
+			<xp:panel xp:key="facetRight"></xp:panel>
 			<xp:panel xp:key="facetMiddle">
 				<xp:button value="New Page" id="btNewPage">
 					<xp:eventHandler event="onclick" submit="true"
@@ -63,15 +64,17 @@ context.redirectToPage("Page.xsp?action=editObject&objectId="+id);}]]></xp:this.
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
 					<xp:viewColumn columnName="categoryPath" id="viewColumn3">
-						<xp:viewColumnHeader value="Category" id="viewColumnHeader3">
+						<xp:viewColumnHeader value="Category" id="viewColumnHeader3" sortable="true">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="status" id="viewColumn4">
-						<xp:viewColumnHeader value="Status" id="viewColumnHeader4">
+					<xp:viewColumn columnName="status" id="viewColumn4" style="width:100px;text-align:left">
+						<xp:viewColumnHeader value="Status" id="viewColumnHeader4" sortable="true">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="version" id="viewColumn5">
-						<xp:viewColumnHeader value="Version" id="viewColumnHeader5">
+					<xp:viewColumn columnName="version" id="viewColumn5"
+						style="width:40px;text-align:center">
+						<xp:viewColumnHeader value="Version"
+							id="viewColumnHeader5" sortable="true">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
 

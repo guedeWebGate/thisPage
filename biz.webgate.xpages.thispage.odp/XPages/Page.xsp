@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
-	xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xpt="http://www.openntf.org/xsp/xpt"
-	xmlns:xe="http://www.ibm.com/xsp/coreex">
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt" xmlns:xe="http://www.ibm.com/xsp/coreex">
 
 	<xp:this.data>
 		<xpt:dssObjectSource var="page"
-			objectStorageService="#{javascript:contentBean.getPageSOS()}"
-			scope="view">
+			objectStorageService="#{javascript:contentBean.getPageSOS()}" scope="view">
 		</xpt:dssObjectSource>
 	</xp:this.data>
 	<xc:ccApplication navigationPath="/content/Page">
@@ -17,43 +14,88 @@
 					titleBarText="Actions">
 					<xp:panel>
 						<xp:button value="preview" id="button1"></xp:button>
-						<xp:button value="save" id="button2"><xp:eventHandler event="onclick" submit="true" refreshMode="complete">
-	<xp:this.action>
-		<xp:saveDocument var="page"></xp:saveDocument>
-	</xp:this.action></xp:eventHandler></xp:button>
-						<xp:button value="publish" id="button3"><xp:eventHandler event="onclick" submit="true" refreshMode="complete">
-	<xp:this.action>
+						<xp:button value="save" id="button2">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action>
+									<xp:saveDocument var="page"></xp:saveDocument>
+								</xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+						<xp:button value="publish" id="button3">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action>
 
-		<xp:actionGroup>
-			<xp:saveDocument var="page"></xp:saveDocument>
-			<xp:executeScript
-				script="#{javascript:contentBean.publishPage(page.getBO());}">
-			</xp:executeScript>
-			<xp:openPage name="/Content.xsp"></xp:openPage>
-		</xp:actionGroup>
-	</xp:this.action></xp:eventHandler></xp:button>
+									<xp:actionGroup>
+										<xp:saveDocument var="page"></xp:saveDocument>
+										<xp:executeScript
+											script="#{javascript:contentBean.publishPage(page.getBO());}">
+										</xp:executeScript>
+										<xp:openPage name="/Content.xsp"></xp:openPage>
+									</xp:actionGroup>
+								</xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
 					</xp:panel>
-				</xe:widgetContainer></xp:panel>
+				</xe:widgetContainer>
+			</xp:panel>
 			<xp:panel xp:key="facetMiddle">
-				<xe:formTable id="formTable1">
-					<xe:formRow id="formRow2" for="inputText1" label="Title" labelPosition="left">
-						<xp:inputText id="inputText1" value="#{page.title}"></xp:inputText></xe:formRow>
-					<xe:formRow id="formRow1" for="inputText2" label="Browsertitle" labelPosition="left">
-						<xp:inputText id="inputText2" value="#{page.browserTitle}"></xp:inputText></xe:formRow>
-					<xe:formRow id="formRow3" for="inputText3" label="Navigationtitle" labelPosition="left">
-						<xp:inputText id="inputText3" value="#{page.navigationTitle}"></xp:inputText></xe:formRow>
-					<xe:formRow id="formRow4" for="comboBox1" label="Category" labelPosition="left">
+				<xe:formTable id="formTable1" labelWidth="200px"
+					formTitle="#{javascript:page.title}" labelPosition="left">
+
+					<xe:this.formDescription><![CDATA[#{javascript:"Created by "+ @Name("[CN]",page.creator) +" at " + page.created}]]></xe:this.formDescription>
+					<xe:formRow id="formRow2" for="inputText1"
+						label="Title" labelPosition="left">
+						<xp:inputText id="inputText1"
+							value="#{page.title}" style="width:250px">
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="formRow1" for="inputText2"
+						label="Browsertitle" labelPosition="left">
+						<xp:inputText id="inputText2"
+							value="#{page.browserTitle}" style="width:250px">
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="formRow3" for="inputText3"
+						label="Navigationtitle" labelPosition="left">
+						<xp:inputText id="inputText3"
+							value="#{page.navigationTitle}" style="width:250px">
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="formRow4" for="comboBox1"
+						label="Category" labelPosition="left">
 						<xp:comboBox id="comboBox1"
-							value="#{page.categoryKey}">
+							value="#{page.categoryKey}" style="width:250px">
 
 							<xp:selectItems>
 								<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
 							</xp:selectItems>
 						</xp:comboBox>
 					</xe:formRow>
-					<xe:formRow id="formRow5" for="inputRichText1" label="Content" labelPosition="above">
-						<xp:inputRichText id="inputRichText1" value="#{page.content}"></xp:inputRichText></xe:formRow>
-					</xe:formTable></xp:panel>
+					<xe:formRow id="formRow5" for="inputRichText1"
+						label="Content" labelPosition="none">
+						<xp:inputRichText id="inputRichText1"
+							value="#{page.content}">
+							<xp:this.dojoAttributes>
+								<xp:dojoAttribute name="toolbar">
+									<xp:this.value><![CDATA[
+					[
+						["Format", "Font", "FontSize"],
+						["Bold", "Italic", "Underline", "Strike", "-", "TextColor", "BGColor"],
+						["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "NumberedList", "BulletedList","Indent", "Outdent"],
+						["Subscript", "Superscript"],
+						["RemoveFormat", "MenuPaste", "Undo", "Redo", "Find"],
+						[ "ImageMaps", "Table", "Iframe", "Link", "Flash", "PageBreak", "HorizontalRule", "SpecialChar", "Blockquote", "Smiley", "ShowBlocks"],
+						["Maximize", "Source"]
+					]
+        			]]></xp:this.value>
+								</xp:dojoAttribute>
+							</xp:this.dojoAttributes>
+						</xp:inputRichText>
+					</xe:formRow>
+				</xe:formTable>
+			</xp:panel>
 			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
 		</xp:this.facets>
 		<xc:this.pageTitle><![CDATA[#{javascript:"Page: "+ page.title;}]]></xc:this.pageTitle>
