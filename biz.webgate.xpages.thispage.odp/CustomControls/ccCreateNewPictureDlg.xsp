@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xe:dialog id="dlgCreatePicture" title="New Picture">
+		<xp:panel>
+			<xp:this.data>
+				<xe:objectData var="pic" scope="view">
+					<xe:this.createObject><![CDATA[#{javascript:if (viewScope.pictureID== "" || viewScope.pictureID == null) {
+return contentBean.createPicture();
+} else {
+	return contentBean.getNewPictureVersion(viewScope.pictureID);
+}}]]></xe:this.createObject>
+				</xe:objectData>
+			</xp:this.data>
+			<xe:dialogContent id="dialogContent1">
+				<xp:table rendered="#{javascript:pic.uploadFile == null}"
+					style="width:400px">
+					<xp:tr>
+						<xp:td>
+							<xp:label id="lb" for="upldControl" value="Select a file">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:fileUpload id="upldControl" accept="image/jpeg,image/gif,image/png"
+								value="#{pic.uploadFile}">
+							</xp:fileUpload>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td></xp:td>
+						<xp:td>
+							<xp:button value="Upload picture" id="btUpload">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:contentBean.processPicture(pic)}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<xp:table rendered="#{javascript:pic.uploadFile != null}"
+					style="width:400px">
+					<xp:tr>
+						<xp:td>
+							<xp:label id="label1" for="cvTitle" value="Title"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{pic.title}" id="cvTitle">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label id="label2" for="cvType" value="Type"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{pic.type}" id="cvType"></xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+
+			</xe:dialogContent>
+			<xe:dialogButtonBar id="dialogButtonBar1">
+				<xp:button value="Cancel" id="btCancle">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" immediate="true">
+						<xp:this.action><![CDATA[#{javascript:contentBean.deletePicture(pic);
+var dlg = getComponent("dlgCreatePicture");
+dlg.hide();
+viewScope.pictureID="";}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+				<xp:button id="btCreate" value="Create Picture"
+					rendered="#{javascript:pic.uploadFile != null}">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:contentBean.publishPicture(pic);
+var dlg = getComponent("dlgCreatePicture");
+
+var ds = @XPTFindDataSourceDeep("viewPanelPictures", "lstPictures");
+ds.refresh();
+dlg.hide("viewPanelPictures");
+viewScope.pictureID="";
+}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+			</xe:dialogButtonBar>
+		</xp:panel>
+	</xe:dialog>
+</xp:view>
