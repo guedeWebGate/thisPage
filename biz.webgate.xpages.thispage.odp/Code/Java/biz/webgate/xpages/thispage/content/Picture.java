@@ -4,6 +4,8 @@ import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
 import org.openntf.xpt.core.dss.binding.util.FileHelper;
 
+import com.ibm.xsp.component.UIFileuploadEx.UploadedFile;
+
 import biz.webgate.xpages.thispage.AbstractBase;
 
 @DominoStore(Form = "frmPicture", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupPicturesByID")
@@ -20,6 +22,17 @@ public class Picture extends AbstractBase {
 	private int m_Height;
 	@DominoEntity(FieldName = "Type")
 	private String m_Type;
+	
+	@DominoEntity(FieldName = "File")	
+	private UploadedFile m_UploadFile;
+	public UploadedFile getUploadFile() {
+		return m_UploadFile;
+	}
+
+	public void setUploadFile(UploadedFile uploadFile) {
+		m_UploadFile = uploadFile;
+	}
+
 	@DominoEntity(FieldName = "File")
 	private FileHelper m_File;
 
