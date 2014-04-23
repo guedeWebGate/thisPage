@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xpt="http://www.openntf.org/xsp/xpt">
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
 
 	<xp:this.acl>
 		<xp:acl>
@@ -11,6 +13,11 @@
 			</xp:this.entries>
 		</xp:acl>
 	</xp:this.acl>
+	<xe:restService id="restService1" pathInfo="/preview/">
+		<xe:this.service>
+			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
+		</xe:this.service>
+	</xe:restService>
 	<xc:ccApplication navigationPath="/content/Pictures"
 		pageTitle="Pictures">
 
@@ -26,20 +33,21 @@ dlg.show();}]]></xp:this.action>
 					</xp:eventHandler>
 				</xp:button>
 
-				<xp:viewPanel rows="25" id="viewPanelPictures" cellpadding="2"
-					var="pictureRow" viewStyle="width:100%">
+				<xp:viewPanel rows="25" id="viewPanelPictures"
+					cellpadding="2" var="pictureRow" viewStyle="width:100%">
 					<xp:this.facets>
-						<xp:pager partialRefresh="true" layout="Previous Group Next"
-							xp:key="headerPager" id="pager1">
+						<xp:pager partialRefresh="true"
+							layout="Previous Group Next" xp:key="headerPager" id="pager1">
 						</xp:pager>
-						<xp:pager partialRefresh="true" layout="Previous Group Next"
-							xp:key="footerPager" id="pager2">
+						<xp:pager partialRefresh="true"
+							layout="Previous Group Next" xp:key="footerPager" id="pager2">
 						</xp:pager>
 					</xp:this.facets>
 
 					<xp:this.data>
 						<xpt:objectlistSource var="lstPictures"
-							ascending="true" buildValues="#{javascript:contentBean.allPictures4Edit()}"
+							ascending="true"
+							buildValues="#{javascript:contentBean.allPictures4Edit()}"
 							ignoreRequestParams="true" scope="view" sortAttribute="title">
 							<xpt:this.sortableAttributes>
 								<xp:value>title</xp:value>
@@ -53,7 +61,8 @@ dlg.show();}]]></xp:this.action>
 					<xp:viewColumn id="viewColumn1">
 						<xp:text value="#{pictureRow.title}"></xp:text>
 						<xp:br></xp:br>
-						<xp:link escape="true" text="edit" id="lnkEdit">
+						<xp:link escape="true" text="edit"
+							id="lnkEdit">
 							<xp:eventHandler event="onclick"
 								submit="true" refreshMode="complete">
 								<xp:this.action><![CDATA[#{javascript:viewScope.pictureID=pictureRow.ID;
@@ -70,16 +79,26 @@ dlg.show();
 							id="link1">
 							<xp:this.rendered><![CDATA[#{javascript:pictureRow.status == "PUBLISHED"}]]></xp:this.rendered>
 							<xp:eventHandler event="onclick"
-								submit="true" refreshMode="partial" refreshId="viewPanelPictures">
+								submit="true" refreshMode="partial"
+								refreshId="viewPanelPictures">
 								<xp:this.action><![CDATA[#{javascript:contentBean.setPictureOffline( pictureRow.getBO());
 var ds = @XPTFindDataSourceDeep("viewPanelPictures","lstPictures");
 ds.refresh();}]]></xp:this.action>
 							</xp:eventHandler>
 						</xp:link>
-						<xp:viewColumnHeader value="Title" id="viewColumnHeader1">
+						<xp:viewColumnHeader value="Title"
+							id="viewColumnHeader1">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					
+					<xp:viewColumn id="viewColumn3">
+						<xp:viewColumnHeader value="Picture"
+							id="viewColumnHeader3" sortable="true">
+						</xp:viewColumnHeader>
+						<xp:image id="imgPreview">
+							<xp:this.url><![CDATA[#{javascript:"/pictures.xsp/preview/img/"+pictureRow.ID+"/"+pictureRow.title;}]]></xp:this.url>
+						</xp:image>
+					</xp:viewColumn>
+
 					<xp:viewColumn id="viewColumn2">
 						<xp:viewColumnHeader value="Author"
 							id="viewColumnHeader2" sortable="true">
@@ -88,8 +107,8 @@ ds.refresh();}]]></xp:this.action>
 							<xp:this.value><![CDATA[#{javascript:@Name("[CN]", pictureRow.creator )}]]></xp:this.value>
 						</xp:text>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="created"
-						id="viewColumn6" style="width:150px">
+					<xp:viewColumn columnName="created" id="viewColumn6"
+						style="width:150px">
 						<xp:this.converter>
 							<xp:convertDateTime type="both"></xp:convertDateTime>
 						</xp:this.converter>
@@ -97,8 +116,10 @@ ds.refresh();}]]></xp:this.action>
 							id="viewColumnHeader6" sortable="true">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn columnName="status" id="viewColumn4" style="width:100px;text-align:left">
-						<xp:viewColumnHeader value="Status" id="viewColumnHeader4" sortable="true">
+					<xp:viewColumn columnName="status" id="viewColumn4"
+						style="width:100px;text-align:left">
+						<xp:viewColumnHeader value="Status"
+							id="viewColumnHeader4" sortable="true">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
 					<xp:viewColumn columnName="version" id="viewColumn5"

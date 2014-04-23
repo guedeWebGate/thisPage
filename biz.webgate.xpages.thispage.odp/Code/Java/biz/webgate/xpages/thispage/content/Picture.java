@@ -1,5 +1,7 @@
 package biz.webgate.xpages.thispage.content;
 
+import java.util.List;
+
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
 import org.openntf.xpt.core.dss.binding.util.FileHelper;
@@ -22,19 +24,12 @@ public class Picture extends AbstractBase {
 	private int m_Height;
 	@DominoEntity(FieldName = "Type")
 	private String m_Type;
-	
-	@DominoEntity(FieldName = "File")	
-	private UploadedFile m_UploadFile;
-	public UploadedFile getUploadFile() {
-		return m_UploadFile;
-	}
-
-	public void setUploadFile(UploadedFile uploadFile) {
-		m_UploadFile = uploadFile;
-	}
 
 	@DominoEntity(FieldName = "File")
-	private FileHelper m_File;
+	private UploadedFile m_UploadFile;
+
+	@DominoEntity(FieldName = "File")
+	private List<FileHelper> m_File;
 
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
@@ -88,12 +83,19 @@ public class Picture extends AbstractBase {
 		m_Type = type;
 	}
 
-	public void setFile(FileHelper file) {
+	public void setFile(List<FileHelper> file) {
 		m_File = file;
 	}
 
-	public FileHelper getFile() {
+	public List<FileHelper> getFile() {
 		return m_File;
 	}
 
+	public UploadedFile getUploadFile() {
+		return m_UploadFile;
+	}
+
+	public void setUploadFile(UploadedFile uploadFile) {
+		m_UploadFile = uploadFile;
+	}
 }

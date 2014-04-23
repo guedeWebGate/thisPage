@@ -7,8 +7,6 @@ import javax.faces.context.FacesContext;
 
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
-import com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback;
-
 import biz.webgate.xpages.thispage.DocStatus;
 import biz.webgate.xpages.thispage.content.Category;
 import biz.webgate.xpages.thispage.content.CategoryStorageService;
