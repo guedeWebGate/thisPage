@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.openntf.xpt.core.utils.ErrorJSONBuilder;
+import org.openntf.xpt.core.utils.FileService;
 import org.openntf.xpt.core.utils.HttpResponseSupport;
 
 import biz.webgate.xpages.thispage.DocStatus;
@@ -25,7 +26,7 @@ public void processToStream(HttpServletRequest request, HttpServletResponse resp
 	try {
 		if (pic != null)
 			OutputStream os = response.getOutputStream();
-			is = pic.getFile().get(0).g
+			is = FileService.INSTANCE.getFileStream(pic.getFile());
 			StreamUtil.copyStream(is, os);
 			os.close();
 			is.close();

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 
+import biz.webgate.xpages.thispage.services.DocKeyProvider;
 import biz.webgate.xpages.thispage.services.VersionHandler;
 
 public abstract class AbstractBase implements Serializable {
@@ -28,7 +29,7 @@ public abstract class AbstractBase implements Serializable {
 
 	public AbstractBase() {
 		m_ID = UUID.randomUUID().toString();
-		m_DocKey = UUID.randomUUID().toString();
+		m_DocKey = DocKeyProvider.INSTANCE.createDocKey();
 	}
 	public String getID() {
 		return m_ID;
