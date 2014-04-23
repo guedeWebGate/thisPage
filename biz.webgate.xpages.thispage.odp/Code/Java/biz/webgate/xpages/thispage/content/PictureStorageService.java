@@ -10,7 +10,7 @@ public class PictureStorageService extends AbstractContentStorageService<Picture
 	}
 
 	@Override
-	protected Picture createObject() {
+	public Picture createObject() {
 		return new Picture();
 	}
 

@@ -15,7 +15,7 @@ public class PageStorageService extends AbstractContentStorageService<Page> {
 	}
 
 	@Override
-	protected Page createObject() {
+	public Page createObject() {
 		return new Page();
 	}
 

@@ -7,14 +7,19 @@ import javax.faces.context.FacesContext;
 
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
+import com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback;
+
 import biz.webgate.xpages.thispage.DocStatus;
 import biz.webgate.xpages.thispage.content.Category;
 import biz.webgate.xpages.thispage.content.CategoryStorageService;
 import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.content.PageStorageService;
+import biz.webgate.xpages.thispage.content.Picture;
+import biz.webgate.xpages.thispage.content.PictureStorageService;
 import biz.webgate.xpages.thispage.services.UserNameProvider;
 
 public class ContentSessionFacade {
+	private static final String FRM_PICTURE = "frmPicture";
 	private static final String FRM_CATEGORY = "frmCategory";
 	private static final String FRM_PAGE = "frmPage";
 	private static final String LUP_ALL_EDITABLE_BY_FORM = "lupAllEditableByForm";
@@ -32,6 +37,15 @@ public class ContentSessionFacade {
 
 	public List<Page> getAllPages4Edit() {
 		return PageStorageService.getInstance().getObjectsByForeignId(FRM_PAGE, LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public Page createPage() {
+		return PageStorageService.getInstance().createObject();
+	}
+
+	public String savePage(Page page) {
+		PageStorageService.getInstance().save(page);
+		return page.getID();
 	}
 
 	public String editPage(Page page) {
@@ -68,4 +82,58 @@ public class ContentSessionFacade {
 		}
 		return lstRC;
 	}
+
+	public String addCategory(String strCatName, String newParentCat) {
+		Category catNew = new Category();
+		// TODO: dEFAULT DESIGN!
+		if (!"<noparent>".equals(newParentCat)) {
+			catNew.setParentCateogry(newParentCat);
+		}
+		catNew.setTitle(strCatName);
+		CategoryStorageService.getInstance().save(catNew);
+		return catNew.getDocKey();
+	}
+
+	public List<Picture> allPictures4Edit() {
+		return PictureStorageService.getInstance().getObjectsByForeignId(FRM_PICTURE, LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public Picture createPicture() {
+		return PictureStorageService.getInstance().createObject();
+	}
+
+	public Picture getNewPictureVersion(String strID) {
+		Picture pic = PictureStorageService.getInstance().getById(strID);
+		return (Picture) pic.newVersion(UserNameProvider.INSTANCE.getUserName());
+	}
+
+	public void processPicture(Picture pic) {
+		if (pic.getUploadFile() != null) {
+			String strFile = pic.getUploadFile().getFilename();
+			pic.setTitle(strFile);
+			int nPos = strFile.lastIndexOf(".");
+			if (nPos > -1) {
+				pic.setType(strFile.substring(nPos + 1));
+			}
+		}
+		PictureStorageService.getInstance().save(pic);
+	}
+
+	public void deletePicture(Picture pic) {
+		try {
+			PictureStorageService.getInstance().hardDelete(pic, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void publishPicture(Picture pic) {
+		PictureStorageService.getInstance().publish(pic);
+	}
+
+	public void setPictureOffline(Picture picture) {
+		picture.setStatus(DocStatus.OFFLINE);
+		PictureStorageService.getInstance().save(picture);
+	}
+
 }
