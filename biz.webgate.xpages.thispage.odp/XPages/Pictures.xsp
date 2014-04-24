@@ -95,7 +95,7 @@ ds.refresh();}]]></xp:this.action>
 							id="viewColumnHeader3" sortable="true">
 						</xp:viewColumnHeader>
 						<xp:image id="imgPreview">
-							<xp:this.url><![CDATA[#{javascript:"/pictures.xsp/preview/img/"+pictureRow.ID+"/"+pictureRow.title;}]]></xp:this.url>
+							<xp:this.url><![CDATA[#{javascript:"/pictures.xsp/preview/img/"+pictureRow.ID+"/"+pictureRow.title+"?thumbnail=1";}]]></xp:this.url>
 						</xp:image>
 					</xp:viewColumn>
 
