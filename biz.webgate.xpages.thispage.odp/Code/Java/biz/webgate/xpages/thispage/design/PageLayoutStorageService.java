@@ -12,7 +12,21 @@ public class PageLayoutStorageService extends AbstractContentStorageService<Page
 
 	@Override
 	public PageLayout createObject() {
-		return new PageLayout();
+		return defaultHTML(new PageLayout());
 	}
 
+	private PageLayout defaultHTML(PageLayout pl) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n");
+		sb.append("<html lang=\"en\">\n");
+		sb.append("<head>\n");
+		sb.append("<title>###BROWSERTITLE</title>\n");
+		sb.append("</head>\n");
+		sb.append("<body>\n");
+		sb.append("###CONTENT###\n");
+		sb.append("</body>\n");
+		sb.append("</html>\n");
+		pl.setLayout(sb.toString());
+		return pl;
+	}
 }

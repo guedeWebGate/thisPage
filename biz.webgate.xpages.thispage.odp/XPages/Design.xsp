@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xpt="http://www.openntf.org/xsp/xpt">
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
 
 	<xp:this.acl>
 		<xp:acl>
 			<xp:this.entries>
 				<xp:aclEntry right="EDITOR" type="ROLE">
-					<xp:this.name><![CDATA[[ContentDesigner]]]></xp:this.name>
+					<xp:this.name><![CDATA[[DesignEditor]]]></xp:this.name>
 				</xp:aclEntry>
 			</xp:this.entries>
 		</xp:acl>
@@ -16,103 +18,66 @@
 
 
 		<xp:this.facets>
+			<xp:panel xp:key="facetLeft"></xp:panel>
 			<xp:panel xp:key="facetRight"></xp:panel>
 			<xp:panel xp:key="facetMiddle">
-				<xp:button value="New Page" id="btNewPage">
-					<xp:eventHandler event="onclick" submit="true"
-						refreshMode="complete">
-						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgNewPage");
-dlg.show();}]]></xp:this.action>
-					</xp:eventHandler>
-				</xp:button>
 
-				<xp:viewPanel rows="25" id="viewPanelPages" cellpadding="2"
-					var="pageRow" viewStyle="width:100%">
-					<xp:this.facets>
-						<xp:pager partialRefresh="true" layout="Previous Group Next"
-							xp:key="headerPager" id="pager1">
-						</xp:pager>
-						<xp:pager partialRefresh="true" layout="Previous Group Next"
-							xp:key="footerPager" id="pager2">
-						</xp:pager>
-					</xp:this.facets>
 
-					<xp:this.data>
-						<xpt:objectlistSource var="lstPage"
-							ascending="true" buildValues="#{javascript:contentBean.allPages4Edit()}"
-							ignoreRequestParams="true" scope="view" sortAttribute="title">
-							<xpt:this.sortableAttributes>
-								<xp:value>title</xp:value>
-								<xp:value>categoryPath</xp:value>
-								<xp:value>status</xp:value>
-								<xp:value>creator</xp:value>
-							</xpt:this.sortableAttributes>
-						</xpt:objectlistSource>
-
-					</xp:this.data>
-					<xp:viewColumn id="viewColumn1">
-						<xp:text value="#{pageRow.title}"></xp:text>
-						<xp:br></xp:br>
-						<xp:link escape="true" text="edit" id="lnkEdit">
-							<xp:eventHandler event="onclick" submit="true"
-								refreshMode="complete">
-								<xp:this.action><![CDATA[#{javascript:var id = contentBean.editPage( pageRow.getBO());
-context.redirectToPage("Page.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
-							</xp:eventHandler>
-						</xp:link>
-						<xp:text>
-							<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
-							<xp:this.rendered><![CDATA[#{javascript:pageRow.status == "PUBLISHED"}]]></xp:this.rendered>
-						</xp:text>
-						<xp:link escape="true" text="offline"
-							id="link1">
-							<xp:this.rendered><![CDATA[#{javascript:pageRow.status == "PUBLISHED"}]]></xp:this.rendered>
-							<xp:eventHandler event="onclick"
-								submit="true" refreshMode="partial" refreshId="viewPanelPages">
-								<xp:this.action><![CDATA[#{javascript:contentBean.setPageOffline( pageRow.getBO());
-var ds = @XPTFindDataSourceDeep("viewPanelPages","lstPage");
-ds.refresh();}]]></xp:this.action>
-							</xp:eventHandler>
-						</xp:link>
-						<xp:viewColumnHeader value="Title" id="viewColumnHeader1">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-					<xp:viewColumn columnName="categoryPath" id="viewColumn3">
-						<xp:viewColumnHeader value="Category" id="viewColumnHeader3" sortable="true">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-					<xp:viewColumn id="viewColumn2">
-						<xp:viewColumnHeader value="Author"
-							id="viewColumnHeader2" sortable="true">
-						</xp:viewColumnHeader>
-						<xp:text>
-							<xp:this.value><![CDATA[#{javascript:@Name("[CN]", pageRow.creator )}]]></xp:this.value>
-						</xp:text>
-					</xp:viewColumn>
-					<xp:viewColumn columnName="created"
-						id="viewColumn6" style="width:150px">
-						<xp:this.converter>
-							<xp:convertDateTime type="both"></xp:convertDateTime>
-						</xp:this.converter>
-						<xp:viewColumnHeader value="Creation Date"
-							id="viewColumnHeader6" sortable="true">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-					<xp:viewColumn columnName="status" id="viewColumn4" style="width:100px;text-align:left">
-						<xp:viewColumnHeader value="Status" id="viewColumnHeader4" sortable="true">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-					<xp:viewColumn columnName="version" id="viewColumn5"
-						style="width:40px;text-align:center">
-						<xp:viewColumnHeader value="Version"
-							id="viewColumnHeader5" sortable="true">
-						</xp:viewColumnHeader>
-					</xp:viewColumn>
-
-				</xp:viewPanel>
-				<xc:ccCreatePageDlg></xc:ccCreatePageDlg>
+				<xp:this.data>
+					<xpt:objectlistSource var="lstPageLayout"
+						ascending="false"
+						buildValues="#{javascript:designBean.allPageLayout4Edit();}"
+						scope="view" sortAttribute="title">
+					</xpt:objectlistSource>
+				</xp:this.data>
+				<xp:table>
+					<xp:tr>
+						<xp:td>
+							<xe:widgetContainer id="widgetContainer1"
+								titleBarText="Page Layout" style="height:150.0px;width:250.0px"
+								scrollable="true">
+								<xe:this.dropDownNodes>
+									<xe:basicLeafNode
+										title="new PageLayout" label="new PageLayout">
+										<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgNewPageLayout}")]]></xe:this.onClick>
+									</xe:basicLeafNode>
+								</xe:this.dropDownNodes>
+								<xp:repeat rows="10" var="pageLayout"
+									indexVar="nPLayout" value="#{lstPageLayout}">
+								</xp:repeat>
+							</xe:widgetContainer>
+							</xp:td>
+						<xp:td>
+							<xe:widgetContainer id="widgetContainer2"
+								titleBarText="Design Block"
+								style="height:150.0px;width:250.0px">
+							</xe:widgetContainer>
+						</xp:td>
+						<xp:td>
+							<xe:widgetContainer id="widgetContainer3"
+								titleBarText="JS / CSS Content"
+								style="height:150.0px;width:250.0px">
+							</xe:widgetContainer>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xe:widgetContainer id="widgetContainer4"
+								titleBarText="Design Pictures"
+								style="height:150.0px;width:250.0px">
+							</xe:widgetContainer>
+						</xp:td>
+						<xp:td>
+							<xe:widgetContainer id="widgetContainer5"
+								titleBarText="Design Files / Resources"
+								style="height:150.0px;width:250.0px">
+							</xe:widgetContainer>
+						</xp:td>
+						<xp:td></xp:td>
+					</xp:tr>
+				</xp:table>
+				<xc:ccNewPageLayout></xc:ccNewPageLayout>
 			</xp:panel>
-			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
 		</xp:this.facets>
 	</xc:ccApplication>
 </xp:view>

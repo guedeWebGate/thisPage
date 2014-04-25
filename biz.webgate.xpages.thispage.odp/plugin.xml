@@ -23,6 +23,7 @@
     <import optional="true" plugin="org.openntf.xpt"/>
     <import optional="true" plugin="org.openntf.domino.xsp"/>
     <import optional="true" plugin="org.openntf.xsp.debugtoolbar"/>
+    <import optional="true" plugin="com.ibm.xsp.extlibx.bazaar"/>
     <!--AUTOGEN-END-BUILDER: End of automatically generated section-->
   </requires>
 </plugin>

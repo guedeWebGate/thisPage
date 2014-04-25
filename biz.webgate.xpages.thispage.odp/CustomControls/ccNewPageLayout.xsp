@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xe:dialog id="dlgNewPageLayout">
+	
+		<xe:dialogContent id="dialogContent1">
+			<xp:label value="Page Layout:  " id="label1"></xp:label>
+			<xp:inputText id="itPLName"
+				value="#{viewScope.newPageLayoutName}" required="true">
+			</xp:inputText>
+		</xe:dialogContent>
+		
+		
+		<xe:dialogButtonBar id="dialogButtonBar1">
+			<xp:button value="Cancel" id="btCancel">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete" immediate="true">
+					<xp:this.action><![CDATA[#{javascript:getComponent("dlgNewPageLayout").hide();}]]></xp:this.action>
+				</xp:eventHandler></xp:button>
+			<xp:button value="Create new PageLayout" id="btCreate">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete">
+					<xp:this.action><![CDATA[#{javascript:var id =designBean.newPageLayout(viewScope.newPageLayoutName);
+getComponent("dlgNewPageLayout").hide();
+context.redirectToPage("PageLayout.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
+				</xp:eventHandler></xp:button>
+			</xe:dialogButtonBar>
+	</xe:dialog>
+</xp:view>

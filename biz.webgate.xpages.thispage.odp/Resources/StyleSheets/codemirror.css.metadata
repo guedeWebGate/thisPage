@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2e2" sequence="1" unid="FBC456A8E95D05E5C1257CC4006FE3D2">
+<created><datetime dst="true">20140424T222208,18+02</datetime></created>
+<modified><datetime dst="true">20140424T222208,22+02</datetime></modified>
+<revised><datetime dst="true">20140424T222208,21+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140424T222208,22+02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140424T222208,22+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
+<wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
+<item name="$TITLE"><text>codemirror.css</text></item>
+<item name="$Flags"><text>34C=Q</text></item>
+<item name="$FlagsExt"><text>D</text></item>
+
+<item name="$FileModDT" sign="true"><datetime dst="true">20140422T142504,00+02</datetime></item>
+
+<item name="$FileNames" sign="true"><text>codemirror.css</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item></note>

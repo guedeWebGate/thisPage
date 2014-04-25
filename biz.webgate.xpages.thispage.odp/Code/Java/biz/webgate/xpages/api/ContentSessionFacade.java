@@ -20,7 +20,7 @@ public class ContentSessionFacade {
 	private static final String FRM_PICTURE = "frmPicture";
 	private static final String FRM_CATEGORY = "frmCategory";
 	private static final String FRM_PAGE = "frmPage";
-	private static final String LUP_ALL_EDITABLE_BY_FORM = "lupAllEditableByForm";
+	public static final String LUP_ALL_EDITABLE_BY_FORM = "lupAllEditableByForm";
 	private static final String BEAN_NAME = "contentBean";
 
 	public static ContentSessionFacade get(FacesContext context) {

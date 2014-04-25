@@ -40,7 +40,7 @@
 
 					</xe:pageTreeNode>
 					<xe:pageTreeNode label="Design"
-						selection="/design/.*">
+						selection="/design/.*" page="/Design.xsp">
 					</xe:pageTreeNode>
 					<xe:pageTreeNode label="Administration"
 						selection="/administration/.*">
