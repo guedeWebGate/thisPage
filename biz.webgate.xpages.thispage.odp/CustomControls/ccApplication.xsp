@@ -36,7 +36,7 @@
 				</xe:this.placeBarActions>
 				<xe:this.titleBarTabs>
 					<xe:pageTreeNode label="Content"
-						selection="/content/.*">
+						selection="/content/.*" page="/Content.xsp">
 
 					</xe:pageTreeNode>
 					<xe:pageTreeNode label="Design"

@@ -51,12 +51,16 @@ return true;]]></xp:this.script>
 								<xp:this.action>
 
 									<xp:actionGroup>
-										<xp:saveDocument var="pageLayout">
+										<xp:saveDocument
+											var="pageLayout">
 										</xp:saveDocument>
+
+
 										<xp:executeScript
-											script="#{javascript:designBean.publishpageLayout(pageLayout.getBO());}">
+											script="#{javascript:designBean.publishPageLayout(pageLayout.getBO());}">
 										</xp:executeScript>
-										<xp:openPage name="/Content.xsp">
+										<xp:openPage
+											name="/Design.xsp">
 										</xp:openPage>
 									</xp:actionGroup>
 								</xp:this.action>

@@ -33,7 +33,7 @@ public class ContentSessionFacade {
 		return get(FacesContext.getCurrentInstance());
 	}
 
-	public List<Page> getAllPages4Edit() {
+	public List<Page> allPages4Edit() {
 		return PageStorageService.getInstance().getObjectsByForeignId(FRM_PAGE, LUP_ALL_EDITABLE_BY_FORM);
 	}
 
@@ -72,7 +72,7 @@ public class ContentSessionFacade {
 		PageStorageService.getInstance().publish(page);
 	}
 
-	public List<String> getCategoryList() {
+	public List<String> getCategoryKeyList() {
 		List<Category> lstCat = CategoryStorageService.getInstance().getObjectsByForeignId(FRM_CATEGORY, LUP_ALL_EDITABLE_BY_FORM);
 		List<String> lstRC = new ArrayList<String>(lstCat.size());
 		for (Category cat : lstCat) {

@@ -39,14 +39,15 @@ dlg.show();}]]></xp:this.action>
 
 					<xp:this.data>
 						<xpt:objectlistSource var="lstPage"
-							ascending="true" buildValues="#{javascript:contentBean.allPages4Edit()}"
-							ignoreRequestParams="true" scope="view" sortAttribute="title">
+							ascending="true" ignoreRequestParams="true" scope="view"
+							sortAttribute="title">
 							<xpt:this.sortableAttributes>
 								<xp:value>title</xp:value>
 								<xp:value>categoryPath</xp:value>
 								<xp:value>status</xp:value>
 								<xp:value>creator</xp:value>
 							</xpt:this.sortableAttributes>
+							<xpt:this.buildValues><![CDATA[#{javascript:contentBean.allPages4Edit();}]]></xpt:this.buildValues>
 						</xpt:objectlistSource>
 
 					</xp:this.data>
