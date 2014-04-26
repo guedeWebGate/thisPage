@@ -50,6 +50,7 @@
 					</xp:table>
 				</xp:div>
 				<xc:ccNewPageLayout></xc:ccNewPageLayout>
+				<xc:ccNewDesignContent></xc:ccNewDesignContent>
 			</xp:panel>
 		</xp:this.facets>
 	</xc:ccApplication>

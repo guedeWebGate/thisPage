@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
 
-	<xe:dialog id="dlgNewPageLayout">
+	<xe:dialog id="dlgNewPageLayout" title="New PageLayout">
 	
 		<xe:dialogContent id="dialogContent1">
+		<xp:messages id="messages1"></xp:messages>
 			<xp:label value="Page Layout:  " id="label1"></xp:label>
 			<xp:inputText id="itPLName"
 				value="#{viewScope.newPageLayoutName}" required="true">
-			</xp:inputText>
+			<xp:this.validators>
+				<xp:validateRequired message="Please insert a title"></xp:validateRequired>
+			</xp:this.validators></xp:inputText>
 		</xe:dialogContent>
 		
 		

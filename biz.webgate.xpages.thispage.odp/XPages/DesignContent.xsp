@@ -23,12 +23,12 @@
 		<xp:styleSheet href="/.ibmxspres/.extlib/codemirror/lib/codemirror.css"></xp:styleSheet>
 	</xp:this.resources>
 	<xp:this.data>
-		<xpt:dssObjectSource var="pageLayout"
-			objectStorageService="#{javascript:designBean.getPageLayoutSOS()}"
+		<xpt:dssObjectSource var="designContent"
+			objectStorageService="#{javascript:designBean.getDesignContentSOS()}"
 			scope="view">
 		</xpt:dssObjectSource>
 	</xp:this.data>
-	<xc:ccApplication navigationPath="/content/Page">
+	<xc:ccApplication navigationPath="/design/designContent">
 		<xp:this.facets>
 			<xp:panel xp:key="facetRight">
 				<xe:widgetContainer id="widgetContainer1" type="sidebar"
@@ -39,25 +39,28 @@
 							<xp:eventHandler event="onclick" submit="true"
 								refreshMode="complete">
 								<xp:this.action>
-									<xp:saveDocument var="pageLayout"></xp:saveDocument>
+									<xp:saveDocument var="designContent"></xp:saveDocument>
 								</xp:this.action>
-								<xp:this.script><![CDATA[pagelayout.xpagesEditor.save();
+								<xp:this.script><![CDATA[designcontent.xpagesEditor.save();
 return true;]]></xp:this.script>
 							</xp:eventHandler>
 						</xp:button>
 						<xp:button value="publish" id="button3">
-							<xp:eventHandler event="onclick" submit="true"
-								refreshMode="complete">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete">
+								<xp:this.script><![CDATA[designcontent.xpagesEditor.save();
+return true;]]></xp:this.script>
 								<xp:this.action>
 
 									<xp:actionGroup>
 										<xp:saveDocument
-											var="pageLayout">
+											var="designContent">
 										</xp:saveDocument>
 
 
+
 										<xp:executeScript
-											script="#{javascript:designBean.publishPageLayout(pageLayout.getBO());}">
+											script="#{javascript:designBean.publishDesignContent(designContent.getBO());}">
 										</xp:executeScript>
 										<xp:openPage
 											name="/Design.xsp">
@@ -71,52 +74,54 @@ return true;]]></xp:this.script>
 			</xp:panel>
 			<xp:panel xp:key="facetMiddle">
 				<xe:formTable id="formTable1" labelWidth="200px"
-					formTitle="#{javascript:pageLayout.title}" labelPosition="left">
+					labelPosition="left">
 
-					<xe:this.formDescription><![CDATA[#{javascript:"Created by "+ @Name("[CN]",pageLayout.creator) +" at " + pageLayout.created}]]></xe:this.formDescription>
-					<xe:formRow id="formRow2" for="inputText1" label="Title"
-						labelPosition="left">
+					<xe:this.formDescription><![CDATA[#{javascript:"Created by "+ @Name("[CN]",designContent.creator) +" at " + designContent.created}]]></xe:this.formDescription>
+					<xe:this.formTitle><![CDATA[#{javascript:designContent.title +"."+designContent.type}]]></xe:this.formTitle>
+					<xe:formRow id="formRow2" for="inputText1"
+						label="Title" labelPosition="left">
 						<xp:inputText id="inputText1"
-							value="#{pageLayout.title}" style="width:250px"
+							value="#{designContent.title}" style="width:250px"
 							required="true">
 						<xp:this.validators>
 							<xp:validateRequired
-								message="Please insert a title">
+								message="Please give a title">
 							</xp:validateRequired>
 						</xp:this.validators></xp:inputText>
 					</xe:formRow>
 
 
 
-					<xe:formRow id="formRow5" for="code" label="Layout (HTML)"
+					<xe:formRow id="formRow5" for="code" label="Content"
 						labelPosition="above">
-						<xp:inputTextarea id="code" value="#{pageLayout.layout}"
-							required="true" cols="160" rows="100">
+						<xp:inputTextarea id="code"
+							value="#{designContent.content}" required="true" cols="160"
+							rows="100">
 						</xp:inputTextarea>
 					</xe:formRow>
 				</xe:formTable>
 			</xp:panel>
 			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
 		</xp:this.facets>
-		<xc:this.pageTitle><![CDATA[#{javascript:"PageLayout: "+ pageLayout.title;}]]></xc:this.pageTitle>
+		<xc:this.pageTitle><![CDATA[#{javascript:"DesignContent: "+ designContent.title;}]]></xc:this.pageTitle>
 	</xc:ccApplication>
-		<xp:scriptBlock>
+	<xp:scriptBlock>
 		<xp:this.value><![CDATA[
-var pagelayout = {
+var designcontent = {
 	// Editors
-	xpagesEditor:		null
+	xpagesEditor:		null,
+	mode: "#{javascript:designContent.type}"
 	}
 	
 ]]></xp:this.value>
 	</xp:scriptBlock>
 	<xp:scriptBlock id="scriptBlock1">
 		<xp:this.value><![CDATA[XSP.addOnLoad( function() {
-  				pagelayout.xpagesEditor= CodeMirror.fromTextArea(document.getElementById("#{id:code}"), {
+  				designcontent.xpagesEditor= CodeMirror.fromTextArea(document.getElementById("#{id:code}"), {
     				lineNumbers: true,
-    				mode: "text/html",
-    				htmlMode: true
+    				mode: designcontent.mode
   				});
     });]]></xp:this.value>
 	</xp:scriptBlock>
-	
+
 </xp:view>
