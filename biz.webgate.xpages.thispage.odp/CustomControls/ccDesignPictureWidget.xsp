@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xpt="http://www.openntf.org/xsp/xpt"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:panel id="panDesignPicture">
+		<xp:this.data>
+			<xpt:objectlistSource var="lstDesignPicture"
+				ascending="false" buildValues="#{javascript:designBean.allDesignPictures4Edit();}"
+				scope="view" sortAttribute="title">
+			</xpt:objectlistSource>
+		</xp:this.data>
+
+		<xe:widgetContainer id="wcDesignPicture"
+			titleBarText="Desing Pictures" style="height:100%;width:250.0px"
+			scrollable="true">
+			<xe:this.dropDownNodes>
+				<xe:basicLeafNode title="new Design Picture" label="new Design Block">
+					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgCreateDesignPicture}")]]></xe:this.onClick>
+				</xe:basicLeafNode>
+			</xe:this.dropDownNodes>
+			<xp:table style="width:100%" styleClass="lotusTable">
+				<xp:repeat rows="10" var="designPicture" indexVar="nDC"
+					value="#{lstDesignPicture}">
+					<xp:tr>
+						<xp:td>
+							<xp:text value="#{designPicture.title}">
+							</xp:text>
+
+							<xp:br></xp:br>
+							<xp:link escape="true" text="edit" id="lnkEdit">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:viewScope.pictureID=designPicture.ID;
+var dlg = getComponent("dlgCreateDesignPicture");
+dlg.show();
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+							<xp:text>
+								<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
+								<xp:this.rendered><![CDATA[#{javascript:designPicture.status == "PUBLISHED"}]]></xp:this.rendered>
+							</xp:text>
+							<xp:link escape="true" text="offline" id="link1">
+								<xp:this.rendered><![CDATA[#{javascript:designPicture.status == "PUBLISHED"}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="wcDesignBlock">
+									<xp:this.action><![CDATA[#{javascript:designBean.setDesignPictureOffline( designPicture.getBO());
+var ds = @XPTFindDataSourceDeep("panDesignPicture","lstDesignPicture");
+ds.refresh();}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:td>
+						<xp:td>
+							<xp:image id="imgPreview">
+								<xp:this.url><![CDATA[#{javascript:"/Design.xsp/preview/img/"+designPicture.ID+"/"+designPicture.title+"?thumbnail=2";}]]></xp:this.url>
+							</xp:image>
+
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{designPicture.type}">
+							</xp:text>
+							<xp:br></xp:br>
+							<xp:text value="#{designPicture.status}">
+							</xp:text>
+							<xp:br></xp:br>
+							<xp:text value="#{designPicture.version}">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xe:widgetContainer>
+	</xp:panel>
+</xp:view>

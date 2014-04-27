@@ -25,20 +25,38 @@ public enum PhotoPublisher {
 	public void processToStreamByDocKey(HttpServletRequest request, HttpServletResponse response, String strDocKey) {
 		InputStream is = null;
 		Picture pic = PictureStorageService.getInstance().getByDocKey(strDocKey, DocStatus.PUBLISHED);
-		boolean blThumbnail = "1".equalsIgnoreCase(request.getParameter("thumbnail"));
+		int nTumbnail = 0;
+		if ("1".equalsIgnoreCase(request.getParameter("thumbnail"))) {
+			nTumbnail = 1;
+		}
+		if ("2".equalsIgnoreCase(request.getParameter("thumbnail"))) {
+			nTumbnail = 2;
+		}
 		try {
 			OutputStream os = response.getOutputStream();
 			if (pic != null) {
 				is = FileService.INSTANCE.getFileStream(pic.getFile().get(0));
-				if (blThumbnail) {
+				switch (nTumbnail) {
+				case 0:
+					StreamUtil.copyStream(is, os);
+					is.close();
+					break;
+				case 1:
 					InputStream is2 = doResize(is, pic.getType(), 150);
 					is.close();
 					StreamUtil.copyStream(is2, os);
 					is2.close();
-				} else {
+					break;
+				case 2:
+					InputStream is3 = doResize(is, pic.getType(), 75);
+					is.close();
+					StreamUtil.copyStream(is3, os);
+					is3.close();
+					break;
+				default:
 					StreamUtil.copyStream(is, os);
 					is.close();
-
+					break;
 				}
 			}
 			os.close();
@@ -50,19 +68,38 @@ public enum PhotoPublisher {
 	public void processToStreamByID(HttpServletRequest request, HttpServletResponse response, String strID) {
 		InputStream is = null;
 		Picture pic = PictureStorageService.getInstance().getById(strID);
-		boolean blThumbnail = "1".equalsIgnoreCase(request.getParameter("thumbnail"));
+		int nTumbnail = 0;
+		if ("1".equalsIgnoreCase(request.getParameter("thumbnail"))) {
+			nTumbnail = 1;
+		}
+		if ("2".equalsIgnoreCase(request.getParameter("thumbnail"))) {
+			nTumbnail = 2;
+		}
 		try {
 			OutputStream os = response.getOutputStream();
 			if (pic != null) {
 				is = FileService.INSTANCE.getFileStream(pic.getFile().get(0));
-				if (blThumbnail) {
+				switch (nTumbnail) {
+				case 0:
+					StreamUtil.copyStream(is, os);
+					is.close();
+					break;
+				case 1:
 					InputStream is2 = doResize(is, pic.getType(), 150);
 					is.close();
 					StreamUtil.copyStream(is2, os);
 					is2.close();
-				} else {
+					break;
+				case 2:
+					InputStream is3 = doResize(is, pic.getType(), 75);
+					is.close();
+					StreamUtil.copyStream(is3, os);
+					is3.close();
+					break;
+				default:
 					StreamUtil.copyStream(is, os);
 					is.close();
+					break;
 				}
 			}
 			os.close();

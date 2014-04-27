@@ -1,8 +1,12 @@
 package biz.webgate.xpages.thispage.design;
 
+import java.util.List;
+
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
 import org.openntf.xpt.core.dss.binding.util.FileHelper;
+
+import com.ibm.xsp.component.UIFileuploadEx.UploadedFile;
 
 import biz.webgate.xpages.thispage.AbstractBase;
 
@@ -20,8 +24,12 @@ public class DesignPicture extends AbstractBase {
 	private int m_Height;
 	@DominoEntity(FieldName = "Type")
 	private String m_Type;
+
 	@DominoEntity(FieldName = "File")
-	private FileHelper m_File;
+	private UploadedFile m_UploadFile;
+
+	@DominoEntity(FieldName = "File")
+	private List<FileHelper> m_File;
 
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
@@ -75,12 +83,20 @@ public class DesignPicture extends AbstractBase {
 		m_Type = type;
 	}
 
-	public void setFile(FileHelper file) {
+	public void setFile(List<FileHelper> file) {
 		m_File = file;
 	}
 
-	public FileHelper getFile() {
+	public List<FileHelper> getFile() {
 		return m_File;
+	}
+
+	public void setUploadFile(UploadedFile uploadFile) {
+		m_UploadFile = uploadFile;
+	}
+
+	public UploadedFile getUploadFile() {
+		return m_UploadFile;
 	}
 
 }

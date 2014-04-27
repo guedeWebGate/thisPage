@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xpt="http://www.openntf.org/xsp/xpt" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	xmlns:xpt="http://www.openntf.org/xsp/xpt" xmlns:xe="http://www.ibm.com/xsp/coreex"><xe:restService id="restService1" pathInfo="/preview/">
+		<xe:this.service>
+			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
+		</xe:this.service>
+	</xe:restService>
 
 	<xp:this.acl>
 		<xp:acl>
@@ -22,24 +26,22 @@
 				<xp:div align="left">
 					<xp:table>
 						<xp:tr>
-							<xp:td align="left" valign="top">							
-							<xc:ccPageLayoutWidget></xc:ccPageLayoutWidget>
-							</xp:td>
 							<xp:td align="left" valign="top">
-								<xe:widgetContainer id="widgetContainer2"
-									titleBarText="Design Block" style="height:150.0px;width:250.0px">
-								</xe:widgetContainer>
-							</xp:td>
+								<xc:ccPageLayoutWidget></xc:ccPageLayoutWidget>
+								</xp:td>
 							<xp:td align="left" valign="top">
 								
-							<xc:ccDesignContentWidget></xc:ccDesignContentWidget></xp:td>
+							<xc:ccDesignBlockWidget></xc:ccDesignBlockWidget>
+							</xp:td>
+							<xp:td align="left" valign="top">
+
+								<xc:ccDesignContentWidget></xc:ccDesignContentWidget>
+							</xp:td>
 						</xp:tr>
 						<xp:tr>
 							<xp:td>
-								<xe:widgetContainer id="widgetContainer4"
-									titleBarText="Design Pictures" style="height:150.0px;width:250.0px">
-								</xe:widgetContainer>
-							</xp:td>
+								
+							<xc:ccDesignPictureWidget></xc:ccDesignPictureWidget></xp:td>
 							<xp:td>
 								<xe:widgetContainer id="widgetContainer5"
 									titleBarText="Design Files / Resources" style="height:150.0px;width:250.0px">
@@ -51,6 +53,8 @@
 				</xp:div>
 				<xc:ccNewPageLayout></xc:ccNewPageLayout>
 				<xc:ccNewDesignContent></xc:ccNewDesignContent>
+				<xc:ccNewDesignBlock></xc:ccNewDesignBlock>
+				<xc:ccCreateNewDesignPictureDlg></xc:ccCreateNewDesignPictureDlg>
 			</xp:panel>
 		</xp:this.facets>
 	</xc:ccApplication>

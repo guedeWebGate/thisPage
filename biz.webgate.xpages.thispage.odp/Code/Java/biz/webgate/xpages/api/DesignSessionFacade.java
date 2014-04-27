@@ -7,13 +7,20 @@ import javax.faces.context.FacesContext;
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
 import biz.webgate.xpages.thispage.DocStatus;
+import biz.webgate.xpages.thispage.design.DesignBlock;
+import biz.webgate.xpages.thispage.design.DesignBlockStorageService;
 import biz.webgate.xpages.thispage.design.DesignContent;
 import biz.webgate.xpages.thispage.design.DesignContentStorageService;
+import biz.webgate.xpages.thispage.design.DesignPicture;
+import biz.webgate.xpages.thispage.design.DesignPictureStorageService;
 import biz.webgate.xpages.thispage.design.PageLayout;
 import biz.webgate.xpages.thispage.design.PageLayoutStorageService;
 import biz.webgate.xpages.thispage.services.UserNameProvider;
 
 public class DesignSessionFacade {
+	private static final String FRM_PAGE_LAYOUT = "frmPageLayout";
+	private static final String FRM_DESIGN_CONTENT = "frmDesignContent";
+	private static final String FRM_DESIGN_BLOCK = "frmDesignBlock";
 	private static final String BEAN_NAME = "designBean";
 
 	public static DesignSessionFacade get(FacesContext context) {
@@ -26,7 +33,7 @@ public class DesignSessionFacade {
 	}
 
 	public List<PageLayout> allPageLayout4Edit() {
-		return PageLayoutStorageService.getInstance().getObjectsByForeignId("frmPageLayout", ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+		return PageLayoutStorageService.getInstance().getObjectsByForeignId(FRM_PAGE_LAYOUT, ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
 	}
 
 	public String newPageLayout(String name) {
@@ -64,7 +71,7 @@ public class DesignSessionFacade {
 
 	// DESIGN CONTENT
 	public List<DesignContent> allDesignContent4Edit() {
-		return DesignContentStorageService.getInstance().getObjectsByForeignId("frmDesignContent",
+		return DesignContentStorageService.getInstance().getObjectsByForeignId(FRM_DESIGN_CONTENT,
 				ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
 	}
 
@@ -101,5 +108,88 @@ public class DesignSessionFacade {
 
 	public SingleObjectStore<DesignContent> getDesignContentSOS() {
 		return new SingleObjectStore<DesignContent>(DesignContentStorageService.getInstance());
+	}
+
+	// DESIGN Block
+	public List<DesignBlock> allDesignBlock4Edit() {
+		return DesignBlockStorageService.getInstance().getObjectsByForeignId(FRM_DESIGN_BLOCK,
+				ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public String newDesignBlock(String name, String strategieName) {
+		DesignBlock db = DesignBlockStorageService.getInstance().createObject();
+		db.setTitle(name);
+		db.setStrategieName(strategieName);
+		DesignBlockStorageService.getInstance().save(db);
+		return db.getID();
+	}
+
+	public String editDesignBlock(DesignBlock designBlock) {
+		if (designBlock.getStatus().equals(DocStatus.DRAFT)) {
+			return designBlock.getID();
+		}
+		DesignBlock designBlockDraft = DesignBlockStorageService.getInstance().getByDocKey(designBlock.getDocKey(), DocStatus.DRAFT);
+		if (designBlockDraft != null) {
+			return designBlockDraft.getID();
+		}
+		designBlockDraft = (DesignBlock) designBlock.newVersion(UserNameProvider.INSTANCE.getUserName());
+		DesignBlockStorageService.getInstance().save(designBlockDraft);
+		return designBlockDraft.getID();
+	}
+
+	public void setDesignBlockOffline(DesignBlock designBlock) {
+		designBlock.setStatus(DocStatus.OFFLINE);
+		DesignBlockStorageService.getInstance().save(designBlock);
+	}
+
+	public void publishDesignBlock(DesignBlock designBlock) {
+		DesignBlockStorageService.getInstance().publish(designBlock);
+	}
+
+	public SingleObjectStore<DesignBlock> getDesignBlockSOS() {
+		return new SingleObjectStore<DesignBlock>(DesignBlockStorageService.getInstance());
+	}
+	
+	//DESIGN PICTURE
+	public List<DesignPicture> allDesignPictures4Edit() {
+		return DesignPictureStorageService.getInstance().getObjectsByForeignId("frmDesignPicture", ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public DesignPicture createDesignPicture() {
+		return DesignPictureStorageService.getInstance().createObject();
+	}
+
+	public DesignPicture getNewDesignPictureVersion(String strID) {
+		DesignPicture pic = DesignPictureStorageService.getInstance().getById(strID);
+		return (DesignPicture) pic.newVersion(UserNameProvider.INSTANCE.getUserName());
+	}
+
+	public void processDesignPicture(DesignPicture pic) {
+		if (pic.getUploadFile() != null) {
+			String strFile = pic.getUploadFile().getFilename();
+			pic.setTitle(strFile);
+			int nPos = strFile.lastIndexOf(".");
+			if (nPos > -1) {
+				pic.setType(strFile.substring(nPos + 1));
+			}
+		}
+		DesignPictureStorageService.getInstance().save(pic);
+	}
+
+	public void deleteDesignPicture(DesignPicture pic) {
+		try {
+			DesignPictureStorageService.getInstance().hardDelete(pic, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void publishDesignPicture(DesignPicture pic) {
+		DesignPictureStorageService.getInstance().publish(pic);
+	}
+
+	public void setDesignPictureOffline(DesignPicture picture) {
+		picture.setStatus(DocStatus.OFFLINE);
+		DesignPictureStorageService.getInstance().save(picture);
 	}
 }

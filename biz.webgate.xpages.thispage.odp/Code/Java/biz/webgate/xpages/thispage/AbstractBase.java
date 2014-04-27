@@ -24,7 +24,7 @@ public abstract class AbstractBase implements Serializable {
 	@DominoEntity(FieldName = "Creator")
 	private String m_Creator;
 	@DominoEntity(FieldName = "Version")
-	private int m_Version;
+	private int m_Version = 1;
 	@DominoEntity(FieldName = "Status")
 	private DocStatus m_Status;
 

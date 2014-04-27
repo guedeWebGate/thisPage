@@ -1,12 +1,20 @@
 package biz.webgate.xpages.thispage.design;
 
-import org.openntf.xpt.core.dss.AbstractStorageService;
+import biz.webgate.xpages.thispage.AbstractContentStorageService;
 
-public class DesignBlockStorageService extends AbstractStorageService<DesignBlock> {
+public class DesignBlockStorageService extends AbstractContentStorageService<DesignBlock> {
 
-	@Override
-	protected DesignBlock createObject() {
-		return new DesignBlock();
+	private static final DesignBlockStorageService m_Service = new DesignBlockStorageService();
+
+	public static DesignBlockStorageService getInstance() {
+		return m_Service;
 	}
 
+	private DesignBlockStorageService() {
+	}
+
+	@Override
+	public DesignBlock createObject() {
+		return new DesignBlock();
+	}
 }

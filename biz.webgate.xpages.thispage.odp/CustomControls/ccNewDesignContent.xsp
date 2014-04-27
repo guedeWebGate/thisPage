@@ -46,7 +46,7 @@
 					<xp:this.action><![CDATA[#{javascript:getComponent("dlgNewDesignContent").hide();}]]></xp:this.action>
 				</xp:eventHandler>
 			</xp:button>
-			<xp:button value="Create new Content Design" id="btCreate">
+			<xp:button value="Create new JS / CSS Content" id="btCreate">
 				<xp:eventHandler event="onclick" submit="true"
 					refreshMode="complete">
 					<xp:this.action><![CDATA[#{javascript:var id =designBean.newDesignContent(viewScope.newDesignContentName, viewScope.newDesignContentType);
