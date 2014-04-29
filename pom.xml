@@ -7,6 +7,10 @@
 	<packaging>pom</packaging>
 	<properties>
 		<compiler>1.6</compiler>
+		<ddehd.designerexec>D:\\IBM\\Notes\\designer.exe</ddehd.designerexec>
+		<ddehd.targetdbname>thispagehl.nsf</ddehd.targetdbname>
+		<ddehd.notesdata>D:\\HEADLESS\DATA</ddehd.notesdata>
+		<ddehd.odpdirectory>${basedir}/biz.webgate.xpages.thispage.odp </ddehd.odpdirectory>
 	</properties>
 
 	<build>
@@ -16,9 +20,6 @@
 				<artifactId>headlessdesigner-maven-plugin</artifactId>
 				<version>1.0.0</version>
 				<configuration>
-					<targetdbname>thispagehl.nsf</targetdbname>
-					<notesdata>D:\\HEADLESS\DATA</notesdata>
-					<odpdirectory>${basedir}/biz.webgate.xpages.thispage.odp </odpdirectory>
 				</configuration>
 			</plugin>
 		</plugins>
