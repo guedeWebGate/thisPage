@@ -26,6 +26,6 @@
 	</build>
 
 	<modules>
-		<module>biz.webgate.xpage.thispage.odp</module>
+		<module>biz.webgate.xpages.thispage.odp</module>
 	</modules>
 </project>
