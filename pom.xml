@@ -25,4 +25,7 @@
 		</plugins>
 	</build>
 
+	<modules>
+		<module>biz.webgate.xpage.thispage.odp</module>
+	</modules>
 </project>
