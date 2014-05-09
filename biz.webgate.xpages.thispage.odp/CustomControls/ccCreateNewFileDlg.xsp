@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xe:dialog id="dlgCreateFile" title="New File">
+		<xp:panel>
+			<xp:this.data>
+				<xe:objectData var="file" scope="view">
+					<xe:this.createObject><![CDATA[#{javascript:if (viewScope.fileID== "" || viewScope.fileID == null) {
+return contentBean.createFile();
+} else {
+	return contentBean.getNewFileVersion(viewScope.fileID);
+}}]]></xe:this.createObject>
+				</xe:objectData>
+			</xp:this.data>
+			<xe:dialogContent id="dialogContent1">
+				<xp:table rendered="#{javascript:file.uploadFile == null}"
+					style="width:400px">
+					<xp:tr>
+						<xp:td>
+							<xp:label id="lb" for="upldControl" value="Select a file">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:fileUpload id="upldControl" value="#{file.uploadFile}">
+							</xp:fileUpload>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td></xp:td>
+						<xp:td>
+							<xp:button value="Upload File" id="btUpload">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:contentBean.processFile(file)}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<xp:table rendered="#{javascript:file.uploadFile != null}"
+					style="width:400px">
+					<xp:tr>
+						<xp:td>
+							<xp:label id="label1" for="cvTitle" value="Title"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{file.title}" id="cvTitle">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label id="label2" for="cvType" value="Type"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{file.type}" id="cvType"></xp:text>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td>
+							<xp:label value="Categorie" id="lblCategory">
+							</xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:comboBox id="cbCatKey" value="#{file.categoryKey}"
+								defaultValue="#{javascript:viewScope.newCatID}" style="width:250px">
+								<xp:this.disabled><![CDATA[#{javascript:viewScope.newCatPanShow == "1"}]]></xp:this.disabled>
+								<xp:selectItems>
+									<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</xp:td>
+					</xp:tr>
+
+				</xp:table>
+				<xc:ccCreateNewCategoryPanel rendered="#{javascript:file.uploadFile != null}"></xc:ccCreateNewCategoryPanel>
+			</xe:dialogContent>
+			<xe:dialogButtonBar id="dialogButtonBar1">
+				<xp:button value="Cancel" id="btCancle">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" immediate="true">
+						<xp:this.action><![CDATA[#{javascript:contentBean.deleteFile(file);
+var dlg = getComponent("dlgCreateFile");
+dlg.hide();
+viewScope.fileID="";}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+				<xp:button id="btCreate" value="Create File"
+					rendered="#{javascript:file.uploadFile != null}">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:contentBean.publishFile(file);
+var dlg = getComponent("dlgCreateFile");
+
+var ds = @XPTFindDataSourceDeep("viewPanelFiles", "lstFiles");
+ds.refresh();
+dlg.hide("viewPanelFiles");
+viewScope.fileID="";
+}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+			</xe:dialogButtonBar>
+		</xp:panel>
+	</xe:dialog>
+</xp:view>

@@ -30,6 +30,7 @@
 	</xp:this.data>
 	<xc:ccApplication navigationPath="/design/designBlock">
 		<xp:this.facets>
+			<xc:ccNavDesign xp:key="facetLeft"></xc:ccNavDesign>
 			<xp:panel xp:key="facetRight">
 				<xe:widgetContainer id="widgetContainer1" type="sidebar"
 					titleBarText="Actions">
@@ -98,7 +99,7 @@ return true;]]></xp:this.script>
 					</xe:formRow>
 				</xe:formTable>
 			</xp:panel>
-			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
+			
 		</xp:this.facets>
 		<xc:this.pageTitle><![CDATA[#{javascript:"DesignBlock: "+ designBlock.title;}]]></xc:this.pageTitle>
 	</xc:ccApplication>

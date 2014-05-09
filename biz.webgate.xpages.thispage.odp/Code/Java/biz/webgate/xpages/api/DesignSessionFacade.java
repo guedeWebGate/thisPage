@@ -11,6 +11,8 @@ import biz.webgate.xpages.thispage.design.DesignBlock;
 import biz.webgate.xpages.thispage.design.DesignBlockStorageService;
 import biz.webgate.xpages.thispage.design.DesignContent;
 import biz.webgate.xpages.thispage.design.DesignContentStorageService;
+import biz.webgate.xpages.thispage.design.DesignFile;
+import biz.webgate.xpages.thispage.design.DesignFileStorageService;
 import biz.webgate.xpages.thispage.design.DesignPicture;
 import biz.webgate.xpages.thispage.design.DesignPictureStorageService;
 import biz.webgate.xpages.thispage.design.PageLayout;
@@ -191,5 +193,49 @@ public class DesignSessionFacade {
 	public void setDesignPictureOffline(DesignPicture picture) {
 		picture.setStatus(DocStatus.OFFLINE);
 		DesignPictureStorageService.getInstance().save(picture);
+	}
+	
+	
+	//DESIGN FILE
+	public List<DesignFile> allDesignFile4Edit() {
+		return DesignFileStorageService.getInstance().getObjectsByForeignId("frmDesignFile", ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public DesignFile createDesignFile() {
+		return DesignFileStorageService.getInstance().createObject();
+	}
+
+	public DesignFile getNewDesignFileVersion(String strID) {
+		DesignFile file = DesignFileStorageService.getInstance().getById(strID);
+		return (DesignFile) file.newVersion(UserNameProvider.INSTANCE.getUserName());
+	}
+
+	public void processDesignFile(DesignFile file) {
+		if (file.getUploadFile() != null) {
+			String strFile = file.getUploadFile().getFilename();
+			file.setTitle(strFile);
+			int nPos = strFile.lastIndexOf(".");
+			if (nPos > -1) {
+				file.setType(strFile.substring(nPos + 1));
+			}
+		}
+		DesignFileStorageService.getInstance().save(file);
+	}
+
+	public void deleteDesignFile(DesignFile file) {
+		try {
+			DesignFileStorageService.getInstance().hardDelete(file, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void publishDesignFile(DesignFile file) {
+		DesignFileStorageService.getInstance().publish(file);
+	}
+
+	public void setDesignFileOffline(DesignFile file) {
+		file.setStatus(DocStatus.OFFLINE);
+		DesignFileStorageService.getInstance().save(file);
 	}
 }
