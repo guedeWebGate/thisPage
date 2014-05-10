@@ -2,13 +2,16 @@ package biz.webgate.xpages.thispage.content;
 
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
+import org.openntf.xpt.core.json.annotations.JSONEntity;
+import org.openntf.xpt.core.json.annotations.JSONObject;
 
 import com.ibm.xsp.http.MimeMultipart;
 
 import biz.webgate.xpages.thispage.AbstractBase;
-
+import biz.webgate.xpages.thispage.rest.IElements;
+@JSONObject
 @DominoStore(Form="frmPage", PrimaryFieldClass=String.class, PrimaryKeyField="ID", View="lupPagesByID")
-public class Page extends AbstractBase {
+public class Page extends AbstractBase implements IElements {
 
 	/**
 	 * 
@@ -17,10 +20,12 @@ public class Page extends AbstractBase {
 	
 	@DominoEntity(FieldName = "Content")
 	private MimeMultipart m_Content;
+	@JSONEntity(jsonproperty="title")
 	@DominoEntity(FieldName = "Title")
 	private String m_Title;
 	@DominoEntity(FieldName = "BrowserTitle")
 	private String m_BrowserTitle;
+	@JSONEntity(jsonproperty="navigationtitle")
 	@DominoEntity(FieldName = "NavigationTitle")
 	private String m_NavigationTitle;
 	@DominoEntity(FieldName = "doNotShowInNavigation")
@@ -31,6 +36,11 @@ public class Page extends AbstractBase {
 	//Some lazyloaded Values
 	private String m_CategoryPath;
 	
+	@JSONEntity(jsonproperty="url")
+	private String m_DocumentURL;
+	
+	@JSONEntity(jsonproperty="abstract")
+	private String m_Abstract;
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
 		Page pgNew = (Page)obj;
@@ -100,6 +110,22 @@ public class Page extends AbstractBase {
 			m_CategoryPath = CategoryStorageService.getInstance().buildCategoryPath(m_CategoryKey);
 		}
 		return m_CategoryPath;
+	}
+
+	public void setDocumentURL(String documentURL) {
+		m_DocumentURL = documentURL;
+	}
+
+	public String getDocumentURL() {
+		return m_DocumentURL;
+	}
+
+	public void setAbstract(String _abstract) {
+		m_Abstract = _abstract;
+	}
+
+	public String getAbstract() {
+		return m_Abstract;
 	}
 
 }

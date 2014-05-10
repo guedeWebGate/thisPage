@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
 import biz.webgate.xpages.thispage.DocStatus;
+import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.design.DesignBlock;
 import biz.webgate.xpages.thispage.design.DesignBlockStorageService;
 import biz.webgate.xpages.thispage.design.DesignContent;
@@ -237,5 +238,15 @@ public class DesignSessionFacade {
 	public void setDesignFileOffline(DesignFile file) {
 		file.setStatus(DocStatus.OFFLINE);
 		DesignFileStorageService.getInstance().save(file);
+	}
+
+	public PageLayout getPageLayoutForPage(Page pageCurrent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<DesignBlock> allDesignBlockPublished() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

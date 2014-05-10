@@ -180,4 +180,29 @@ public class ContentSessionFacade {
 		FileStorageService.getInstance().save(file);
 	}
 
+	public Category getCategoryByDocKey(String categoryKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Category> getSubCategoryByParent(String parentCateogry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Category> getCategoryTree() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Page> getPagesByCategory(String categoryKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Page getPageByDocKey(String strDocKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

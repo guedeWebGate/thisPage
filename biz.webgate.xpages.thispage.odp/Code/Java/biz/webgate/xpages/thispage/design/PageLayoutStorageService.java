@@ -20,9 +20,11 @@ public class PageLayoutStorageService extends AbstractContentStorageService<Page
 		sb.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n");
 		sb.append("<html lang=\"en\">\n");
 		sb.append("<head>\n");
-		sb.append("<title>###BROWSERTITLE</title>\n");
+		sb.append("<title>###BROWSER_TITLE</title>\n");
+		sb.append("###SYSTEM_JS###");
 		sb.append("</head>\n");
 		sb.append("<body>\n");
+		sb.append("###SYSTEM_LOADER###\n");
 		sb.append("###CONTENT###\n");
 		sb.append("</body>\n");
 		sb.append("</html>\n");

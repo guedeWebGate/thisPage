@@ -1,20 +1,48 @@
 package biz.webgate.xpages.thispage.content;
 
+import java.util.List;
+
 import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
+import org.openntf.xpt.core.json.annotations.JSONEntity;
+import org.openntf.xpt.core.json.annotations.JSONObject;
 
 import biz.webgate.xpages.thispage.AbstractBase;
+import biz.webgate.xpages.thispage.rest.IElements;
 
-@DominoStore(Form="frmCategory", PrimaryFieldClass=String.class, PrimaryKeyField="ID", View="LUPCategoryByID")
-public class Category extends AbstractBase {
+@JSONObject
+@DominoStore(Form = "frmCategory", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "LUPCategoryByID")
+public class Category extends AbstractBase implements IElements {
 
+	@JSONEntity(jsonproperty = "title")
 	@DominoEntity(FieldName = "Title")
 	private String m_Title;
 	@DominoEntity(FieldName = "ParentCategory")
 	private String m_ParentCateogry;
 	@DominoEntity(FieldName = "DefaultDesignKey")
 	private String m_DefaultDesignKey;
-	
+
+	/**
+	 * FirstDocumentURL is filled during the process of generation of JSON
+	 * Result
+	 */
+	@JSONEntity(jsonproperty = "url")
+	private String m_FirstDocumentURL;
+
+	/**
+	 * Subcategories is filled during the process of generation of the JSON
+	 * Result
+	 */
+	@JSONEntity(jsonproperty = "url")
+	private List<Category> m_SubCategories;
+	public List<Category> getSubCategories() {
+		return m_SubCategories;
+	}
+
+	public void setSubCategories(List<Category> subCategories) {
+		m_SubCategories = subCategories;
+	}
+
 	/**
 	 * 
 	 */
@@ -51,6 +79,14 @@ public class Category extends AbstractBase {
 
 	public String getDefaultDesignKey() {
 		return m_DefaultDesignKey;
+	}
+
+	public void setFirstDocumentURL(String firstDocumentURL) {
+		m_FirstDocumentURL = firstDocumentURL;
+	}
+
+	public String getFirstDocumentURL() {
+		return m_FirstDocumentURL;
 	}
 
 }
