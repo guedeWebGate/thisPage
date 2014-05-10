@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xpt="http://www.openntf.org/xsp/xpt"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:panel id="panDesignBlock">
+		<xp:this.data>
+			<xpt:objectlistSource var="lstDesignBlock"
+				ascending="false" buildValues="#{javascript:designBean.allDesignBlock4Edit();}"
+				scope="view" sortAttribute="title">
+			</xpt:objectlistSource>
+		</xp:this.data>
+
+		<xe:widgetContainer id="wcDesignBlock"
+			titleBarText="Desing Block" style="height:100%;width:250.0px"
+			scrollable="true">
+			<xe:this.dropDownNodes>
+				<xe:basicLeafNode title="new Design Block"
+					label="new Design Block">
+					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgNewDesignBlock}")]]></xe:this.onClick>
+				</xe:basicLeafNode>
+			</xe:this.dropDownNodes>
+			<xp:table style="width:100%" styleClass="lotusTable">
+				<xp:repeat rows="10" var="designBlock" indexVar="nDC"
+					value="#{lstDesignBlock}">
+					<xp:tr>
+						<xp:td>
+							<xp:text value="#{designBlock.title}">
+							</xp:text>
+
+							<xp:br></xp:br>
+							<xp:link escape="true" text="edit"
+								id="lnkEdit">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:var id = designBean.editDesignBlock( designBlock.getBO());
+context.redirectToPage("DesignBlock.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+							<xp:text>
+								<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
+								<xp:this.rendered><![CDATA[#{javascript:designBlock.status == "PUBLISHED"}]]></xp:this.rendered>
+							</xp:text>
+							<xp:link escape="true" text="offline"
+								id="link1">
+								<xp:this.rendered><![CDATA[#{javascript:designBlock.status == "PUBLISHED"}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial"
+									refreshId="wcDesignBlock">
+									<xp:this.action><![CDATA[#{javascript:designBean.setDesignBlockOffline( designBlock.getBO());
+var ds = @XPTFindDataSourceDeep("panDesignBlock","lstDesignBlock");
+ds.refresh();}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{designBlock.strategieName}">
+							</xp:text>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{designBlock.status}">
+							</xp:text>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{designBlock.version}">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xe:widgetContainer>
+	</xp:panel>
+</xp:view>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xpt="http://www.openntf.org/xsp/xpt"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:panel id="panPageLayout">
+		<xp:this.data>
+			<xpt:objectlistSource var="lstPageLayout"
+				ascending="false" buildValues="#{javascript:designBean.allPageLayout4Edit();}"
+				scope="view" sortAttribute="title">
+			</xpt:objectlistSource>
+		</xp:this.data>
+
+		<xe:widgetContainer id="wcPageLayout" titleBarText="Page Layout"
+			style="height:100%;width:250.0px" scrollable="true">
+			<xe:this.dropDownNodes>
+				<xe:basicLeafNode title="new PageLayout" label="new PageLayout">
+					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgNewPageLayout}")]]></xe:this.onClick>
+				</xe:basicLeafNode>
+			</xe:this.dropDownNodes>
+			<xp:table style="width:100%" styleClass="lotusTable">
+				<xp:repeat rows="10" var="pageLayout" indexVar="nPLayout"
+					value="#{lstPageLayout}">
+					<xp:tr>
+						<xp:td>
+							<xp:text value="#{pageLayout.title}">
+							</xp:text>
+
+							<xp:br></xp:br>
+							<xp:link escape="true" text="edit" id="lnkEdit">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:var id = designBean.editPageLayout( pageLayout.getBO());
+context.redirectToPage("PageLayout.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+							<xp:text>
+								<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
+								<xp:this.rendered><![CDATA[#{javascript:pageLayout.status == "PUBLISHED"}]]></xp:this.rendered>
+							</xp:text>
+							<xp:link escape="true" text="offline" id="link1">
+								<xp:this.rendered><![CDATA[#{javascript:pageLayout.status == "PUBLISHED"}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="wcPageLayout">
+									<xp:this.action><![CDATA[#{javascript:designBean.setPageLayoutOffline( pageLayout.getBO());
+var ds = @XPTFindDataSourceDeep("panPageLayout","lstPageLayout");
+ds.refresh();}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{pageLayout.status}">
+							</xp:text>
+						</xp:td>
+						<xp:td>
+							<xp:text value="#{pageLayout.version}">
+							</xp:text>
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xe:widgetContainer>
+	</xp:panel>
+</xp:view>

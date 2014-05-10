@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:restService id="restService1" pathInfo="/preview/">
+		<xe:this.service>
+			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
+		</xe:this.service>
+	</xe:restService>
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[DesignEditor]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	<xc:ccApplication navigationPath="/design/overview"
+		pageTitle="Design Definition">
+
+
+		<xp:this.facets>
+			<xp:panel xp:key="facetLeft">
+				<xc:ccNavDesign></xc:ccNavDesign></xp:panel>
+			<xp:panel xp:key="facetRight"></xp:panel>
+			<xp:panel xp:key="facetMiddle">
+				<xp:div align="left">
+
+					<xp:table>
+						<xp:tr>
+							<xp:td align="left" valign="top">
+								<xc:ccPageLayoutWidget></xc:ccPageLayoutWidget>
+							</xp:td>
+							<xp:td align="left" valign="top">
+
+								<xc:ccDesignBlockWidget></xc:ccDesignBlockWidget>
+							</xp:td>
+							<xp:td align="left" valign="top">
+
+								<xc:ccDesignContentWidget></xc:ccDesignContentWidget>
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td align="left" valign="top">
+
+								<xc:ccDesignPictureWidget></xc:ccDesignPictureWidget>
+							</xp:td>
+							<xp:td align="left" valign="top">
+								<xc:ccDesignFileWidget></xc:ccDesignFileWidget>
+							</xp:td>
+							<xp:td></xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:div>
+				<xc:ccNewPageLayout></xc:ccNewPageLayout>
+				<xc:ccNewDesignContent></xc:ccNewDesignContent>
+				<xc:ccNewDesignBlock></xc:ccNewDesignBlock>
+				<xc:ccCreateNewDesignPictureDlg></xc:ccCreateNewDesignPictureDlg>
+				<xc:ccCreateNewDesignFileDlg></xc:ccCreateNewDesignFileDlg>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccApplication>
+</xp:view>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	dojoParseOnLoad="true" dojoTheme="true">
+	<style>
+		.CodeMirror { font-size: 10pt; width: 100%; height: 100%; }
+		.CodeMirror-scroll { width: 100%;height:100%; }
+	</style>
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[DesignEditor]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	<xp:this.resources>
+		<xp:dojoModule name="extlib.codemirror.lib.codemirror"></xp:dojoModule>
+		<xp:dojoModule name="extlib.codemirror.mode.css.css"></xp:dojoModule>
+		<xp:dojoModule name="extlib.codemirror.mode.javascript.javascript"></xp:dojoModule>
+		<xp:dojoModule name="extlib.codemirror.mode.xml.xml"></xp:dojoModule>
+		<xp:styleSheet href="/.ibmxspres/.extlib/codemirror/lib/codemirror.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xp:this.data>
+		<xpt:dssObjectSource var="designBlock"
+			objectStorageService="#{javascript:designBean.getDesignBlockSOS()}"
+			scope="view">
+		</xpt:dssObjectSource>
+	</xp:this.data>
+	<xc:ccApplication navigationPath="/design/designBlock">
+		<xp:this.facets>
+			<xc:ccNavDesign xp:key="facetLeft"></xc:ccNavDesign>
+			<xp:panel xp:key="facetRight">
+				<xe:widgetContainer id="widgetContainer1" type="sidebar"
+					titleBarText="Actions">
+					<xp:panel>
+						<xp:button value="preview" id="button1"></xp:button>
+						<xp:button value="save" id="button2">
+							<xp:eventHandler event="onclick" submit="true"
+								refreshMode="complete">
+								<xp:this.action>
+									<xp:saveDocument var="designBlock"></xp:saveDocument>
+								</xp:this.action>
+								<xp:this.script><![CDATA[designBlock.xpagesEditor.save();
+return true;]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:button>
+						<xp:button value="publish" id="button3">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete">
+								<xp:this.script><![CDATA[designBlock.xpagesEditor.save();
+return true;]]></xp:this.script>
+								<xp:this.action>
+
+									<xp:actionGroup>
+										<xp:saveDocument
+											var="designBlock">
+										</xp:saveDocument>
+										<xp:executeScript
+											script="#{javascript:designBean.publishDesignBlock(designBlock.getBO());}">
+										</xp:executeScript>
+										<xp:openPage
+											name="/Design.xsp">
+										</xp:openPage>
+									</xp:actionGroup>
+								</xp:this.action>
+							</xp:eventHandler>
+						</xp:button>
+					</xp:panel>
+				</xe:widgetContainer>
+			</xp:panel>
+			<xp:panel xp:key="facetMiddle">
+				<xe:formTable id="formTable1" labelWidth="200px"
+					labelPosition="left">
+
+					<xe:this.formDescription><![CDATA[#{javascript:"Created by "+ @Name("[CN]",designBlock.creator) +" at " + designBlock.created}]]></xe:this.formDescription>
+					<xe:this.formTitle><![CDATA[#{javascript:"###"+designBlock.title +"###  - "+designBlock.strategieName}]]></xe:this.formTitle>
+					<xe:formRow id="formRow2" for="inputText1"
+						label="Title" labelPosition="left">
+						<xp:inputText id="inputText1"
+							value="#{designBlock.title}" style="width:250px"
+							required="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="Please give a title">
+							</xp:validateRequired>
+						</xp:this.validators></xp:inputText>
+					</xe:formRow>
+
+
+
+					<xe:formRow id="formRow5" for="code" label="Content"
+						labelPosition="above">
+						<xp:inputTextarea id="code"
+							value="#{designBlock.mainContent}" required="true" cols="160"
+							rows="100">
+						</xp:inputTextarea>
+					</xe:formRow>
+				</xe:formTable>
+			</xp:panel>
+			
+		</xp:this.facets>
+		<xc:this.pageTitle><![CDATA[#{javascript:"DesignBlock: "+ designBlock.title;}]]></xc:this.pageTitle>
+	</xc:ccApplication>
+	<xp:scriptBlock>
+		<xp:this.value><![CDATA[
+var designBlock = {
+	// Editors
+	xpagesEditor:		null,
+	mode: "xml"
+	}
+	
+]]></xp:this.value>
+	</xp:scriptBlock>
+	<xp:scriptBlock id="scriptBlock1">
+		<xp:this.value><![CDATA[XSP.addOnLoad( function() {
+  				designBlock.xpagesEditor= CodeMirror.fromTextArea(document.getElementById("#{id:code}"), {
+    				lineNumbers: true,
+    				mode: designBlock.mode,
+    				htmlMode: true
+
+  				});
+    });]]></xp:this.value>
+	</xp:scriptBlock>
+</xp:view>

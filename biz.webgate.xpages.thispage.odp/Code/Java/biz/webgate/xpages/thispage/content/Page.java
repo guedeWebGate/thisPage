@@ -1,5 +1,6 @@
 package biz.webgate.xpages.thispage.content;
 
+import org.openntf.xpt.core.dss.annotations.DominoEntity;
 import org.openntf.xpt.core.dss.annotations.DominoStore;
 
 import com.ibm.xsp.http.MimeMultipart;
@@ -13,13 +14,22 @@ public class Page extends AbstractBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@DominoEntity(FieldName = "Content")
 	private MimeMultipart m_Content;
+	@DominoEntity(FieldName = "Title")
 	private String m_Title;
+	@DominoEntity(FieldName = "BrowserTitle")
 	private String m_BrowserTitle;
+	@DominoEntity(FieldName = "NavigationTitle")
 	private String m_NavigationTitle;
+	@DominoEntity(FieldName = "doNotShowInNavigation")
 	private boolean m_doNotShowInNavigation;
+	@DominoEntity(FieldName = "CategoryKey")
 	private String m_CategoryKey;
+	
+	//Some lazyloaded Values
+	private String m_CategoryPath;
 	
 	@Override
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
@@ -79,6 +89,17 @@ public class Page extends AbstractBase {
 
 	public String getCategoryKey() {
 		return m_CategoryKey;
+	}
+
+	public void setCategoryPath(String categoryPath) {
+		m_CategoryPath = categoryPath;
+	}
+
+	public String getCategoryPath() {
+		if (m_CategoryPath == null) {
+			m_CategoryPath = CategoryStorageService.getInstance().buildCategoryPath(m_CategoryKey);
+		}
+		return m_CategoryPath;
 	}
 
 }

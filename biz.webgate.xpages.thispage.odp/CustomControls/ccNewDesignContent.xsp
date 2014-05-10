@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xe:dialog id="dlgNewDesignContent" title="New Design Content">
+
+		<xe:dialogContent id="dialogContent1">
+
+			<xp:messages id="messages1"></xp:messages>
+			<xp:table>
+				<xp:tr>
+					<xp:td>
+						<xp:label value="Design Content Name: " id="label1"></xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:inputText id="itPLName"
+							value="#{viewScope.newDesignContentName}" required="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="Please insert a title">
+							</xp:validateRequired>
+						</xp:this.validators></xp:inputText>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>
+						<xp:label value="Type:" id="label2"></xp:label>
+					</xp:td>
+					<xp:td>
+						<xp:radioGroup id="radioGroup1" layout="pageDirection"
+							defaultValue="css" value="#{viewScope.newDesignContentType}">
+							<xp:selectItem itemLabel="css" itemValue="css">
+							</xp:selectItem>
+							<xp:selectItem itemLabel="js" itemValue="js">
+							</xp:selectItem>
+						</xp:radioGroup>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xe:dialogContent>
+
+
+		<xe:dialogButtonBar id="dialogButtonBar1">
+			<xp:button value="Cancel" id="btCancel">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete" immediate="true">
+					<xp:this.action><![CDATA[#{javascript:getComponent("dlgNewDesignContent").hide();}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+			<xp:button value="Create new JS / CSS Content" id="btCreate">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete">
+					<xp:this.action><![CDATA[#{javascript:var id =designBean.newDesignContent(viewScope.newDesignContentName, viewScope.newDesignContentType);
+getComponent("dlgNewDesignContent").hide();
+context.redirectToPage("DesignContent.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+		</xe:dialogButtonBar>
+	</xe:dialog>
+</xp:view>

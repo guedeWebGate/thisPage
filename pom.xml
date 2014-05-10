@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>biz.webgate.xpages.thisPage</groupId>
+	<artifactId>thisPage.parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<compiler>1.6</compiler>
+		<ddehd.designerexec>D:\\IBM\\Notes\\designer.exe</ddehd.designerexec>
+		<ddehd.targetdbname>thispagehl.nsf</ddehd.targetdbname>
+		<ddehd.notesdata>D:\\HEADLESS\DATA</ddehd.notesdata>
+		<ddehd.odpdirectory>${basedir}/biz.webgate.xpages.thispage.odp </ddehd.odpdirectory>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openntf.maven</groupId>
+				<artifactId>headlessdesigner-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>biz.webgate.xpages.thispage.odp</module>
+	</modules>
+</project>
