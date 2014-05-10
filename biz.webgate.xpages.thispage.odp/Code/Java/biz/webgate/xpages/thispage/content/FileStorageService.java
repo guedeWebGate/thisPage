@@ -1,13 +1,22 @@
 package biz.webgate.xpages.thispage.content;
 
-import org.openntf.xpt.core.dss.AbstractStorageService;
+import biz.webgate.xpages.thispage.AbstractContentStorageService;
 
-public class FileStorageService extends AbstractStorageService<File> {
+public class FileStorageService extends AbstractContentStorageService<File> {
 
+	private final static FileStorageService m_Service = new FileStorageService();
+
+	private FileStorageService() {
+
+	}
 
 	@Override
-	protected File createObject() {
+	public File createObject() {
 		return new File();
+	}
+
+	public static FileStorageService getInstance() {
+		return m_Service;
 	}
 
 }

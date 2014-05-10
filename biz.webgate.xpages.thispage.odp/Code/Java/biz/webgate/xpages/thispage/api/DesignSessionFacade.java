@@ -1,4 +1,4 @@
-package biz.webgate.xpages.api;
+package biz.webgate.xpages.thispage.api;
 
 import java.util.List;
 

@@ -2,12 +2,12 @@
 <faces-config>
   <managed-bean>
     <managed-bean-name>contentBean</managed-bean-name>
-    <managed-bean-class>biz.webgate.xpages.api.ContentSessionFacade</managed-bean-class>
+    <managed-bean-class>biz.webgate.xpages.thispage.api.ContentSessionFacade</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <managed-bean-name>designBean</managed-bean-name>
-    <managed-bean-class>biz.webgate.xpages.api.DesignSessionFacade</managed-bean-class>
+    <managed-bean-class>biz.webgate.xpages.thispage.api.DesignSessionFacade</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>

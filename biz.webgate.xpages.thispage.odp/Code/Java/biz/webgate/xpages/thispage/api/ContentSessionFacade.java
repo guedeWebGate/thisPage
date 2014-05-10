@@ -1,4 +1,4 @@
-package biz.webgate.xpages.api;
+package biz.webgate.xpages.thispage.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import org.openntf.xpt.core.dss.SingleObjectStore;
 import biz.webgate.xpages.thispage.DocStatus;
 import biz.webgate.xpages.thispage.content.Category;
 import biz.webgate.xpages.thispage.content.CategoryStorageService;
+import biz.webgate.xpages.thispage.content.File;
+import biz.webgate.xpages.thispage.content.FileStorageService;
 import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.content.PageStorageService;
 import biz.webgate.xpages.thispage.content.Picture;
@@ -92,6 +94,7 @@ public class ContentSessionFacade {
 		return catNew.getDocKey();
 	}
 
+	// PICTURES
 	public List<Picture> allPictures4Edit() {
 		return PictureStorageService.getInstance().getObjectsByForeignId(FRM_PICTURE, LUP_ALL_EDITABLE_BY_FORM);
 	}
@@ -132,6 +135,49 @@ public class ContentSessionFacade {
 	public void setPictureOffline(Picture picture) {
 		picture.setStatus(DocStatus.OFFLINE);
 		PictureStorageService.getInstance().save(picture);
+	}
+
+	// FILES
+	public List<File> allFiles4Edit() {
+		return FileStorageService.getInstance().getObjectsByForeignId("frmFile", LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public File createFile() {
+		return FileStorageService.getInstance().createObject();
+	}
+
+	public File getNewFileVersion(String strID) {
+		File file = FileStorageService.getInstance().getById(strID);
+		return (File) file.newVersion(UserNameProvider.INSTANCE.getUserName());
+	}
+
+	public void processFile(Picture file) {
+		if (file.getUploadFile() != null) {
+			String strFile = file.getUploadFile().getFilename();
+			file.setTitle(strFile);
+			int nPos = strFile.lastIndexOf(".");
+			if (nPos > -1) {
+				file.setType(strFile.substring(nPos + 1));
+			}
+		}
+		PictureStorageService.getInstance().save(file);
+	}
+
+	public void deleteFile(File file) {
+		try {
+			FileStorageService.getInstance().hardDelete(file, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void publishFile(File file) {
+		FileStorageService.getInstance().publish(file);
+	}
+
+	public void setFileOffline(File file) {
+		file.setStatus(DocStatus.OFFLINE);
+		FileStorageService.getInstance().save(file);
 	}
 
 }

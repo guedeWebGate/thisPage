@@ -11,12 +11,19 @@ public class RESTBean extends CustomServiceBean {
 
 	private final static String CONTENT = "/content/";
 	private final static String CONTENT_IMG = CONTENT +"img/";
+	private final static String CONTENT_DIMG = CONTENT +"d-img/";
 	private final static String CONTENT_FILE = CONTENT +"file/";
+	private final static String CONTENT_DFILE = CONTENT +"d-file/";
 	private final static String CONTENT_CSS = CONTENT +"css/";
 	private final static String CONTENT_JS = CONTENT +"js/";
 
+	private final static String CONTENT_DB_HTLM = CONTENT +"db/template.html";
+	private final static String CONTENT_DB_JSON = CONTENT +"db/feed.json";
+	
+	
 	private final static String IMG = "/img/";
 	private final static String PREVIEW_IMG = "/preview/img/";
+	private final static String PREVIEW_DIMG = "/preview/d-img/";
 	private final static String FILE = "/file/";
 
 	@Override
