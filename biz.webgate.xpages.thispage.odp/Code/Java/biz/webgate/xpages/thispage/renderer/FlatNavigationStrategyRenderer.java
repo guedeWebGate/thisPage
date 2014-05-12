@@ -16,12 +16,21 @@ public class FlatNavigationStrategyRenderer extends AbstractDesignBlockStrategyR
 	private static final FlatNavigationStrategyRenderer m_Renderer = new FlatNavigationStrategyRenderer();
 
 	public Result buildJSONResult(DesignBlock db, Page page, Map<String, String> values) {
+		System.out.println("NAVREND");
 		Result result = new Result();
-		Category cat = ContentSessionFacade.get().getCategoryByDocKey(page.getCategoryKey());
-		List<Category> categories = ContentSessionFacade.get().getSubCategoryByParent(cat.getParentCateogry());
-		List<IElements> elements = new LinkedList<IElements>();
-		elements.addAll(categories);
-		result.setElements(elements);
+		try {
+			Category cat = ContentSessionFacade.get().getCategoryByDocKey(page.getCategoryKey());
+			List<Category> categories = ContentSessionFacade.get().getSubCategoryByParent(cat.getParentCategory());
+			System.out.println(categories.size());
+			List<IElements> elements = new LinkedList<IElements>();
+			elements.addAll(categories);
+			System.out.println(elements.size());
+			result.setElements(categories);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setStatus("nok");
+			//result.setElements(new LinkedList<IElements>());
+		}
 		return result;
 	}
 

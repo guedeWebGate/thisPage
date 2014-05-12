@@ -6,6 +6,8 @@ import java.util.List;
 import org.openntf.xpt.core.json.annotations.JSONEntity;
 import org.openntf.xpt.core.json.annotations.JSONObject;
 
+import biz.webgate.xpages.thispage.content.Category;
+
 @JSONObject()
 public class Result implements Serializable {
 
@@ -16,7 +18,7 @@ public class Result implements Serializable {
 	@JSONEntity(jsonproperty = "status")
 	private String m_Status;
 	@JSONEntity(jsonproperty = "values")
-	private List<IElements> m_Elements;
+	private List<Category> m_Elements;
 
 	public void setStatus(String status) {
 		m_Status = status;
@@ -26,11 +28,11 @@ public class Result implements Serializable {
 		return m_Status;
 	}
 
-	public void setElements(List<IElements> elements) {
+	public void setElements(List<Category> elements) {
 		m_Elements = elements;
 	}
 
-	public List<IElements> getElements() {
+	public List<Category> getElements() {
 		return m_Elements;
 	}
 }

@@ -35,8 +35,9 @@ public class PageHTMLBuilder {
 
 			List<DesignBlock> lstDB = DesignSessionFacade.get().allDesignBlockPublished();
 			for (DesignBlock db : lstDB) {
-				if (htmlCode.contains(db.getTitle())) {
-					htmlCode = StringUtil.replace(htmlCode, db.getTitle(), db.getStrategie().getRenderer().buildHTMLTag(db, pageCurrent));
+				String markup = "###"+db.getTitle()+"###";
+				if (htmlCode.contains(markup)) {
+					htmlCode = StringUtil.replace(htmlCode, markup, db.getStrategie().getRenderer().buildHTMLTag(db, pageCurrent));
 					sbLoaderCode.append(db.getStrategie().getRenderer().buildJSLoader(db, pageCurrent));
 					sbLoaderCode.append("\n");
 				}
