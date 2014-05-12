@@ -23,30 +23,34 @@ public class PageHTMLBuilder {
 	}
 
 	public String buildHTMLContent(Page pageCurrent, HttpServletRequest request) {
+		System.out.println("Search pl...");
 		PageLayout pl = DesignSessionFacade.get().getPageLayoutForPage(pageCurrent);
 		String htmlCode = pl.getLayout();
+		System.out.println("HTML-CODE:" + htmlCode);
+		try {
+			StringBuilder sbJSCode = buildInternalJS(request);
+			StringBuilder sbLoaderCode = new StringBuilder();
+			sbLoaderCode.append("<script type=\"text/javascript\">");
+			sbLoaderCode.append("XSP.addOnLoad(function() {\n");
 
-		StringBuilder sbJSCode = buildInternalJS(request);
-		StringBuilder sbLoaderCode = new StringBuilder();
-		sbLoaderCode.append("<script type=\"text/javascript\">");
-		sbLoaderCode.append("XSP.addOnLoad(function() {\n");
-
-		List<DesignBlock> lstDB = DesignSessionFacade.get().allDesignBlockPublished();
-		for (DesignBlock db : lstDB) {
-			if (htmlCode.contains(db.getTitle())) {
-				htmlCode = StringUtil.replace(htmlCode, db.getTitle(), db.getStrategie().getRenderer().buildHTMLTag(db, pageCurrent));
-				sbLoaderCode.append(db.getStrategie().getRenderer().buildJSLoader(db, pageCurrent));
-				sbLoaderCode.append("\n");
+			List<DesignBlock> lstDB = DesignSessionFacade.get().allDesignBlockPublished();
+			for (DesignBlock db : lstDB) {
+				if (htmlCode.contains(db.getTitle())) {
+					htmlCode = StringUtil.replace(htmlCode, db.getTitle(), db.getStrategie().getRenderer().buildHTMLTag(db, pageCurrent));
+					sbLoaderCode.append(db.getStrategie().getRenderer().buildJSLoader(db, pageCurrent));
+					sbLoaderCode.append("\n");
+				}
 			}
+			sbLoaderCode.append("});\n");
+			sbLoaderCode.append("</script>");
+			htmlCode = StringUtil.replace(htmlCode, "###SYSTEM_JS###", sbJSCode.toString());
+			htmlCode = StringUtil.replace(htmlCode, "###SYSTEM_LOADER###", sbLoaderCode.toString());
+			htmlCode = StringUtil.replace(htmlCode, "###BROWSER_TITLE###", pageCurrent.getBrowserTitle());
+			htmlCode = StringUtil.replace(htmlCode, "###DOCUMENT_TITLE###", pageCurrent.getTitle());
+			htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", pageCurrent.getContent().getHTML());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		sbLoaderCode.append("}\n");
-		sbLoaderCode.append("</script>");
-		htmlCode = StringUtil.replace(htmlCode, "###SYSTEM_JS###", sbJSCode.toString());
-		htmlCode = StringUtil.replace(htmlCode, "###SYSTEM_LOADER###", sbLoaderCode.toString());
-		htmlCode = StringUtil.replace(htmlCode, "###BROWSER_TITLE###", pageCurrent.getBrowserTitle());
-		htmlCode = StringUtil.replace(htmlCode, "###DOCUMENT_TITLE###", pageCurrent.getTitle());
-		htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", pageCurrent.getContent().getHTML());
-
 		return htmlCode;
 	}
 

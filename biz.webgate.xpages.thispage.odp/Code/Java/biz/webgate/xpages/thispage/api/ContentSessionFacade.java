@@ -1,6 +1,7 @@
 package biz.webgate.xpages.thispage.api;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -19,6 +20,7 @@ import biz.webgate.xpages.thispage.content.PictureStorageService;
 import biz.webgate.xpages.thispage.services.UserNameProvider;
 
 public class ContentSessionFacade {
+	private static final String LUP_CATEGORY_ONLINE_BY_PARENT_KEY = "lupCategoryOnlineByParentKey";
 	private static final String FRM_PICTURE = "frmPicture";
 	private static final String FRM_CATEGORY = "frmCategory";
 	private static final String FRM_PAGE = "frmPage";
@@ -37,6 +39,15 @@ public class ContentSessionFacade {
 
 	public List<Page> allPages4Edit() {
 		return PageStorageService.getInstance().getObjectsByForeignId(FRM_PAGE, LUP_ALL_EDITABLE_BY_FORM);
+	}
+	
+	public List<String> allPages4StartPage(String categorieKey) {
+		List<Page> lstPages = getPagesByCategory(categorieKey);
+		List<String> lstRC = new LinkedList<String>();
+		for (Page page: lstPages) {
+			lstRC.add(page.getTitle() +"|"+ page.getDocKey());
+		}
+		return lstRC;
 	}
 
 	public Page createPage() {
@@ -86,12 +97,36 @@ public class ContentSessionFacade {
 	public String addCategory(String strCatName, String newParentCat) {
 		Category catNew = new Category();
 		// TODO: dEFAULT DESIGN!
-		if (!"<noparent>".equals(newParentCat)) {
-			catNew.setParentCateogry(newParentCat);
-		}
+		catNew.setParentCategory(newParentCat);
 		catNew.setTitle(strCatName);
 		CategoryStorageService.getInstance().save(catNew);
 		return catNew.getDocKey();
+	}
+
+	// Categories
+	public List<Category> allCategories4Edit() {
+		return CategoryStorageService.getInstance().getObjectsByForeignId(FRM_CATEGORY, LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public Category createCategory() {
+		return CategoryStorageService.getInstance().createObject();
+	}
+
+	public Category getNewCategoryVersion(String strID) {
+		Category cat = CategoryStorageService.getInstance().getById(strID);
+		if (cat.getStatus().equals(DocStatus.DRAFT)) {
+			return cat;
+		}
+		return (Category) cat.newVersion(UserNameProvider.INSTANCE.getUserName());
+	}
+
+	public void publishCategory(Category cat) {
+		CategoryStorageService.getInstance().publish(cat);
+	}
+
+	public void setCategoryOffline(Category cat) {
+		cat.setStatus(DocStatus.OFFLINE);
+		CategoryStorageService.getInstance().save(cat);
 	}
 
 	// PICTURES
@@ -180,29 +215,28 @@ public class ContentSessionFacade {
 		FileStorageService.getInstance().save(file);
 	}
 
+	// For ContentRendering
 	public Category getCategoryByDocKey(String categoryKey) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: DOK URL errechnen!
+		return CategoryStorageService.getInstance().getByDocKey(categoryKey, DocStatus.PUBLISHED);
 	}
 
 	public List<Category> getSubCategoryByParent(String parentCateogry) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: DOK URL errechnen!
+		return CategoryStorageService.getInstance().getObjectsByForeignId(parentCateogry, LUP_CATEGORY_ONLINE_BY_PARENT_KEY);
 	}
 
 	public List<Category> getCategoryTree() {
-		// TODO Auto-generated method stub
-		return null;
+		return CategoryStorageService.getInstance().getCategoryTree();
 	}
 
 	public List<Page> getPagesByCategory(String categoryKey) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: Abstract rechnen
+		return PageStorageService.getInstance().getObjectsByForeignId(categoryKey, "lupPagesOnlineByCatKey");
 	}
 
 	public Page getPageByDocKey(String strDocKey) {
-		// TODO Auto-generated method stub
-		return null;
+		return PageStorageService.getInstance().getByDocKey(strDocKey, DocStatus.PUBLISHED);
 	}
 
 }

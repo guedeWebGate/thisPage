@@ -7,6 +7,8 @@ import org.openntf.xpt.core.dss.annotations.DominoStore;
 import org.openntf.xpt.core.json.annotations.JSONEntity;
 import org.openntf.xpt.core.json.annotations.JSONObject;
 
+import com.ibm.commons.util.StringUtil;
+
 import biz.webgate.xpages.thispage.AbstractBase;
 import biz.webgate.xpages.thispage.rest.IElements;
 
@@ -18,9 +20,14 @@ public class Category extends AbstractBase implements IElements {
 	@DominoEntity(FieldName = "Title")
 	private String m_Title;
 	@DominoEntity(FieldName = "ParentCategory")
-	private String m_ParentCateogry;
+	private String m_ParentCategory;
 	@DominoEntity(FieldName = "DefaultDesignKey")
 	private String m_DefaultDesignKey;
+
+	@DominoEntity(FieldName = "StartPage")
+	private String m_StartPage;
+	// Some lazyloaded Values
+	private String m_CategoryPath;
 
 	/**
 	 * FirstDocumentURL is filled during the process of generation of JSON
@@ -33,15 +40,8 @@ public class Category extends AbstractBase implements IElements {
 	 * Subcategories is filled during the process of generation of the JSON
 	 * Result
 	 */
-	@JSONEntity(jsonproperty = "url")
+	@JSONEntity(jsonproperty = "categories")
 	private List<Category> m_SubCategories;
-	public List<Category> getSubCategories() {
-		return m_SubCategories;
-	}
-
-	public void setSubCategories(List<Category> subCategories) {
-		m_SubCategories = subCategories;
-	}
 
 	/**
 	 * 
@@ -52,8 +52,9 @@ public class Category extends AbstractBase implements IElements {
 	protected AbstractBase buildNewVersion(AbstractBase obj) {
 		Category cat = (Category) obj;
 		cat.m_DefaultDesignKey = m_DefaultDesignKey;
-		cat.m_ParentCateogry = m_ParentCateogry;
+		cat.m_ParentCategory = m_ParentCategory;
 		cat.m_Title = m_Title;
+		cat.m_StartPage = m_StartPage;
 		return cat;
 	}
 
@@ -65,12 +66,12 @@ public class Category extends AbstractBase implements IElements {
 		return m_Title;
 	}
 
-	public void setParentCateogry(String parentCateogry) {
-		m_ParentCateogry = parentCateogry;
+	public void setParentCategory(String parentCateogry) {
+		m_ParentCategory = parentCateogry;
 	}
 
-	public String getParentCateogry() {
-		return m_ParentCateogry;
+	public String getParentCategory() {
+		return m_ParentCategory;
 	}
 
 	public void setDefaultDesignKey(String defaultDesignKey) {
@@ -87,6 +88,33 @@ public class Category extends AbstractBase implements IElements {
 
 	public String getFirstDocumentURL() {
 		return m_FirstDocumentURL;
+	}
+
+	public String getCategoryPath() {
+		if (m_CategoryPath == null) {
+			if (!StringUtil.isEmpty(m_ParentCategory)) {
+				m_CategoryPath = CategoryStorageService.getInstance().buildCategoryPath(m_ParentCategory);
+			} else {
+				m_CategoryPath = "<no parent>";
+			}
+		}
+		return m_CategoryPath;
+	}
+
+	public List<Category> getSubCategories() {
+		return m_SubCategories;
+	}
+
+	public void setSubCategories(List<Category> subCategories) {
+		m_SubCategories = subCategories;
+	}
+
+	public String getStartPage() {
+		return m_StartPage;
+	}
+
+	public void setStartPage(String startPage) {
+		m_StartPage = startPage;
 	}
 
 }

@@ -1,5 +1,6 @@
 package biz.webgate.xpages.thispage.api;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -7,6 +8,8 @@ import javax.faces.context.FacesContext;
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
 import biz.webgate.xpages.thispage.DocStatus;
+import biz.webgate.xpages.thispage.content.Category;
+import biz.webgate.xpages.thispage.content.CategoryStorageService;
 import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.design.DesignBlock;
 import biz.webgate.xpages.thispage.design.DesignBlockStorageService;
@@ -37,6 +40,17 @@ public class DesignSessionFacade {
 
 	public List<PageLayout> allPageLayout4Edit() {
 		return PageLayoutStorageService.getInstance().getObjectsByForeignId(FRM_PAGE_LAYOUT, ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+	}
+
+	public List<String> allPageList4Category() {
+		List<PageLayout> lstPl = allPageLayout4Edit();
+		List<String> lstRC = new LinkedList<String>();
+		for (PageLayout pl : lstPl) {
+			if (pl.getStatus().equals(DocStatus.PUBLISHED)) {
+				lstRC.add(pl.getTitle() + "|" + pl.getDocKey());
+			}
+		}
+		return lstRC;
 	}
 
 	public String newPageLayout(String name) {
@@ -152,10 +166,11 @@ public class DesignSessionFacade {
 	public SingleObjectStore<DesignBlock> getDesignBlockSOS() {
 		return new SingleObjectStore<DesignBlock>(DesignBlockStorageService.getInstance());
 	}
-	
-	//DESIGN PICTURE
+
+	// DESIGN PICTURE
 	public List<DesignPicture> allDesignPictures4Edit() {
-		return DesignPictureStorageService.getInstance().getObjectsByForeignId("frmDesignPicture", ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
+		return DesignPictureStorageService.getInstance().getObjectsByForeignId("frmDesignPicture",
+				ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
 	}
 
 	public DesignPicture createDesignPicture() {
@@ -195,9 +210,8 @@ public class DesignSessionFacade {
 		picture.setStatus(DocStatus.OFFLINE);
 		DesignPictureStorageService.getInstance().save(picture);
 	}
-	
-	
-	//DESIGN FILE
+
+	// DESIGN FILE
 	public List<DesignFile> allDesignFile4Edit() {
 		return DesignFileStorageService.getInstance().getObjectsByForeignId("frmDesignFile", ContentSessionFacade.LUP_ALL_EDITABLE_BY_FORM);
 	}
@@ -241,12 +255,14 @@ public class DesignSessionFacade {
 	}
 
 	public PageLayout getPageLayoutForPage(Page pageCurrent) {
-		// TODO Auto-generated method stub
-		return null;
+		Category cat = CategoryStorageService.getInstance().getByDocKey(pageCurrent.getCategoryKey(), DocStatus.PUBLISHED);
+		System.out.println("CAT: " + cat);
+		PageLayout pl = PageLayoutStorageService.getInstance().getByDocKey(cat.getDefaultDesignKey(), DocStatus.PUBLISHED);
+		System.out.println("PL:" + pl);
+		return pl;
 	}
 
 	public List<DesignBlock> allDesignBlockPublished() {
-		// TODO Auto-generated method stub
-		return null;
+		return DesignBlockStorageService.getInstance().getAll("lupAllOnlineDesignBlockByDocKey");
 	}
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xe:dialog id="dlgCreateCategory" title="New Category">
+		<xp:panel>
+			<xp:this.data>
+				<xe:objectData var="cat" scope="view">
+					<xe:this.createObject><![CDATA[#{javascript:if (viewScope.catID== "" || viewScope.catID == null) {
+return contentBean.createCategory();
+} else {
+	return contentBean.getNewCategoryVersion(viewScope.catID);
+}}]]></xe:this.createObject>
+				</xe:objectData>
+			</xp:this.data>
+			<xe:dialogContent id="dialogContent1">
+				<xp:table style="width:100%">
+					<xp:tr>
+						<xp:td style="width:150px">
+							<xp:label value="New Category Title" id="label1">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:250px">
+							<xp:inputText id="itNewCatName" value="#{cat.title}"
+								required="true" style="width:250px">
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:150px">
+							<xp:label value="Parent Category" id="label2"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:comboBox id="comboBox1" value="#{cat.parentCategory}"
+								style="width:250px">
+								<xp:selectItem itemLabel="no parent category"
+									itemValue="&lt;noparent&gt;">
+								</xp:selectItem>
+								<xp:selectItems>
+									<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:150px">
+							<xp:label value="Startpage" id="label3"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:comboBox id="comboBox2" value="#{cat.startPage}"
+								style="width:250px">
+								<xp:selectItem itemLabel="no start page"
+									itemValue="&lt;nostartpage&gt;">
+								</xp:selectItem>
+								<xp:selectItems>
+									<xp:this.value><![CDATA[#{javascript:contentBean.allPages4StartPage(cat.docKey)}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:150px">
+							<xp:label value="Pagelayout" id="label4"></xp:label>
+						</xp:td>
+						<xp:td>
+							<xp:comboBox id="comboBox3" value="#{cat.defaultDesignKey}"
+								style="width:250px">
+								<xp:selectItem itemLabel="no desgin"
+									itemValue="&lt;no design&gt;">
+								</xp:selectItem>
+								<xp:selectItems>
+									<xp:this.value><![CDATA[#{javascript:designBean.allPageList4Category()}]]></xp:this.value>
+								</xp:selectItems>
+							</xp:comboBox>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+			</xe:dialogContent>
+			<xe:dialogButtonBar id="dialogButtonBar1">
+				<xp:button value="Cancel" id="btCancle">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete" immediate="true">
+						<xp:this.action><![CDATA[#{javascript:
+var dlg = getComponent("dlgCreateCategory");
+dlg.hide();
+viewScope.catID="";}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+				<xp:button id="btCreate" value="Publish Category">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:contentBean.publishCategory(cat);
+var dlg = getComponent("dlgCreateCategory");
+
+var ds = @XPTFindDataSourceDeep("viewPanelCategories", "lstCategories");
+ds.refresh();
+dlg.hide("viewPanelCategories");
+viewScope.catID="";
+}]]></xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+			</xe:dialogButtonBar>
+		</xp:panel>
+	</xe:dialog>
+</xp:view>
