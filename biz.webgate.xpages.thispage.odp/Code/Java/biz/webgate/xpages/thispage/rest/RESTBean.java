@@ -7,8 +7,8 @@ import javax.faces.FacesException;
 import org.openntf.xpt.core.json.JSONService;
 
 import biz.webgate.xpages.thispage.DocStatus;
-import biz.webgate.xpages.thispage.api.ContentSessionFacade;
 import biz.webgate.xpages.thispage.content.Page;
+import biz.webgate.xpages.thispage.content.PageStorageService;
 import biz.webgate.xpages.thispage.design.DesignBlock;
 import biz.webgate.xpages.thispage.design.DesignBlockStorageService;
 import biz.webgate.xpages.thispage.services.html.PageHTMLBuilder;
@@ -44,11 +44,16 @@ public class RESTBean extends CustomServiceBean {
 		String strCall = rest.getHttpRequest().getPathInfo();
 		System.out.println("REST CALL: " + strCall);
 		if (strCall.startsWith(IMG)) {
-			handleIMG(cut(IMG, strCall), rest);
+			handleIMG(cut(IMG, strCall), rest, false);
 			return;
 		}
 		if (strCall.startsWith(PREVIEW_IMG)) {
-			handleIMG(cut(PREVIEW_IMG, strCall), rest);
+			handleIMG(cut(PREVIEW_IMG, strCall), rest,true);
+			return;
+		}
+
+		if (strCall.startsWith(CONTENT_IMG)) {
+			handleIMG(cut(CONTENT_IMG, strCall), rest, false);
 			return;
 		}
 
@@ -72,9 +77,9 @@ public class RESTBean extends CustomServiceBean {
 
 	@SuppressWarnings("unchecked")
 	private void handleJSONFeed(String id, String pageid, RestServiceEngine rest) {
-		Page page = ContentSessionFacade.get().getPageByDocKey(pageid);
+		Page page = PageStorageService.getInstance().getByDocKey(pageid, DocStatus.PUBLISHED);
 		DesignBlock db = DesignBlockStorageService.getInstance().getByDocKey(id, DocStatus.PUBLISHED);
-		Result res = db.getStrategie().getRenderer().buildJSONResult(db, page, rest.getHttpRequest().getParameterMap());
+		IResult res = db.getStrategie().getRenderer().buildJSONResult(db, page, rest.getHttpRequest().getParameterMap());
 		try {
 			JsonWriter jsWriter = new JsonWriter(rest.getHttpResponse().getWriter(), true);
 			JSONService.getInstance().process2JSON(jsWriter, res);
@@ -86,7 +91,7 @@ public class RESTBean extends CustomServiceBean {
 	}
 
 	private void handleHTMLContent(String id, String pageid, RestServiceEngine rest) {
-		Page page = ContentSessionFacade.get().getPageByDocKey(pageid);
+		Page page = PageStorageService.getInstance().getByDocKey(pageid, DocStatus.PUBLISHED);
 		DesignBlock db = DesignBlockStorageService.getInstance().getByDocKey(id, DocStatus.PUBLISHED);
 		try {
 			PrintWriter pw = rest.getHttpResponse().getWriter();
@@ -106,7 +111,7 @@ public class RESTBean extends CustomServiceBean {
 		int nPos = document.indexOf(".html");
 		String strDocKey = document.substring(0, nPos);
 		System.out.println("DocKey ->" + strDocKey);
-		Page page = ContentSessionFacade.get().getPageByDocKey(strDocKey);
+		Page page = PageStorageService.getInstance().getByDocKey(strDocKey, DocStatus.PUBLISHED);;
 		try {
 			PrintWriter pw = rest.getHttpResponse().getWriter();
 			if (page != null) {
@@ -125,11 +130,16 @@ public class RESTBean extends CustomServiceBean {
 		return strCall.substring(prefix.length());
 	}
 
-	private void handleIMG(String strCall, RestServiceEngine rest) {
+	private void handleIMG(String strCall, RestServiceEngine rest, boolean prev) {
 		int nPos = strCall.indexOf("/");
 		String strID = strCall.substring(0, nPos);
 		System.out.println(strID);
-		PhotoPublisher.INSTANCE.processToStreamByID(rest.getHttpRequest(), rest.getHttpResponse(), strID);
+		if (prev) {
+			PhotoPublisher.INSTANCE.processToStreamByID(rest.getHttpRequest(), rest.getHttpResponse(), strID);
+		} else {
+			PhotoPublisher.INSTANCE.processToStreamByDocKey(rest.getHttpRequest(), rest.getHttpResponse(), strID);
+
+		}
 	}
 
 }

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="38a" sequence="11" unid="047DDF7150131F46C1257CD3007068E9">
+<noteinfo noteid="38a" sequence="26" unid="047DDF7150131F46C1257CD3007068E9">
 <created><datetime dst="true">20140509T222748,89+02</datetime></created>
-<modified><datetime dst="true">20140509T224318,62+02</datetime></modified>
-<revised><datetime dst="true">20140509T224318,61+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140509T224318,62+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140514T060914,39+02</datetime></modified>
+<revised><datetime dst="true">20140514T060914,38+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140514T060914,39+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140509T222748,90+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
 <item name="$Flags"><text>34567Cg~[</text></item>
-<item name="$TITLE"><text>biz/webgate/xpages/thispage/rest/Result.java</text></item>
+<item name="$TITLE"><text>biz/webgate/xpages/thispage/rest/AbstractResult.java</text></item>
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 
-<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/rest/Result.java</text></item>
+<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/rest/AbstractResult.java</text></item>
+
+
 
 
 </note>

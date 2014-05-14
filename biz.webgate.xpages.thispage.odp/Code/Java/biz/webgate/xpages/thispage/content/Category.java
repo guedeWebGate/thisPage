@@ -87,6 +87,9 @@ public class Category extends AbstractBase implements IElements {
 	}
 
 	public String getFirstDocumentURL() {
+		if (m_FirstDocumentURL == null) {
+			m_FirstDocumentURL = m_StartPage +".html";
+		}
 		return m_FirstDocumentURL;
 	}
 

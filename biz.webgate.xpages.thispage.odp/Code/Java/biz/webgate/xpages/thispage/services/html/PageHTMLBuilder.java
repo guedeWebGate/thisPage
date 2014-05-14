@@ -1,11 +1,17 @@
 package biz.webgate.xpages.thispage.services.html;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import biz.webgate.xpages.thispage.DocStatus;
 import biz.webgate.xpages.thispage.api.DesignSessionFacade;
 import biz.webgate.xpages.thispage.content.Page;
+import biz.webgate.xpages.thispage.content.PageStorageService;
 import biz.webgate.xpages.thispage.design.DesignBlock;
 import biz.webgate.xpages.thispage.design.PageLayout;
 
@@ -66,5 +72,26 @@ public class PageHTMLBuilder {
 		sbRC.append("<script type=\"text/javascript\">dojo.require(\"ibm.xsp.widget.layout.xspClientDojo\")</script>\n");
 		sbRC.append("<script type=\"text/javascript\">dojo.require(\"thispage.container\")</script>\n");
 		return sbRC;
+	}
+	
+	public void processHTTPCall() {
+		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletRequest req = (HttpServletRequest)context.getExternalContext().getRequest();
+			HttpServletResponse res = (HttpServletResponse)context.getExternalContext().getResponse();
+			String id = req.getParameter("id");
+			if (id.endsWith(".html")) {
+				int nPos = id.indexOf(".html");
+				id = id.substring(0, nPos);
+			}
+			Page pg = PageStorageService.getInstance().getByDocKey(id, DocStatus.PUBLISHED);
+			PrintWriter pw = res.getWriter();
+			pw.println(buildHTMLContent(pg, req));
+			context.responseComplete();
+			//pw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new FacesException("HTML Builder Error: ", e);
+		}
 	}
 }

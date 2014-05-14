@@ -20,7 +20,7 @@ import biz.webgate.xpages.thispage.content.PictureStorageService;
 import biz.webgate.xpages.thispage.services.UserNameProvider;
 
 public class ContentSessionFacade {
-	private static final String LUP_CATEGORY_ONLINE_BY_PARENT_KEY = "lupCategoryOnlineByParentKey";
+	public static final String LUP_CATEGORY_ONLINE_BY_PARENT_KEY = "lupCategoryOnlineByParentKey";
 	private static final String FRM_PICTURE = "frmPicture";
 	private static final String FRM_CATEGORY = "frmCategory";
 	private static final String FRM_PAGE = "frmPage";
@@ -40,12 +40,12 @@ public class ContentSessionFacade {
 	public List<Page> allPages4Edit() {
 		return PageStorageService.getInstance().getObjectsByForeignId(FRM_PAGE, LUP_ALL_EDITABLE_BY_FORM);
 	}
-	
+
 	public List<String> allPages4StartPage(String categorieKey) {
-		List<Page> lstPages = getPagesByCategory(categorieKey);
+		List<Page> lstPages = PageStorageService.getInstance().getObjectsByForeignId(categorieKey, "lupPagesOnlineByCatKey");
 		List<String> lstRC = new LinkedList<String>();
-		for (Page page: lstPages) {
-			lstRC.add(page.getTitle() +"|"+ page.getDocKey());
+		for (Page page : lstPages) {
+			lstRC.add(page.getTitle() + "|" + page.getDocKey());
 		}
 		return lstRC;
 	}
@@ -215,28 +215,16 @@ public class ContentSessionFacade {
 		FileStorageService.getInstance().save(file);
 	}
 
-	// For ContentRendering
-	public Category getCategoryByDocKey(String categoryKey) {
-		// TODO: DOK URL errechnen!
-		return CategoryStorageService.getInstance().getByDocKey(categoryKey, DocStatus.PUBLISHED);
-	}
+	// public List<Page> getPagesByCategory(String categoryKey) {
+	// TODO: Abstract rechnen
+	// return
+	// PageStorageService.getInstance().getObjectsByForeignId(categoryKey,
+	// "lupPagesOnlineByCatKey");
+	// }
 
-	public List<Category> getSubCategoryByParent(String parentCateogry) {
-		// TODO: DOK URL errechnen!
-		return CategoryStorageService.getInstance().getObjectsByForeignId(parentCateogry, LUP_CATEGORY_ONLINE_BY_PARENT_KEY);
-	}
-
-	public List<Category> getCategoryTree() {
-		return CategoryStorageService.getInstance().getCategoryTree();
-	}
-
-	public List<Page> getPagesByCategory(String categoryKey) {
-		// TODO: Abstract rechnen
-		return PageStorageService.getInstance().getObjectsByForeignId(categoryKey, "lupPagesOnlineByCatKey");
-	}
-
-	public Page getPageByDocKey(String strDocKey) {
-		return PageStorageService.getInstance().getByDocKey(strDocKey, DocStatus.PUBLISHED);
-	}
+	// public Page getPageByDocKey(String strDocKey) {
+	// return PageStorageService.getInstance().getByDocKey(strDocKey,
+	// DocStatus.PUBLISHED);
+	// }
 
 }

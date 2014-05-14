@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='C1257CBE0041DEB2'>
+<noteinfo noteid='3d6' unid='183576413AF0963CC1257CD600624BFE' sequence='3'>
+<created><datetime dst='true'>20140512T195339,82+02</datetime></created>
+<modified><datetime dst='true'>20140512T195537,13+02</datetime></modified>
+<revised><datetime dst='true'>20140512T195537,12+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20140512T195633,20+02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20140512T195339,83+02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
+<wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
+<item name='$FormulaClass' sign='true'><text>1</text></item>
+<item name='$TITLE' sign='true'><text>lupAllOnlineDesignBlockByDocKey</text></item>
+<item name='$Index' sign='true'><text/></item>
+<item name='$Formula' summary='true' sign='true'><formula compiled='true'>
+nAAFACIAHQADAAYACQAEAERvY0tleSRDb25mbGljdCRSRUYABAAEAAAAUAAFAAQARm9ybQEADgBm
+cm1EZXNpZ25CbG9jawoCBQAGAERvY0tleQEAAAALAhwCBQAGAFN0YXR1cwEACQBQVUJMSVNIRUQA
+CgIcAgMABwAkAB4ACUwxUzJTM1M0UzVTMkU2UzdTOFMyRTlTMTBTMTFT
+</formula></item>
+<item name='$Collation' summary='true'>
+<rawitemdata type='2'>
+EwABAABEAGYAAAAGAERvY0tleQ==
+</rawitemdata></item>
+<item name='$ViewFormat' summary='true' sign='true'>
+<rawitemdata type='5'>
+AQABAAEACAAAAFZDAQAGAAYAAAAAAFAAAQAACgAAAAAAAAAAAAICAAAARG9jS2V5RG9jS2V5JgAB
+AAAAAQEACQEAAAoBAQ4KAAABAK0rAQABAAEAAAAAAAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAQgAAAAAAAQD///8ABQD///8AAQAAAAAAAAAAAAAAAAAB
+AP///wABAP///wAAAAEAAAAAAAEAAAAAAAEAAAAAAAAACAAAAAAAAQA=
+</rawitemdata></item>
+<item name='$Comment' sign='true'><text/></item>
+<item name='$Flags'><text>PYw</text></item>
+<item name='$DesignerVersion'><text>8.5.3</text></item></note>
+

@@ -10,13 +10,13 @@ import com.ibm.xsp.page.compiled.ExpressionEvaluatorImpl;
 
 import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.design.DesignBlock;
-import biz.webgate.xpages.thispage.rest.Result;
+import biz.webgate.xpages.thispage.rest.IResult;
 
 public class SSJSStrategyRenderer extends AbstractDesignBlockStrategyRenderer {
 
 	private static final SSJSStrategyRenderer m_Renderer = new SSJSStrategyRenderer();
 
-	public Result buildJSONResult(DesignBlock db, Page page, Map<String, String> values) {
+	public IResult<?> buildJSONResult(DesignBlock db, Page page, Map<String, String> values) {
 		throw new UnsupportedOperationException("SSJSStrategyRenderer has no JSON Call");
 	}
 

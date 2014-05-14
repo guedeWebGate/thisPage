@@ -13,28 +13,24 @@
 			</xp:this.entries>
 		</xp:acl>
 	</xp:this.acl>
-	<xe:restService id="restService1" pathInfo="/preview/">
-		<xe:this.service>
-			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
-		</xe:this.service>
-	</xe:restService>
-	<xc:ccApplication navigationPath="/content/Pictures"
-		pageTitle="Pictures">
+	
+	<xc:ccApplication navigationPath="/content/Categories"
+		pageTitle="Categories">
 
 
 		<xp:this.facets>
 			<xp:panel xp:key="facetRight"></xp:panel>
 			<xp:panel xp:key="facetMiddle">
-				<xp:button value="New Picture" id="btNewPicture">
+				<xp:button value="New Category" id="btNewCategory">
 					<xp:eventHandler event="onclick" submit="true"
 						refreshMode="complete">
-						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgCreatePicture");
+						<xp:this.action><![CDATA[#{javascript:var dlg = getComponent("dlgCreateCategory");
 dlg.show();}]]></xp:this.action>
 					</xp:eventHandler>
 				</xp:button>
 
-				<xp:viewPanel rows="25" id="viewPanelPictures"
-					cellpadding="2" var="pictureRow" viewStyle="width:100%">
+				<xp:viewPanel rows="25" id="viewPanelCategories"
+					cellpadding="2" var="catRow" viewStyle="width:100%">
 					<xp:this.facets>
 						<xp:pager partialRefresh="true"
 							layout="Previous Group Next" xp:key="headerPager" id="pager1">
@@ -45,9 +41,9 @@ dlg.show();}]]></xp:this.action>
 					</xp:this.facets>
 
 					<xp:this.data>
-						<xpt:objectlistSource var="lstPictures"
+						<xpt:objectlistSource var="lstCategories"
 							ascending="true"
-							buildValues="#{javascript:contentBean.allPictures4Edit()}"
+							buildValues="#{javascript:contentBean.allCategories4Edit()}"
 							ignoreRequestParams="true" scope="view" sortAttribute="title">
 							<xpt:this.sortableAttributes>
 								<xp:value>title</xp:value>
@@ -59,30 +55,30 @@ dlg.show();}]]></xp:this.action>
 
 					</xp:this.data>
 					<xp:viewColumn id="viewColumn1">
-						<xp:text value="#{pictureRow.title}"></xp:text>
+						<xp:text value="#{catRow.title}"></xp:text>
 						<xp:br></xp:br>
 						<xp:link escape="true" text="edit"
 							id="lnkEdit">
 							<xp:eventHandler event="onclick"
 								submit="true" refreshMode="complete">
-								<xp:this.action><![CDATA[#{javascript:viewScope.pictureID=pictureRow.ID;
-var dlg = getComponent("dlgCreatePicture");
+								<xp:this.action><![CDATA[#{javascript:viewScope.catID=catRow.ID;
+var dlg = getComponent("dlgCreateCategory");
 dlg.show();
 }]]></xp:this.action>
 							</xp:eventHandler>
 						</xp:link>
 						<xp:text>
 							<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
-							<xp:this.rendered><![CDATA[#{javascript:pictureRow.status == "PUBLISHED"}]]></xp:this.rendered>
+							<xp:this.rendered><![CDATA[#{javascript:catRow.status == "PUBLISHED"}]]></xp:this.rendered>
 						</xp:text>
 						<xp:link escape="true" text="offline"
 							id="link1">
-							<xp:this.rendered><![CDATA[#{javascript:pictureRow.status == "PUBLISHED"}]]></xp:this.rendered>
+							<xp:this.rendered><![CDATA[#{javascript:catRow.status == "PUBLISHED"}]]></xp:this.rendered>
 							<xp:eventHandler event="onclick"
 								submit="true" refreshMode="partial"
-								refreshId="viewPanelPictures">
-								<xp:this.action><![CDATA[#{javascript:contentBean.setPictureOffline( pictureRow.getBO());
-var ds = @XPTFindDataSourceDeep("viewPanelPictures","lstPictures");
+								refreshId="viewPanelCategories">
+								<xp:this.action><![CDATA[#{javascript:contentBean.setCategoryOffline( catRow.getBO());
+var ds = @XPTFindDataSourceDeep("viewPanelCategories","lstCategories");
 ds.refresh();}]]></xp:this.action>
 							</xp:eventHandler>
 						</xp:link>
@@ -90,18 +86,10 @@ ds.refresh();}]]></xp:this.action>
 							id="viewColumnHeader1">
 						</xp:viewColumnHeader>
 					</xp:viewColumn>
-					<xp:viewColumn id="viewColumn3">
-						<xp:viewColumnHeader value="Picture"
+					<xp:viewColumn id="viewColumn3" columnName="categoryPath">
+						<xp:viewColumnHeader value="Category Path"
 							id="viewColumnHeader3" sortable="true">
 						</xp:viewColumnHeader>
-						<xp:image id="imgPreview">
-							<xp:this.url><![CDATA[#{javascript:"/pictures.xsp/preview/img/"+pictureRow.ID+"/"+pictureRow.title+"?thumbnail=1";}]]></xp:this.url>
-						</xp:image>
-						<xp:br></xp:br>
-						<xp:text id="cfPictureURL">
-
-							<xp:this.value><![CDATA[#{javascript:"img/"+pictureRow.docKey+"/"+pictureRow.title}]]></xp:this.value>
-						</xp:text>
 					</xp:viewColumn>
 
 					<xp:viewColumn id="viewColumn2">
@@ -109,7 +97,7 @@ ds.refresh();}]]></xp:this.action>
 							id="viewColumnHeader2" sortable="true">
 						</xp:viewColumnHeader>
 						<xp:text>
-							<xp:this.value><![CDATA[#{javascript:@Name("[CN]", pictureRow.creator )}]]></xp:this.value>
+							<xp:this.value><![CDATA[#{javascript:@Name("[CN]", catRow.creator )}]]></xp:this.value>
 						</xp:text>
 					</xp:viewColumn>
 					<xp:viewColumn columnName="created" id="viewColumn6"
@@ -135,7 +123,9 @@ ds.refresh();}]]></xp:this.action>
 					</xp:viewColumn>
 
 				</xp:viewPanel>
-				<xc:ccCreateNewPictureDlg></xc:ccCreateNewPictureDlg>
+				
+				
+				<xc:ccCreateNewCategory></xc:ccCreateNewCategory>
 			</xp:panel>
 			<xc:ccNavContent xp:key="facetLeft"></xc:ccNavContent>
 		</xp:this.facets>

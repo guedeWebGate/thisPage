@@ -23,11 +23,12 @@ dojo.declare("thispage.container", [ dijit._Widget,
 	feed : null,
 	templateString : "",
 	targetid : null,
+	pageid:null,
 	postCreate : function() {
-		alert(this.templateString);
+		//alert(this.templateString);
 		var mySelf = this;
 		var xhrArgs = {
-			url : mySelf.proxyurl +"../content/feed?id="+mySelf.containerid,
+			url : "xsp/this.page/db/feed.json?id="+mySelf.containerid+"&pageid="+mySelf.pageid,
 			handleAs : "json",
 			headers : {
 				"Content-Type" : "application/json"
