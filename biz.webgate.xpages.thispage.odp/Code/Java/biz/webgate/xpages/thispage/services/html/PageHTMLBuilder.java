@@ -54,7 +54,11 @@ public class PageHTMLBuilder {
 			htmlCode = StringUtil.replace(htmlCode, "###SYSTEM_LOADER###", sbLoaderCode.toString());
 			htmlCode = StringUtil.replace(htmlCode, "###BROWSER_TITLE###", pageCurrent.getBrowserTitle());
 			htmlCode = StringUtil.replace(htmlCode, "###DOCUMENT_TITLE###", pageCurrent.getTitle());
-			htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", pageCurrent.getContent().getHTML());
+			if (pageCurrent.getContent() != null) {
+				htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", pageCurrent.getContent().getHTML());
+			} else {
+				htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", "");	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

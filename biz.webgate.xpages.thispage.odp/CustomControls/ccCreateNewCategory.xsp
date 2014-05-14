@@ -13,6 +13,7 @@ return contentBean.createCategory();
 				</xe:objectData>
 			</xp:this.data>
 			<xe:dialogContent id="dialogContent1">
+				<xp:messages id="messages1"></xp:messages>
 				<xp:table style="width:100%">
 					<xp:tr>
 						<xp:td style="width:150px">
@@ -43,6 +44,22 @@ return contentBean.createCategory();
 					</xp:tr>
 					<xp:tr>
 						<xp:td style="width:150px">
+							<xp:label value="Position" id="label5">
+							</xp:label>
+						</xp:td>
+						<xp:td style="width:250px">
+							<xp:inputText id="inputText1" value="#{cat.sortOrder}"
+								required="true" style="width:250px">
+								<xp:this.converter>
+									<xp:convertNumber type="number"
+										integerOnly="false">
+									</xp:convertNumber>
+								</xp:this.converter>
+							</xp:inputText>
+						</xp:td>
+					</xp:tr>
+					<xp:tr>
+						<xp:td style="width:150px">
 							<xp:label value="Startpage" id="label3"></xp:label>
 						</xp:td>
 						<xp:td>
@@ -64,8 +81,7 @@ return contentBean.createCategory();
 						<xp:td>
 							<xp:comboBox id="comboBox3" value="#{cat.defaultDesignKey}"
 								style="width:250px">
-								<xp:selectItem itemLabel="no desgin"
-									itemValue="&lt;no design&gt;">
+								<xp:selectItem itemLabel="no desgin" itemValue="&lt;no design&gt;">
 								</xp:selectItem>
 								<xp:selectItems>
 									<xp:this.value><![CDATA[#{javascript:designBean.allPageList4Category()}]]></xp:this.value>

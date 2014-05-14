@@ -38,4 +38,9 @@ public class SSJSStrategyRenderer extends AbstractDesignBlockStrategyRenderer {
 		}
 	}
 
+	@Override
+	public String buildJSLoader(DesignBlock db, Page page) {
+		return "";
+	}
+
 }

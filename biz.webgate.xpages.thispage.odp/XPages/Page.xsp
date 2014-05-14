@@ -39,6 +39,17 @@
 						</xp:button>
 					</xp:panel>
 				</xe:widgetContainer>
+				<xe:widgetContainer>
+				<xp:button value="TEST" id="button4">
+					<xp:eventHandler event="onclick" submit="false">
+						<xp:this.script><![CDATA[var richCKEditor = CKEDITOR.instances["#{id:inputRichText1}"];
+alert (richCKEditor.getData());
+richCKEditor.insertHtml( '<h2>This is a sample header</h2><p>This is a sample paragraph.</p>' );
+
+]]></xp:this.script>
+					</xp:eventHandler></xp:button>
+				(
+				</xe:widgetContainer>
 			</xp:panel>
 			<xp:panel xp:key="facetMiddle">
 				<xe:formTable id="formTable1" labelWidth="200px"

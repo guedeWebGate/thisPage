@@ -22,5 +22,10 @@ public class HTMLStrategyRenderer extends AbstractDesignBlockStrategyRenderer {
 	public String buildHTMLTag(DesignBlock db, Page page) {
 		return db.getMainContent();
 	}
+	
+	@Override
+	public String buildJSLoader(DesignBlock db, Page page) {
+		return "";
+	}
 
 }

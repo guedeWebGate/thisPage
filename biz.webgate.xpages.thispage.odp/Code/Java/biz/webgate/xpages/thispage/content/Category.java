@@ -26,6 +26,10 @@ public class Category extends AbstractBase implements IElements {
 
 	@DominoEntity(FieldName = "StartPage")
 	private String m_StartPage;
+
+	@DominoEntity(FieldName = "SortOrder")
+	private double m_SortOrder = 0;
+
 	// Some lazyloaded Values
 	private String m_CategoryPath;
 
@@ -35,6 +39,17 @@ public class Category extends AbstractBase implements IElements {
 	 */
 	@JSONEntity(jsonproperty = "url")
 	private String m_FirstDocumentURL;
+
+	@JSONEntity(jsonproperty = "active")
+	private boolean m_Selected;
+
+	public boolean isSelected() {
+		return m_Selected;
+	}
+
+	public void setSelected(boolean selected) {
+		m_Selected = selected;
+	}
 
 	/**
 	 * Subcategories is filled during the process of generation of the JSON
@@ -88,7 +103,7 @@ public class Category extends AbstractBase implements IElements {
 
 	public String getFirstDocumentURL() {
 		if (m_FirstDocumentURL == null) {
-			m_FirstDocumentURL = m_StartPage +".html";
+			m_FirstDocumentURL = "thispage.xsp?id=" + m_StartPage + ".html";
 		}
 		return m_FirstDocumentURL;
 	}
@@ -120,4 +135,21 @@ public class Category extends AbstractBase implements IElements {
 		m_StartPage = startPage;
 	}
 
+	public void setSortOrder(double sortOrder) {
+		m_SortOrder = sortOrder;
+	}
+
+	public double getSortOrder() {
+		return m_SortOrder;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Category && getID().equals(((Category) obj).getID());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getID().hashCode();
+	}
 }
