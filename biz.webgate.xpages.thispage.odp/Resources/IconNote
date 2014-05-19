@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
  maintenanceversion='1.0' replicaid='C1257CBE0041DEB2'>
-<noteinfo noteid='11a' unid='C6505297B7E54B0DC1257CBE0041DEB5' sequence='8'>
+<noteinfo noteid='11a' unid='C6505297B7E54B0DC1257CBE0041DEB5' sequence='18'>
 <created><datetime dst='true'>20140418T135928,53+02</datetime></created>
-<modified><datetime dst='true'>20140423T110726,02+02</datetime></modified>
-<revised><datetime dst='true'>20140423T110726,01+02</datetime></revised>
-<lastaccessed><datetime dst='true'>20140423T110726,02+02</datetime></lastaccessed>
+<modified><datetime dst='true'>20140519T171912,35+02</datetime></modified>
+<revised><datetime dst='true'>20140519T171912,34+02</datetime></revised>
+<lastaccessed><datetime dst='true'>20140519T171912,35+02</datetime></lastaccessed>
 <addedtofile><datetime dst='true'>20140418T135928,56+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
@@ -25,7 +25,9 @@ EREdd3fRERER8AAAAAAA////Ed3dEf///wAAAAAAAAAAAPERER8AAAAAAAAAAAAAAAAP///wAAAA
 AAAAUEECICABAAD/////+A4DgA==
 </rawitemdata></item>
 <item name='$Daos'><text>0</text></item>
-<item name='$TITLE'><text>ThisPage WCMS</text></item>
-<item name='$Flags'><text>J</text></item>
-<item name='$FlagsNoRefresh'><text>rv</text></item></note>
+<item name='$Flags'><text>J?</text></item>
+<item name='$LaunchXPageRunOnServer'><text>1</text></item>
+<item name='$FlagsNoRefresh'><text>rv</text></item>
+<item name='$TITLE'><text>ThisPage WCMS
+#1WebGate.thisPage</text></item></note>
 

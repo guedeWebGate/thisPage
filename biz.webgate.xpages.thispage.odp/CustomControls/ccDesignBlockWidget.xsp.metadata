@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="31a" sequence="10" unid="CD7272EAC5B012CAC1257CC6004C2822">
+<noteinfo noteid="31a" sequence="21" unid="CD7272EAC5B012CAC1257CC6004C2822">
 <created><datetime dst="true">20140426T155150,10+02</datetime></created>
-<modified><datetime dst="true">20140426T155600,41+02</datetime></modified>
-<revised><datetime dst="true">20140426T155600,40+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140426T155600,41+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140514T180221,23+02</datetime></modified>
+<revised><datetime dst="true">20140514T180221,22+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140514T180221,23+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140426T155150,11+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
 <item name="$Flags"><text>gC~4;</text></item>
-
-
-<item name="$FileNames" sign="true"><text>ccDesignContentWidget_1.xsp</text></item>
-
-
 <item name="$TITLE" sign="true"><text>ccDesignBlockWidget.xsp</text></item>
+
+
+
+
+
+<item name="$FileNames" sign="true"><text>ccDesignBlockWidget.xsp</text></item>
+
+
 <item name="$DesignerVersion"><text>8.5</text></item>
-
-
-
 
 </note>

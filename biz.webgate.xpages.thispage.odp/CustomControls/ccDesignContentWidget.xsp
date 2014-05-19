@@ -10,7 +10,7 @@
 		</xp:this.data>
 
 		<xe:widgetContainer id="wcDesignBlock"
-			titleBarText="Desing Block" style="height:100%;width:250.0px"
+			titleBarText="Desing Block" style="height:100%;width:100%"
 			scrollable="true">
 			<xe:this.dropDownNodes>
 				<xe:basicLeafNode title="new Design Block"

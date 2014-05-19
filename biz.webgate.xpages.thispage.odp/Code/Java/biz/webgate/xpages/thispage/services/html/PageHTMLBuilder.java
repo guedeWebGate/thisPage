@@ -29,10 +29,8 @@ public class PageHTMLBuilder {
 	}
 
 	public String buildHTMLContent(Page pageCurrent, HttpServletRequest request) {
-		System.out.println("Search pl...");
 		PageLayout pl = DesignSessionFacade.get().getPageLayoutForPage(pageCurrent);
 		String htmlCode = pl.getLayout();
-		System.out.println("HTML-CODE:" + htmlCode);
 		try {
 			StringBuilder sbJSCode = buildInternalJS(request);
 			StringBuilder sbLoaderCode = new StringBuilder();

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="1aa" sequence="4" unid="D8C0B00797464081C1257CBE0051F382">
+<noteinfo noteid="1aa" sequence="22" unid="D8C0B00797464081C1257CBE0051F382">
 <created><datetime dst="true">20140418T165507,54+02</datetime></created>
-<modified><datetime dst="true">20140418T165519,18+02</datetime></modified>
-<revised><datetime dst="true">20140418T165519,17+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140418T165519,18+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140510T105844,89+02</datetime></modified>
+<revised><datetime dst="true">20140510T105844,88+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140510T105844,89+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140418T165507,55+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
@@ -12,4 +12,7 @@
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 
-<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/content/FileStorageService.java</text></item></note>
+<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/content/FileStorageService.java</text></item>
+
+
+</note>

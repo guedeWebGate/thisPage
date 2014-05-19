@@ -23,33 +23,35 @@
 		<xp:this.facets>
 			<xp:panel xp:key="facetLeft">
 				<xc:ccNavDesign></xc:ccNavDesign></xp:panel>
-			<xp:panel xp:key="facetRight"></xp:panel>
 			<xp:panel xp:key="facetMiddle">
 				<xp:div align="left">
 
-					<xp:table>
+					<xp:table style="width:100%">
 						<xp:tr>
-							<xp:td align="left" valign="top">
+							<xp:td align="left" valign="top"
+								style="width:33%">
 								<xc:ccPageLayoutWidget></xc:ccPageLayoutWidget>
 							</xp:td>
 							<xp:td align="left" valign="top">
 
 								<xc:ccDesignBlockWidget></xc:ccDesignBlockWidget>
 							</xp:td>
-							<xp:td align="left" valign="top">
+							<xp:td align="left" valign="top"
+								style="width:33%">
 
 								<xc:ccDesignContentWidget></xc:ccDesignContentWidget>
 							</xp:td>
 						</xp:tr>
 						<xp:tr>
-							<xp:td align="left" valign="top">
+							<xp:td align="left" valign="top"
+								style="width:66%" colspan="2">
 
 								<xc:ccDesignPictureWidget></xc:ccDesignPictureWidget>
 							</xp:td>
-							<xp:td align="left" valign="top">
+							<xp:td align="left" valign="top"
+								style="width:33%">
 								<xc:ccDesignFileWidget></xc:ccDesignFileWidget>
 							</xp:td>
-							<xp:td></xp:td>
 						</xp:tr>
 					</xp:table>
 				</xp:div>

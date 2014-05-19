@@ -11,7 +11,7 @@
 
 		<xe:widgetContainer id="wcDesignFile"
 			titleBarText="Desing Files/Resources"
-			style="height:100%;width:250.0px" scrollable="true">
+			style="height:100%;width:100%" scrollable="true">
 			<xe:this.dropDownNodes>
 				<xe:basicLeafNode title="new Design File"
 					label="new Design File">

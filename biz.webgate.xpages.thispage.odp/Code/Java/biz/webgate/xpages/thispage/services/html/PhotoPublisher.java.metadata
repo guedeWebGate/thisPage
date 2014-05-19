@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="2b6" sequence="4" unid="F4014B99F0CE623EC1257CC3002B6A0A">
+<noteinfo noteid="2b6" sequence="30" unid="F4014B99F0CE623EC1257CC3002B6A0A">
 <created><datetime dst="true">20140423T095411,94+02</datetime></created>
-<modified><datetime dst="true">20140423T105030,16+02</datetime></modified>
-<revised><datetime dst="true">20140423T105030,15+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140423T105030,16+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140514T061255,26+02</datetime></modified>
+<revised><datetime dst="true">20140514T061255,25+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140514T061255,26+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140423T095411,95+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
@@ -12,4 +12,7 @@
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 
-<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/services/html/PhotoPublisher.java</text></item></note>
+<item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/services/html/PhotoPublisher.java</text></item>
+
+
+</note>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="3a6" sequence="6" unid="70B3BF39DC19CB6AC1257CD400286294">
+<noteinfo noteid="3a6" sequence="13" unid="70B3BF39DC19CB6AC1257CD400286294">
 <created><datetime dst="true">20140510T092106,76+02</datetime></created>
-<modified><datetime dst="true">20140510T093249,24+02</datetime></modified>
-<revised><datetime dst="true">20140510T093249,23+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140510T093249,24+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140514T095000,02+02</datetime></modified>
+<revised><datetime dst="true">20140514T095000,01+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140514T095000,02+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140510T092106,77+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
 <item name="$Flags"><text>34567Cg~[</text></item>
 <item name="$TITLE"><text>biz/webgate/xpages/thispage/renderer/SSJSStrategyRenderer.java</text></item>
+
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 
 <item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/renderer/SSJSStrategyRenderer.java</text></item>
-
 
 </note>

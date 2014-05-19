@@ -28,7 +28,7 @@
 			scope="view">
 		</xpt:dssObjectSource>
 	</xp:this.data>
-	<xc:ccApplication navigationPath="/content/Page">
+	<xc:ccApplication navigationPath="/design/PageLayout">
 		<xp:this.facets>
 			<xc:ccNavDesign xp:key="facetLeft"></xc:ccNavDesign>
 			<xp:panel xp:key="facetRight">

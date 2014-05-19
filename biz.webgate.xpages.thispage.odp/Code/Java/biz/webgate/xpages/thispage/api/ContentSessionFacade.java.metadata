@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="C1257CBE0041DEB2" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="39a" sequence="5" unid="6BB89BC7CA2CE37EC1257CD400256FA9">
+<noteinfo noteid="39a" sequence="52" unid="6BB89BC7CA2CE37EC1257CD400256FA9">
 <created><datetime dst="true">20140510T084854,17+02</datetime></created>
-<modified><datetime dst="true">20140510T084928,64+02</datetime></modified>
-<revised><datetime dst="true">20140510T084928,63+02</datetime></revised>
-<lastaccessed><datetime dst="true">20140510T084928,64+02</datetime></lastaccessed>
+<modified><datetime dst="true">20140513T230921,05+02</datetime></modified>
+<revised><datetime dst="true">20140513T230921,04+02</datetime></revised>
+<lastaccessed><datetime dst="true">20140513T230921,05+02</datetime></lastaccessed>
 <addedtofile><datetime dst="true">20140510T084854,21+02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></updatedby>
 <wassignedby><name>CN=Christian Guedemann/O=WGC/C=CH</name></wassignedby>
 <item name="$Flags"><text>34567Cg~[</text></item>
 <item name="$TITLE"><text>biz/webgate/xpages/thispage/api/ContentSessionFacade.java</text></item>
+
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 
 <item name="$FileNames" sign="true"><text>biz/webgate/xpages/thispage/api/ContentSessionFacade.java</text></item>
-
 
 </note>

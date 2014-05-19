@@ -10,7 +10,7 @@
 		</xp:this.data>
 
 		<xe:widgetContainer id="wcDesignContent"
-			titleBarText="CSS / JS Content" style="height:100%;width:250.0px"
+			titleBarText="CSS / JS Content" style="height:100%;width:100%"
 			scrollable="true">
 			<xe:this.dropDownNodes>
 				<xe:basicLeafNode title="new JS / CSS File"
@@ -19,8 +19,8 @@
 				</xe:basicLeafNode>
 			</xe:this.dropDownNodes>
 			<xp:table style="width:100%" styleClass="lotusTable">
-				<xp:repeat rows="10" var="designContent"
-					indexVar="nDC" value="#{lstDesignContent}">
+				<xp:repeat rows="10" var="designContent" indexVar="nDC"
+					value="#{lstDesignContent}">
 					<xp:tr>
 						<xp:td>
 							<xp:text value="#{designContent.title}">
@@ -43,7 +43,8 @@ context.redirectToPage("DesignContent.xsp?action=editObject&objectId="+id);}]]><
 								id="link1">
 								<xp:this.rendered><![CDATA[#{javascript:designContent.status == "PUBLISHED"}]]></xp:this.rendered>
 								<xp:eventHandler event="onclick"
-									submit="true" refreshMode="partial" refreshId="wcDesignContent">
+									submit="true" refreshMode="partial"
+									refreshId="wcDesignContent">
 									<xp:this.action><![CDATA[#{javascript:designBean.setDesignContentOffline( designContent.getBO());
 var ds = @XPTFindDataSourceDeep("panDesignContent","lstDesignContent");
 ds.refresh();}]]></xp:this.action>

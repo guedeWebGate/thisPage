@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xpt="http://www.openntf.org/xsp/xpt">
+	<xp:this.data>
+		<xpt:objectlistSource var="lstPicPicker" ascending="true"
+			buildValues="#{javascript:contentBean.allPictures4Edit()}"
+			ignoreRequestParams="true" scope="view" sortAttribute="title">
+			<xpt:this.sortableAttributes>
+				<xp:value>title</xp:value>
+				<xp:value>categoryPath</xp:value>
+				<xp:value>status</xp:value>
+				<xp:value>creator</xp:value>
+			</xpt:this.sortableAttributes>
+		</xpt:objectlistSource>
+	</xp:this.data>
+
+	<xe:widgetContainer id="widgetContainer1"
+		titleBarText="Available Pictures" type="sidebar">
+		<xp:table style="width:100%" styleClass="lotusTable">
+			<xp:repeat rows="10" var="pic" indexVar="nDC"
+				value="#{lstPicPicker}">
+				<xp:tr>
+					<xp:td>
+						<xp:text value="#{pic.title}"></xp:text>
+						<xp:br></xp:br>
+						<xp:image id="imgPreview">
+							<xp:this.url><![CDATA[#{javascript:"/Page.xsp/preview/img/"+pic.ID+"/"+pic.title+"?thumbnail=2";}]]></xp:this.url>
+						</xp:image>
+
+						<xp:br></xp:br>
+						<xp:link escape="true" text="insert to page"
+							id="lnkAdd">
+							
+						<xp:eventHandler event="onclick"
+							submit="false">
+							<xp:this.script><![CDATA[var url = "#{javascript:'xsp/this.page/img/'+pic.docKey +'/'+pic.title}"
+var richCKEditor = CKEDITOR.instances["#{id:inputRichText1}"];
+richCKEditor.insertHtml( '<img src="'+url+'"></img>' );
+
+]]></xp:this.script>
+						</xp:eventHandler></xp:link>
+					</xp:td>
+				</xp:tr>
+			</xp:repeat>
+		</xp:table>
+
+	</xe:widgetContainer>
+
+</xp:view>
