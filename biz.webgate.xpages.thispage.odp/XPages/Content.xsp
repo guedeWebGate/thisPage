@@ -18,11 +18,6 @@
 			</xp:this.entries>
 		</xp:acl>
 	</xp:this.acl>
-	<xe:restService id="restService2" pathInfo="/img/">
-		<xe:this.service>
-			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
-		</xe:this.service>
-	</xe:restService>
 	<xc:ccApplication navigationPath="/content/Pages"
 		pageTitle="Pages">
 

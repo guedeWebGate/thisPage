@@ -17,7 +17,6 @@ import biz.webgate.xpages.thispage.AbstractContentStorageService;
 import biz.webgate.xpages.thispage.DocStatus;
 import biz.webgate.xpages.thispage.IPicture;
 import biz.webgate.xpages.thispage.content.PictureStorageService;
-import biz.webgate.xpages.thispage.design.DesignPicture;
 import biz.webgate.xpages.thispage.design.DesignPictureStorageService;
 
 import com.ibm.commons.util.io.StreamUtil;

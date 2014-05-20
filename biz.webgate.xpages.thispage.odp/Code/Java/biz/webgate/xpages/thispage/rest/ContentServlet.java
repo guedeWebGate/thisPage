@@ -28,6 +28,7 @@ import biz.webgate.xpages.thispage.design.DesignFile;
 import biz.webgate.xpages.thispage.design.DesignFileStorageService;
 import biz.webgate.xpages.thispage.design.DesignPicture;
 import biz.webgate.xpages.thispage.design.DesignPictureStorageService;
+import biz.webgate.xpages.thispage.services.IDDockKeyExtractor;
 import biz.webgate.xpages.thispage.services.html.PhotoPublisher;
 
 import com.ibm.commons.util.io.StreamUtil;
@@ -93,9 +94,7 @@ public class ContentServlet extends HttpServlet implements Serializable {
 	}
 
 	private void handleDESIGNPicture(String cut, HttpServletRequest req, HttpServletResponse res) {
-		System.out.println("Design...."+cut);
-		int nPos = cut.lastIndexOf(".");
-		String docKey = cut.substring(0, nPos);
+		String docKey = IDDockKeyExtractor.INSTANCE.getIDDocKey(cut);
 		DesignPicture df = DesignPictureStorageService.getInstance().getByDocKey(docKey, DocStatus.PUBLISHED);
 		if (df != null) {
 			try {
@@ -113,8 +112,7 @@ public class ContentServlet extends HttpServlet implements Serializable {
 	}
 
 	private void handleDESIGNFile(String cut, HttpServletRequest req, HttpServletResponse res) {
-		int nPos = cut.lastIndexOf(".");
-		String docKey = cut.substring(0, nPos);
+		String docKey = IDDockKeyExtractor.INSTANCE.getIDDocKey(cut);
 		DesignFile df = DesignFileStorageService.getInstance().getByDocKey(docKey, DocStatus.PUBLISHED);
 		if (df != null) {
 			try {
@@ -130,8 +128,7 @@ public class ContentServlet extends HttpServlet implements Serializable {
 		}
 	}
 	private void handleFile(String cut, HttpServletRequest req, HttpServletResponse res) {
-		int nPos = cut.lastIndexOf(".");
-		String docKey = cut.substring(0, nPos);
+		String docKey = IDDockKeyExtractor.INSTANCE.getIDDocKey(cut);
 		File df = FileStorageService.getInstance().getByDocKey(docKey, DocStatus.PUBLISHED);
 		if (df != null) {
 			try {
@@ -205,7 +202,5 @@ public class ContentServlet extends HttpServlet implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
