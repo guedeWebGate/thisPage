@@ -7,6 +7,16 @@
 			objectStorageService="#{javascript:contentBean.getPageSOS()}" scope="view">
 		</xpt:dssObjectSource>
 	</xp:this.data>
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry right="EDITOR" type="ROLE">
+					<xp:this.name><![CDATA[[ContentEditor]]]></xp:this.name>
+				</xp:aclEntry>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+
 	<xe:restService id="restService1" pathInfo="/preview/">
 		<xe:this.service>
 			<xe:customRestService serviceBean="thispageBean"></xe:customRestService>
@@ -18,7 +28,17 @@
 				<xe:widgetContainer id="widgetContainer1" type="sidebar"
 					titleBarText="Actions">
 					<xp:panel>
-						<xp:button value="preview" id="button1"></xp:button>
+						<xp:button value="preview" id="button1"><xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+	<xp:this.action>
+
+		<xp:actionGroup>
+			<xp:saveDocument var="page"></xp:saveDocument>
+			<xp:executeScript>
+				<xp:this.script><![CDATA[#{javascript:_url = @FullUrl("preview.xsp") +"?id="+page.ID+".html";
+view.postScript("window.open('"+_url+"','_blank');");}]]></xp:this.script>
+			</xp:executeScript>
+		</xp:actionGroup>
+	</xp:this.action></xp:eventHandler></xp:button>
 						<xp:button value="save" id="button2">
 							<xp:eventHandler event="onclick" submit="true"
 								refreshMode="complete">
@@ -44,7 +64,7 @@
 						</xp:button>
 					</xp:panel>
 				</xe:widgetContainer>
-				
+
 				<xc:ccPicturePicker></xc:ccPicturePicker>
 
 			</xp:panel>
@@ -53,38 +73,38 @@
 					formTitle="#{javascript:page.title}" labelPosition="left">
 
 					<xe:this.formDescription><![CDATA[#{javascript:"Created by "+ @Name("[CN]",page.creator) +" at " + page.created}]]></xe:this.formDescription>
-					<xe:formRow id="formRow2" for="inputText1"
-						label="Title" labelPosition="left">
-						<xp:inputText id="inputText1"
-							value="#{page.title}" style="width:250px">
+					<xe:formRow id="formRow2" for="inputText1" label="Title"
+						labelPosition="left">
+						<xp:inputText id="inputText1" value="#{page.title}"
+							style="width:250px">
 						</xp:inputText>
 					</xe:formRow>
-					<xe:formRow id="formRow1" for="inputText2"
-						label="Browsertitle" labelPosition="left">
-						<xp:inputText id="inputText2"
-							value="#{page.browserTitle}" style="width:250px">
+					<xe:formRow id="formRow1" for="inputText2" label="Browsertitle"
+						labelPosition="left">
+						<xp:inputText id="inputText2" value="#{page.browserTitle}"
+							style="width:250px">
 						</xp:inputText>
 					</xe:formRow>
-					<xe:formRow id="formRow3" for="inputText3"
-						label="Navigationtitle" labelPosition="left">
-						<xp:inputText id="inputText3"
-							value="#{page.navigationTitle}" style="width:250px">
+					<xe:formRow id="formRow3" for="inputText3" label="Navigationtitle"
+						labelPosition="left">
+						<xp:inputText id="inputText3" value="#{page.navigationTitle}"
+							style="width:250px">
 						</xp:inputText>
 					</xe:formRow>
-					<xe:formRow id="formRow4" for="comboBox1"
-						label="Category" labelPosition="left">
-						<xp:comboBox id="comboBox1"
-							value="#{page.categoryKey}" style="width:250px">
+					<xe:formRow id="formRow4" for="comboBox1" label="Category"
+						labelPosition="left">
+						<xp:comboBox id="comboBox1" value="#{page.categoryKey}"
+							style="width:250px">
 
 							<xp:selectItems>
 								<xp:this.value><![CDATA[#{javascript:contentBean.getCategoryKeyList()}]]></xp:this.value>
 							</xp:selectItems>
 						</xp:comboBox>
 					</xe:formRow>
-					<xe:formRow id="formRow5" for="inputRichText1"
-						label="Content" labelPosition="none">
-						<xp:inputRichText id="inputRichText1"
-							value="#{page.content}" htmlFilter="identity">
+					<xe:formRow id="formRow5" for="inputRichText1" label="Content"
+						labelPosition="none">
+						<xp:inputRichText id="inputRichText1" value="#{page.content}"
+							htmlFilter="identity">
 							<xp:this.dojoAttributes>
 								<xp:dojoAttribute name="toolbar">
 									<xp:this.value><![CDATA[

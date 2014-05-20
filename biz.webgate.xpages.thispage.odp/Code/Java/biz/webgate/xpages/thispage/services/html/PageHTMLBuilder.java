@@ -39,7 +39,7 @@ public class PageHTMLBuilder {
 
 			List<DesignBlock> lstDB = DesignSessionFacade.get().allDesignBlockPublished();
 			for (DesignBlock db : lstDB) {
-				String markup = "###"+db.getTitle()+"###";
+				String markup = "###" + db.getTitle() + "###";
 				if (htmlCode.contains(markup)) {
 					htmlCode = StringUtil.replace(htmlCode, markup, db.getStrategie().getRenderer().buildHTMLTag(db, pageCurrent));
 					sbLoaderCode.append(db.getStrategie().getRenderer().buildJSLoader(db, pageCurrent));
@@ -55,7 +55,7 @@ public class PageHTMLBuilder {
 			if (pageCurrent.getContent() != null) {
 				htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", pageCurrent.getContent().getHTML());
 			} else {
-				htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", "");	
+				htmlCode = StringUtil.replace(htmlCode, "###CONTENT###", "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,22 +75,30 @@ public class PageHTMLBuilder {
 		sbRC.append("<script type=\"text/javascript\">dojo.require(\"thispage.container\")</script>\n");
 		return sbRC;
 	}
-	
-	public void processHTTPCall() {
+
+	public void processHTTPCall(String pageName) {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
-			HttpServletRequest req = (HttpServletRequest)context.getExternalContext().getRequest();
-			HttpServletResponse res = (HttpServletResponse)context.getExternalContext().getResponse();
+			HttpServletRequest req = (HttpServletRequest) context.getExternalContext().getRequest();
+			HttpServletResponse res = (HttpServletResponse) context.getExternalContext().getResponse();
+
 			String id = req.getParameter("id");
-			if (id.endsWith(".html")) {
+			if (id != null && id.endsWith(".html")) {
 				int nPos = id.indexOf(".html");
 				id = id.substring(0, nPos);
+			} else {
+				// TODO: ID from Adminsetting suchen
 			}
-			Page pg = PageStorageService.getInstance().getByDocKey(id, DocStatus.PUBLISHED);
+			Page pg = null;
+			if (pageName.endsWith("preview.xsp")) {
+				pg = PageStorageService.getInstance().getById(id);
+			} else {
+				pg = PageStorageService.getInstance().getByDocKey(id, DocStatus.PUBLISHED);
+			}
 			PrintWriter pw = res.getWriter();
 			pw.println(buildHTMLContent(pg, req));
 			context.responseComplete();
-			//pw.close();
+			// pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new FacesException("HTML Builder Error: ", e);
