@@ -75,7 +75,7 @@ dlg.show();
 							<xp:this.rendered><![CDATA[#{javascript:fileRow.status == "PUBLISHED"}]]></xp:this.rendered>
 							<xp:eventHandler event="onclick"
 								submit="true" refreshMode="partial"
-								refreshId="viewPanelPictures">
+								refreshId="viewPanelFiles">
 								<xp:this.action><![CDATA[#{javascript:contentBean.setFileOffline( fileRow.getBO());
 var ds = @XPTFindDataSourceDeep("viewPanelFiles","lstFiles");
 ds.refresh();}]]></xp:this.action>

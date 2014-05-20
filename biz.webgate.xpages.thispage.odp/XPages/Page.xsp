@@ -84,7 +84,7 @@
 					<xe:formRow id="formRow5" for="inputRichText1"
 						label="Content" labelPosition="none">
 						<xp:inputRichText id="inputRichText1"
-							value="#{page.content}">
+							value="#{page.content}" htmlFilter="identity">
 							<xp:this.dojoAttributes>
 								<xp:dojoAttribute name="toolbar">
 									<xp:this.value><![CDATA[

@@ -16,6 +16,8 @@ import org.openntf.xpt.core.json.JSONService;
 import org.openntf.xpt.core.utils.FileService;
 
 import biz.webgate.xpages.thispage.DocStatus;
+import biz.webgate.xpages.thispage.content.File;
+import biz.webgate.xpages.thispage.content.FileStorageService;
 import biz.webgate.xpages.thispage.content.Page;
 import biz.webgate.xpages.thispage.content.PageStorageService;
 import biz.webgate.xpages.thispage.design.DesignBlock;
@@ -39,7 +41,8 @@ public class ContentServlet extends HttpServlet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final static String IMG = "/img/";
-	private final static String CONTENT_DB_HTLM = "/db/template.html";
+	public final static String FILE = "/file/";
+	private final static String CONTENT_DB_HTML = "/db/template.html";
 	private final static String CONTENT_DB_JSON = "/db/feed.json";
 	private final static String DESIGN_JS = "/js/source.js";
 	private final static String DESIGN_CSS = "/css/style.css";
@@ -53,7 +56,10 @@ public class ContentServlet extends HttpServlet implements Serializable {
 			if (strPath.startsWith(IMG)) {
 				handleIMG(cut(IMG, strPath), req, res, false);
 			}
-			if (strPath.startsWith(CONTENT_DB_HTLM)) {
+			if (strPath.startsWith(FILE)) {
+				handleFile(cut(FILE, strPath), req, res);
+			}
+			if (strPath.startsWith(CONTENT_DB_HTML)) {
 				String id = req.getParameter("id");
 				String pageid = req.getParameter("pageid");
 				handleHTMLContent(id, pageid, req, res);
@@ -110,6 +116,23 @@ public class ContentServlet extends HttpServlet implements Serializable {
 		int nPos = cut.lastIndexOf(".");
 		String docKey = cut.substring(0, nPos);
 		DesignFile df = DesignFileStorageService.getInstance().getByDocKey(docKey, DocStatus.PUBLISHED);
+		if (df != null) {
+			try {
+				OutputStream os = res.getOutputStream();
+				InputStream is = null;
+				is = FileService.INSTANCE.getFileStream(df.getFile().get(0));
+				StreamUtil.copyStream(is, os);
+				os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	private void handleFile(String cut, HttpServletRequest req, HttpServletResponse res) {
+		int nPos = cut.lastIndexOf(".");
+		String docKey = cut.substring(0, nPos);
+		File df = FileStorageService.getInstance().getByDocKey(docKey, DocStatus.PUBLISHED);
 		if (df != null) {
 			try {
 				OutputStream os = res.getOutputStream();

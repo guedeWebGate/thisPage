@@ -186,7 +186,7 @@ public class ContentSessionFacade {
 		return (File) file.newVersion(UserNameProvider.INSTANCE.getUserName());
 	}
 
-	public void processFile(Picture file) {
+	public void processFile(File file) {
 		if (file.getUploadFile() != null) {
 			String strFile = file.getUploadFile().getFilename();
 			file.setTitle(strFile);
@@ -195,7 +195,7 @@ public class ContentSessionFacade {
 				file.setType(strFile.substring(nPos + 1));
 			}
 		}
-		PictureStorageService.getInstance().save(file);
+		FileStorageService.getInstance().save(file);
 	}
 
 	public void deleteFile(File file) {

@@ -21,7 +21,7 @@ return designBean.createDesignFile();
 							</xp:label>
 						</xp:td>
 						<xp:td>
-							<xp:fileUpload id="upldControl" accept="image/jpeg,image/gif,image/png"
+							<xp:fileUpload id="upldControl"
 								value="#{file.uploadFile}">
 							</xp:fileUpload>
 						</xp:td>
