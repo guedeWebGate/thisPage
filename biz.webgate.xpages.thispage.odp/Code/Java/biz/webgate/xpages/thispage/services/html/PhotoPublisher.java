@@ -13,18 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.imgscalr.Scalr;
 import org.openntf.xpt.core.utils.FileService;
 
+import biz.webgate.xpages.thispage.AbstractContentStorageService;
 import biz.webgate.xpages.thispage.DocStatus;
-import biz.webgate.xpages.thispage.content.Picture;
+import biz.webgate.xpages.thispage.IPicture;
 import biz.webgate.xpages.thispage.content.PictureStorageService;
+import biz.webgate.xpages.thispage.design.DesignPicture;
+import biz.webgate.xpages.thispage.design.DesignPictureStorageService;
 
 import com.ibm.commons.util.io.StreamUtil;
 
 public enum PhotoPublisher {
 	INSTANCE;
 
-	public void processToStreamByDocKey(HttpServletRequest request, HttpServletResponse response, String strDocKey) {
+	public void processToStreamByDocKey(HttpServletRequest request, HttpServletResponse response, String strDocKey, boolean useDesign) {
 		InputStream is = null;
-		Picture pic = PictureStorageService.getInstance().getByDocKey(strDocKey, DocStatus.PUBLISHED);
+		IPicture pic = getPicture(strDocKey,true,useDesign);
 		int nTumbnail = 0;
 		if ("1".equalsIgnoreCase(request.getParameter("thumbnail"))) {
 			nTumbnail = 1;
@@ -65,9 +68,9 @@ public enum PhotoPublisher {
 		}
 	}
 
-	public void processToStreamByID(HttpServletRequest request, HttpServletResponse response, String strID) {
+	public void processToStreamByID(HttpServletRequest request, HttpServletResponse response, String strID, boolean useDesign) {
 		InputStream is = null;
-		Picture pic = PictureStorageService.getInstance().getById(strID);
+		IPicture pic = getPicture(strID,false,useDesign);
 		int nTumbnail = 0;
 		if ("1".equalsIgnoreCase(request.getParameter("thumbnail"))) {
 			nTumbnail = 1;
@@ -121,4 +124,11 @@ public enum PhotoPublisher {
 		return null;
 	}
 
+	public IPicture getPicture(String strID, boolean useDocKey, boolean useDesign) {
+		AbstractContentStorageService<?> store = PictureStorageService.getInstance();
+		if (useDesign) {
+			store = DesignPictureStorageService.getInstance();
+		}
+		return (IPicture) (useDocKey ? store.getByDocKey(strID, DocStatus.PUBLISHED) : store.getById(strID));
+	}
 }

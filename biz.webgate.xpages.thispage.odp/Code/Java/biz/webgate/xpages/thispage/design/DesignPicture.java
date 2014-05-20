@@ -9,9 +9,10 @@ import org.openntf.xpt.core.dss.binding.util.FileHelper;
 import com.ibm.xsp.component.UIFileuploadEx.UploadedFile;
 
 import biz.webgate.xpages.thispage.AbstractBase;
+import biz.webgate.xpages.thispage.IPicture;
 
 @DominoStore(Form = "frmDesignPicture", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupDesignPicturesByID")
-public class DesignPicture extends AbstractBase {
+public class DesignPicture extends AbstractBase implements IPicture {
 
 	private static final long serialVersionUID = 1L;
 	@DominoEntity(FieldName = "Title")

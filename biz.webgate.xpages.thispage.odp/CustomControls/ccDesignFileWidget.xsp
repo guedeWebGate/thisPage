@@ -4,33 +4,34 @@
 	<xp:panel id="panDesignFile">
 		<xp:this.data>
 			<xpt:objectlistSource var="lstDesignFile"
-				ascending="false" buildValues="#{javascript:designBean.allDesignFile4Edit();}"
+				ascending="true" buildValues="#{javascript:designBean.allDesignFile4Edit();}"
 				scope="view" sortAttribute="title">
 			</xpt:objectlistSource>
 		</xp:this.data>
 
-		<xe:widgetContainer id="wcDesignFile"
-			titleBarText="Desing Files/Resources"
+		<xe:widgetContainer id="wcDesignFile" titleBarText="Desing Files/Resources"
 			style="height:100%;width:100%" scrollable="true">
 			<xe:this.dropDownNodes>
-				<xe:basicLeafNode title="new Design File"
-					label="new Design File">
+				<xe:basicLeafNode title="new Design File" label="new Design File">
 					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgCreateDesignFile}")]]></xe:this.onClick>
 				</xe:basicLeafNode>
 			</xe:this.dropDownNodes>
+			<xe:this.disableScrollDown><![CDATA[#{javascript:getComponent("rpDesignFile").getFirst()+5 >= getComponent("rpDesignFile").getRowCount()
+}]]></xe:this.disableScrollDown>
+			<xe:this.disableScrollUp><![CDATA[#{javascript:getComponent("rpDesignFile").getFirst() == 0}]]></xe:this.disableScrollUp>
+
 			<xp:table style="width:100%" styleClass="lotusTable">
-				<xp:repeat rows="10" var="designFile" indexVar="nDC"
-					value="#{lstDesignFile}">
+				<xp:repeat id="rpDesignFile" rows="5" var="designFile"
+					indexVar="nDC" value="#{lstDesignFile}">
 					<xp:tr>
 						<xp:td>
 							<xp:text value="#{designFile.title}">
 							</xp:text>
 
 							<xp:br></xp:br>
-							<xp:link escape="true" text="edit"
-								id="lnkEdit">
-								<xp:eventHandler event="onclick"
-									submit="true" refreshMode="complete">
+							<xp:link escape="true" text="edit" id="lnkEdit">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
 									<xp:this.action><![CDATA[#{javascript:viewScope.fileID=designFile.ID;
 var dlg = getComponent("dlgCreateDesignFile");
 dlg.show();
@@ -41,12 +42,10 @@ dlg.show();
 								<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
 								<xp:this.rendered><![CDATA[#{javascript:designFile.status == "PUBLISHED"}]]></xp:this.rendered>
 							</xp:text>
-							<xp:link escape="true" text="offline"
-								id="link1">
+							<xp:link escape="true" text="offline" id="link1">
 								<xp:this.rendered><![CDATA[#{javascript:designFile.status == "PUBLISHED"}]]></xp:this.rendered>
-								<xp:eventHandler event="onclick"
-									submit="true" refreshMode="partial"
-									refreshId="wcDesignFile">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" refreshId="wcDesignFile">
 									<xp:this.action><![CDATA[#{javascript:designBean.setDesignFileOffline( designFile.getBO());
 var ds = @XPTFindDataSourceDeep("panDesignFile","lstDesignFile");
 ds.refresh();}]]></xp:this.action>
@@ -65,7 +64,27 @@ ds.refresh();}]]></xp:this.action>
 						</xp:td>
 					</xp:tr>
 				</xp:repeat>
+
+				<xp:tr>
+					<xp:td colspan="2" valign="middle" align="right"
+						style="width:100.0%;text-align:right">
+						<xp:text style="text-align:right">
+							<xp:this.value><![CDATA[#{javascript:r = getComponent("rpDesignFile");
+(r.getFirst()+1) +" of "+ r.getRowCount();}]]></xp:this.value>
+						</xp:text>
+					</xp:td>
+				</xp:tr>
 			</xp:table>
+			<xp:eventHandler event="onScrollUp" submit="true"
+				refreshMode="partial" refreshId="wcDesignFile">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpDesignFile")
+r.setFirst(Math.max(r.getFirst()-5,0))}]]></xe:this.action>
+			</xp:eventHandler>
+			<xp:eventHandler event="onScrollDown" submit="true"
+				refreshMode="partial" refreshId="wcDesignFile">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpDesignFile")
+r.setFirst(Math.min(r.getFirst()+5,r.getRowCount()))}]]></xe:this.action>
+			</xp:eventHandler>
 		</xe:widgetContainer>
 	</xp:panel>
 </xp:view>

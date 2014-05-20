@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import org.openntf.xpt.core.dss.SingleObjectStore;
 
 import biz.webgate.xpages.thispage.DocStatus;
+import biz.webgate.xpages.thispage.IPicture;
 import biz.webgate.xpages.thispage.content.Category;
 import biz.webgate.xpages.thispage.content.CategoryStorageService;
 import biz.webgate.xpages.thispage.content.File;
@@ -134,13 +135,13 @@ public class ContentSessionFacade {
 		return PictureStorageService.getInstance().getObjectsByForeignId(FRM_PICTURE, LUP_ALL_EDITABLE_BY_FORM);
 	}
 
-	public Picture createPicture() {
+	public IPicture createPicture() {
 		return PictureStorageService.getInstance().createObject();
 	}
 
-	public Picture getNewPictureVersion(String strID) {
+	public IPicture getNewPictureVersion(String strID) {
 		Picture pic = PictureStorageService.getInstance().getById(strID);
-		return (Picture) pic.newVersion(UserNameProvider.INSTANCE.getUserName());
+		return (IPicture) pic.newVersion(UserNameProvider.INSTANCE.getUserName());
 	}
 
 	public void processPicture(Picture pic) {

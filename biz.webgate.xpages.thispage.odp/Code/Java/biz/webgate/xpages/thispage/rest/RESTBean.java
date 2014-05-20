@@ -44,16 +44,21 @@ public class RESTBean extends CustomServiceBean {
 		String strCall = rest.getHttpRequest().getPathInfo();
 		System.out.println("REST CALL: " + strCall);
 		if (strCall.startsWith(IMG)) {
-			handleIMG(cut(IMG, strCall), rest, false);
+			handleIMG(cut(IMG, strCall), rest, false, false);
 			return;
 		}
 		if (strCall.startsWith(PREVIEW_IMG)) {
-			handleIMG(cut(PREVIEW_IMG, strCall), rest,true);
+			handleIMG(cut(PREVIEW_IMG, strCall), rest,true, false);
+			return;
+		}
+
+		if (strCall.startsWith(PREVIEW_DIMG)) {
+			handleIMG(cut(PREVIEW_DIMG, strCall), rest,true, true);
 			return;
 		}
 
 		if (strCall.startsWith(CONTENT_IMG)) {
-			handleIMG(cut(CONTENT_IMG, strCall), rest, false);
+			handleIMG(cut(CONTENT_IMG, strCall), rest, false, true);
 			return;
 		}
 
@@ -130,14 +135,14 @@ public class RESTBean extends CustomServiceBean {
 		return strCall.substring(prefix.length());
 	}
 
-	private void handleIMG(String strCall, RestServiceEngine rest, boolean prev) {
+	private void handleIMG(String strCall, RestServiceEngine rest, boolean prev, boolean useDesign) {
 		int nPos = strCall.indexOf("/");
 		String strID = strCall.substring(0, nPos);
 		System.out.println(strID);
 		if (prev) {
-			PhotoPublisher.INSTANCE.processToStreamByID(rest.getHttpRequest(), rest.getHttpResponse(), strID);
+			PhotoPublisher.INSTANCE.processToStreamByID(rest.getHttpRequest(), rest.getHttpResponse(), strID, useDesign);
 		} else {
-			PhotoPublisher.INSTANCE.processToStreamByDocKey(rest.getHttpRequest(), rest.getHttpResponse(), strID);
+			PhotoPublisher.INSTANCE.processToStreamByDocKey(rest.getHttpRequest(), rest.getHttpResponse(), strID, useDesign);
 
 		}
 	}

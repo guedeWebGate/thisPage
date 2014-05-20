@@ -169,9 +169,9 @@ public class ContentServlet extends HttpServlet implements Serializable {
 		String strID = strCall.substring(0, nPos);
 		System.out.println(strID);
 		if (prev) {
-			PhotoPublisher.INSTANCE.processToStreamByID(req, res, strID);
+			PhotoPublisher.INSTANCE.processToStreamByID(req, res, strID, false);
 		} else {
-			PhotoPublisher.INSTANCE.processToStreamByDocKey(req, res, strID);
+			PhotoPublisher.INSTANCE.processToStreamByDocKey(req, res, strID, false);
 
 		}
 	}

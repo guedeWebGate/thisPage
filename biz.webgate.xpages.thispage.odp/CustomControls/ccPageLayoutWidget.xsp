@@ -4,7 +4,7 @@
 	<xp:panel id="panPageLayout">
 		<xp:this.data>
 			<xpt:objectlistSource var="lstPageLayout"
-				ascending="false" buildValues="#{javascript:designBean.allPageLayout4Edit();}"
+				ascending="true" buildValues="#{javascript:designBean.allPageLayout4Edit();}"
 				scope="view" sortAttribute="title">
 			</xpt:objectlistSource>
 		</xp:this.data>
@@ -16,18 +16,23 @@
 					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgNewPageLayout}")]]></xe:this.onClick>
 				</xe:basicLeafNode>
 			</xe:this.dropDownNodes>
+						<xe:this.disableScrollDown><![CDATA[#{javascript:getComponent("rpPageLayout").getFirst()+5 >= getComponent("rpPageLayout").getRowCount()
+}]]></xe:this.disableScrollDown>
+			<xe:this.disableScrollUp><![CDATA[#{javascript:getComponent("rpPageLayout").getFirst() == 0}]]></xe:this.disableScrollUp>
+			
 			<xp:table style="width:100%" styleClass="lotusTable">
-				<xp:repeat rows="10" var="pageLayout" indexVar="nPLayout"
-					value="#{lstPageLayout}">
+				<xp:repeat rows="5" var="pageLayout" indexVar="nPLayout"
+					value="#{lstPageLayout}" id="rpPageLayout">
 					<xp:tr>
 						<xp:td>
 							<xp:text value="#{pageLayout.title}">
 							</xp:text>
 
 							<xp:br></xp:br>
-							<xp:link escape="true" text="edit" id="lnkEdit">
-								<xp:eventHandler event="onclick" submit="true"
-									refreshMode="complete">
+							<xp:link escape="true" text="edit"
+								id="lnkEdit">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
 									<xp:this.action><![CDATA[#{javascript:var id = designBean.editPageLayout( pageLayout.getBO());
 context.redirectToPage("PageLayout.xsp?action=editObject&objectId="+id);}]]></xp:this.action>
 								</xp:eventHandler>
@@ -36,10 +41,11 @@ context.redirectToPage("PageLayout.xsp?action=editObject&objectId="+id);}]]></xp
 								<xp:this.value><![CDATA[#{javascript:" | "}]]></xp:this.value>
 								<xp:this.rendered><![CDATA[#{javascript:pageLayout.status == "PUBLISHED"}]]></xp:this.rendered>
 							</xp:text>
-							<xp:link escape="true" text="offline" id="link1">
+							<xp:link escape="true" text="offline"
+								id="link1">
 								<xp:this.rendered><![CDATA[#{javascript:pageLayout.status == "PUBLISHED"}]]></xp:this.rendered>
-								<xp:eventHandler event="onclick" submit="true"
-									refreshMode="partial" refreshId="wcPageLayout">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="wcPageLayout">
 									<xp:this.action><![CDATA[#{javascript:designBean.setPageLayoutOffline( pageLayout.getBO());
 var ds = @XPTFindDataSourceDeep("panPageLayout","lstPageLayout");
 ds.refresh();}]]></xp:this.action>
@@ -56,7 +62,28 @@ ds.refresh();}]]></xp:this.action>
 						</xp:td>
 					</xp:tr>
 				</xp:repeat>
+								<xp:tr>
+					<xp:td colspan="3" valign="middle" align="right"
+						style="width:100.0%;text-align:right">
+						<xp:text style="text-align:right">
+							<xp:this.value><![CDATA[#{javascript:r = getComponent("rpPageLayout");
+(r.getFirst()+1) +" of "+ r.getRowCount();}]]></xp:this.value>
+						</xp:text>
+					</xp:td>
+				</xp:tr>
+				
 			</xp:table>
+						<xp:eventHandler event="onScrollUp" submit="true"
+				refreshMode="partial" refreshId="wcPageLayout">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpPageLayout")
+r.setFirst(Math.max(r.getFirst()-5,0))}]]></xe:this.action>
+			</xp:eventHandler>
+			<xp:eventHandler event="onScrollDown" submit="true"
+				refreshMode="partial" refreshId="wcPageLayout">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpPageLayout")
+r.setFirst(Math.min(r.getFirst()+5,r.getRowCount()))}]]></xe:this.action>
+			</xp:eventHandler>
+			
 		</xe:widgetContainer>
 	</xp:panel>
 </xp:view>

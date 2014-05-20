@@ -9,9 +9,10 @@ import org.openntf.xpt.core.dss.binding.util.FileHelper;
 import com.ibm.xsp.component.UIFileuploadEx.UploadedFile;
 
 import biz.webgate.xpages.thispage.AbstractBase;
+import biz.webgate.xpages.thispage.IPicture;
 
 @DominoStore(Form = "frmPicture", PrimaryFieldClass = String.class, PrimaryKeyField = "ID", View = "lupPicturesByID")
-public class Picture extends AbstractBase {
+public class Picture extends AbstractBase implements IPicture {
 
 	private static final long serialVersionUID = 1L;
 	@DominoEntity(FieldName = "Title")
@@ -43,6 +44,9 @@ public class Picture extends AbstractBase {
 		return pic;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getTitle()
+	 */
 	public String getTitle() {
 		return m_Title;
 	}
@@ -51,6 +55,9 @@ public class Picture extends AbstractBase {
 		m_Title = title;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getAltText()
+	 */
 	public String getAltText() {
 		return m_AltText;
 	}
@@ -59,6 +66,9 @@ public class Picture extends AbstractBase {
 		m_AltText = altText;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getWidth()
+	 */
 	public int getWidth() {
 		return m_Width;
 	}
@@ -67,6 +77,9 @@ public class Picture extends AbstractBase {
 		m_Width = width;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getHeight()
+	 */
 	public int getHeight() {
 		return m_Height;
 	}
@@ -75,6 +88,9 @@ public class Picture extends AbstractBase {
 		m_Height = height;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getType()
+	 */
 	public String getType() {
 		return m_Type;
 	}
@@ -87,6 +103,9 @@ public class Picture extends AbstractBase {
 		m_File = file;
 	}
 
+	/* (non-Javadoc)
+	 * @see biz.webgate.xpages.thispage.content.IPicture#getFile()
+	 */
 	public List<FileHelper> getFile() {
 		return m_File;
 	}

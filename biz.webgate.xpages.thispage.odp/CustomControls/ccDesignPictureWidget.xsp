@@ -13,13 +13,16 @@
 			titleBarText="Desing Pictures" style="height:100%;width:100%"
 			scrollable="true">
 			<xe:this.dropDownNodes>
-				<xe:basicLeafNode title="new Design Picture" label="new Design Block">
+				<xe:basicLeafNode title="new Design Picture" label="new Design Picture">
 					<xe:this.onClick><![CDATA[XSP.openDialog("#{id:dlgCreateDesignPicture}")]]></xe:this.onClick>
 				</xe:basicLeafNode>
 			</xe:this.dropDownNodes>
+			<xe:this.disableScrollDown><![CDATA[#{javascript:getComponent("rpDesignPicture").getFirst()+5 >= getComponent("rpDesignPicture").getRowCount()
+}]]></xe:this.disableScrollDown>
+			<xe:this.disableScrollUp><![CDATA[#{javascript:getComponent("rpDesignPicture").getFirst() == 0}]]></xe:this.disableScrollUp>
 			<xp:table style="width:100%" styleClass="lotusTable">
-				<xp:repeat rows="10" var="designPicture" indexVar="nDC"
-					value="#{lstDesignPicture}">
+				<xp:repeat id="rpDesignPicture" rows="5" var="designPicture"
+					indexVar="nDC" value="#{lstDesignPicture}">
 					<xp:tr>
 						<xp:td>
 							<xp:text value="#{designPicture.title}">
@@ -51,7 +54,7 @@ ds.refresh();}]]></xp:this.action>
 						</xp:td>
 						<xp:td>
 							<xp:image id="imgPreview">
-								<xp:this.url><![CDATA[#{javascript:"/Design.xsp/preview/img/"+designPicture.ID+"/"+designPicture.title+"?thumbnail=2";}]]></xp:this.url>
+								<xp:this.url><![CDATA[#{javascript:"/Design.xsp/preview/d-img/"+designPicture.ID+"/"+designPicture.title+"?thumbnail=2";}]]></xp:this.url>
 							</xp:image>
 
 						</xp:td>
@@ -67,7 +70,26 @@ ds.refresh();}]]></xp:this.action>
 						</xp:td>
 					</xp:tr>
 				</xp:repeat>
+				<xp:tr>
+					<xp:td colspan="3" valign="middle" align="right"
+						style="width:100.0%;text-align:right">
+						<xp:text style="text-align:right">
+							<xp:this.value><![CDATA[#{javascript:r = getComponent("rpDesignPicture");
+(r.getFirst()+1) +" of "+ r.getRowCount();}]]></xp:this.value>
+						</xp:text>
+					</xp:td>
+				</xp:tr>
 			</xp:table>
+			<xp:eventHandler event="onScrollUp" submit="true"
+				refreshMode="partial" refreshId="wcDesignPicture">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpDesignPicture")
+r.setFirst(Math.max(r.getFirst()-5,0))}]]></xe:this.action>
+			</xp:eventHandler>
+			<xp:eventHandler event="onScrollDown" submit="true"
+				refreshMode="partial" refreshId="wcDesignPicture">
+				<xe:this.action><![CDATA[#{javascript:var r = getComponent("rpDesignPicture")
+r.setFirst(Math.min(r.getFirst()+5,r.getRowCount()))}]]></xe:this.action>
+			</xp:eventHandler>
 		</xe:widgetContainer>
 	</xp:panel>
 </xp:view>
